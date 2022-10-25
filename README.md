@@ -7,7 +7,7 @@ RGO Maps including maximum building capacity for each state.
 
 Use:
 1. Copy the following files/folders into the _Input folder: 
-a. default.map, provinces.png, and state_regions folder from map_data.
-b. strategic_regions from common folder.
+  1a. default.map, provinces.png, and state_regions folder from map_data.
+  1b. strategic_regions from common folder.
 2. Run _Vic3MapCSharp (RUN ME).exe, this will take about 5 minutes to create all the maps.
 3. Look at maps in _Output folder.
