@@ -9,5 +9,5 @@ Use:
 1. Copy the following files/folders into the _Input folder: 
   default.map, provinces.png, and state_regions folder from map_data.
   strategic_regions from common folder.
-2. Run _Vic3MapCSharp (RUN ME).exe, this will take about 5 minutes to create all the maps.
+2. Run bin\Debug\net6.0\Vic3MapCSharp.exe, this will take about 5 minutes to create all the maps.
 3. Look at maps in _Output folder.
