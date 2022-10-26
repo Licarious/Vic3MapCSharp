@@ -4,6 +4,7 @@ using System.Drawing;
 public class Region
 {
     public string name = "";
+    public string gfxCulture = "";
     public Color color = Color.FromArgb(0, 0, 0, 0);
     public List<State> states = new List<State>();
     public List<string> stateNames = new List<string>();

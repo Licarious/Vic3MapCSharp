@@ -1,0 +1,1 @@
+start /d "%~dp0bin\Debug\net6.0\" Vic3MapCSharp.exe

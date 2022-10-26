@@ -5,6 +5,9 @@ public class State
     public List<string> provIDList = new List<string>();
     public string name = "";
     public int stateID = 0;
+    public List<string> traits = new List<string>();
+    public string subsistanceBuilding = "";
+    public int navalID = 0;
     public List<(string type,Color color)> hubs = new List<(string, Color)>();
     public List<Color> impassables = new List<Color>();
     public List<Color> primeLand = new List<Color>();
