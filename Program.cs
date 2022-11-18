@@ -9,13 +9,22 @@ internal class Program
     private static void Main(string[] args) {
         Stopwatch sw = Stopwatch.StartNew();
 
-        bool drawHubs = false; //currently a little buggy
-        
-        //print current directory
-        System.Console.WriteLine(System.IO.Directory.GetCurrentDirectory());
-        
         //move up 3 directorys from local
         string localDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        
+        List<State> stateList = new List<State>();
+        parseStateFiles(stateList);
+        List<Region> regionList = new List<Region>();
+        parseRegionFiles(regionList);
+        mergeStateRegion(stateList, regionList);
+
+        List<string> seaList = new List<string>();
+        List<string> lakeList = new List<string>();
+        parseDefaultMap(seaList, lakeList);
+
+        //drawMap(regionList, seaList, lakeList);
+        parseProvMap(regionList, seaList, lakeList);
+
 
         //method to parse state files
         void parseStateFiles(List<State> stateList) {
@@ -297,174 +306,73 @@ internal class Program
             }
         }
 
-        //draw map
-        void drawMap(List<Region> regionList, List<string> seaList, List<string> lakeList) {
-            //if Output/BorderFrame/ doesn't exist, create it
-            if (!Directory.Exists(localDir + "/_Output/BorderFrame/")) {
-                Directory.CreateDirectory(localDir + "/_Output/BorderFrame/");
-            }
+        //pares province png
+        void parseProvMap(List<Region> regionList, List<string> seaList, List<string> lakeList) {
+            //dictionary prov color to state object
+            Dictionary<Color, State> provColorToState = new Dictionary<Color, State>();
 
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    foreach (Color c in s.provColors) {
+                        provColorToState.Add(c, s);
+                    }
+                }
+            }
+            
             Bitmap image = new Bitmap(localDir + "/_Input/provinces.png");
-            Bitmap provBorderMap = new Bitmap(image.Width, image.Height);
-            Bitmap specialProvMap = new Bitmap(image.Width, image.Height);
+            Bitmap provBorder = new Bitmap(image.Width, image.Height);
 
-            Color borderColor = Color.FromArgb(255, 0, 0, 0);
-
-
-            Console.WriteLine("Compressing Prov Map");
-            //compress image into 2D colorList and 2D lengthList
-            List<List<Color>> colorList = new List<List<Color>>();
-            List<List<int>> lengthList = new List<List<int>>();
-            for (int i = 0; i < image.Width; i++) {
-                if (i % 1024 == 0) {
-                    Console.WriteLine("\t" + i * 100 / image.Width + "%");
-                }
-
-                colorList.Add(new List<Color>());
-                lengthList.Add(new List<int>());
-
-                colorList[i].Add(image.GetPixel(i, 0));
-                int tmpLength = 0;
-                int tx = 0;
-
+            Console.WriteLine("Parsing Map");
+            //parse image and get coords of each color and add them to the state and draw borders
+            for (int i = 0; i < image.Width; i++) {                
+                Color lastColor = image.GetPixel(i, 0);
                 for (int j = 0; j < image.Height; j++) {
-                    //check if pixel is the same as current last one in colorList
-                    if (image.GetPixel(i, j) == colorList[i][colorList[i].Count - 1]) {
-                        tmpLength++;
-                    }
-                    else {
-                        colorList[i].Add(image.GetPixel(i, j));
-                        lengthList[i].Add(tmpLength);
-                        tx += tmpLength;
-                        tmpLength = 1;
-
-                        provBorderMap.SetPixel(i, tx, borderColor);
+                    Color c = image.GetPixel(i, j);
+                    //if c is in provColorToState add coord to state
+                    if (provColorToState.ContainsKey(c)) provColorToState[c].coordList.Add((i, j));
+                    if (c != lastColor) {
+                        provBorder.SetPixel(i, j, Color.Black);
+                        lastColor = c;
                     }
                 }
-                lengthList[i].Add(tmpLength);
-            }
 
-            //draw map
-            Console.WriteLine("Drawing Prov Map");
-            List<List<State>> d2StateList = new List<List<State>>();
-            List<List<Region>> d2RegionList = new List<List<Region>>();
-            for (int i = 0; i < colorList.Count; i++) {
-                if (i % 512 == 0) {
-                    Console.WriteLine("\t" + i * 100 / image.Width + "%");
+                //progress bar every 25% with 0% and 100% mapping to 0% and 50% of total progress
+                if (i % (image.Width / 4) == 0) {
+                    Console.WriteLine("\t" + i * 100 / image.Width / 2 + "%");
                 }
 
-                int tx = 0;
-                d2StateList.Add(new List<State>(new State[colorList[i].Count]));
-                d2RegionList.Add(new List<Region>(new Region[colorList[i].Count]));
-                for (int j = 0; j < colorList[i].Count; j++) {
-                    tx += lengthList[i][j];
-                    if (tx >= image.Height) {
-                        break;
-                    }
-                    //get state at pixel
-                    foreach (Region r in regionList) {
-                        foreach (State s in r.states) {
-                            if (s.provColors.Contains(colorList[i][j])) {
-                                d2StateList[i][j] = s;
-                                d2RegionList[i][j] = r;
-
-                                for (int k = 0; k < lengthList[i][j]; k++) {
-                                    s.coordList.Add((i, tx - k - 1));
-
-                                    if (drawHubs) {
-                                        //check if color is in primeLand
-                                        if (s.primeLand.Contains(colorList[i][j])) {
-                                            specialProvMap.SetPixel(i, tx - k - 1, Color.LimeGreen);
-                                        }
-
-                                        //itterate through each eliment in hubs
-                                        System.Collections.IList list = s.hubs;
-                                        for (int e = 0; e < s.hubs.Count; e++) {
-                                            string n = s.hubs[e].Item1;
-                                            Color c = s.hubs[e].Item2;
-                                            //check if color == c
-                                            if (colorList[i][j] == c) {
-                                                //set pixel to Red if n == city
-                                                if (n == "city") {
-                                                    specialProvMap.SetPixel(i, tx - k - 1, Color.Purple);
-                                                }
-                                                //set pixel to Blue if n == port
-                                                else if (n == "port") {
-                                                    specialProvMap.SetPixel(i, tx - k - 1, Color.Cyan);
-                                                }
-                                                //set pixel to Yellow if n == farm
-                                                else if (n == "farm") {
-                                                    specialProvMap.SetPixel(i, tx - k - 1, Color.Yellow);
-                                                }
-                                                //set pixel to DarkGray if n == mine
-                                                else if (n == "mine") {
-                                                    specialProvMap.SetPixel(i, tx - k - 1, Color.Red);
-                                                }
-                                                //set pixel to ForestGreen if n == wood
-                                                else if (n == "wood") {
-                                                    specialProvMap.SetPixel(i, tx - k - 1, Color.ForestGreen);
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    //check if color is in impassables
-                                    if (s.impassables.Contains(colorList[i][j])) {
-                                        specialProvMap.SetPixel(i, tx - k - 1, Color.DarkGray);
-                                    }
-                                }
-
-                                goto stateCheckExit;
-                            }
-                        }
-                    }
-                    //set a new blank state and region if no state found
-                    d2StateList[i][j] = new State();
-                    d2RegionList[i][j] = new Region();
-                    stateCheckExit:
-                    int ignoreMe = 0;
-                }
             }
 
             //draw vertical borders
-            Console.WriteLine("Drawing Vertical Borders for Prov Map");
+            //Console.WriteLine("Drawing Vertical Borders for Prov Map");
             for (int i = 0; i < image.Height; i++) {
-                if (i % 1024 == 0) {
-                    Console.WriteLine("\t" + i * 100 / image.Height + "%");
-                }
-                List<Color> tmpcolorList = new List<Color>();
-
-                tmpcolorList.Add(image.GetPixel(i, 0));
-
+                Color lastColor = image.GetPixel(0, i);
                 for (int j = 1; j < image.Width; j++) {
-                    //check if pixel is the same as current last one in colorList
-                    if (image.GetPixel(j, i) == tmpcolorList[tmpcolorList.Count - 1]) {
-
-                    }
-                    else {
-                        tmpcolorList.Add(image.GetPixel(j, i));
-                        provBorderMap.SetPixel(j, i, borderColor);
+                    Color c = image.GetPixel(j, i);
+                    if (c != lastColor) {
+                        provBorder.SetPixel(j, i, Color.Black);
+                        lastColor = c;
                     }
                 }
+                //progress bar every 25% with 0% and 100% mapping to 50% and 100% of total progress
+                if (i % (image.Width / 4) == 0) {
+                    Console.WriteLine("\t" + (i * 100 / image.Width / 2 + 50) + "%");
+                }
+
+            }
+
+            //check if /_Output/BorderFrame exists if not add it
+            if (!Directory.Exists(localDir + "/_Output/BorderFrame")) {
+                Directory.CreateDirectory(localDir + "/_Output/BorderFrame");
             }
 
             //save map
-            provBorderMap.Save(localDir + "/_Output/BorderFrame/prov_border.png");
-            if (drawHubs)
-                specialProvMap.Save(localDir + "/_Output/ColorMap/special_prov.png");
+            provBorder.Save(localDir + "/_Output/BorderFrame/prov_border.png");
 
-            //close images
-            image.Dispose();
-            provBorderMap.Dispose();
-            specialProvMap.Dispose();
+            drawStateImages(regionList, image);
+            List<(int, int)> waterCoordList = darwRegionImages(regionList, image);
 
-            List<(int, int)> waterCoordList = new List<(int, int)>();
-
-            Console.WriteLine(sw.Elapsed);
-            drawStateBorderFrame(regionList, lengthList, d2StateList);
-            drawRegionBorderFrame(regionList, lengthList, d2RegionList, waterCoordList);
-            ((int, int) waterRecCenter, (int, int) waterRecSize) = drawRGOMaps(regionList, lengthList, d2RegionList, waterCoordList);
-            Console.WriteLine(sw.Elapsed);
+            ((int, int) waterRecCenter, (int, int) waterRecSize) = drawRGOMaps(regionList, waterCoordList);
 
             mergeMaps();
 
@@ -475,185 +383,135 @@ internal class Program
             debugDrawRectangle(regionList, waterRecCenter, waterRecSize);
 
         }
-
-        //drawStateBorderFrame
-        void drawStateBorderFrame(List<Region> regionList, List<List<int>> lengthList, List<List<State>> d2StateList) {
-            //if Output/ColorMap/ doesn't exist, create it
-            if (!Directory.Exists(localDir + "/_Output/ColorMap/")) {
-                Directory.CreateDirectory(localDir + "/_Output/ColorMap/");
-            }
-
-            Bitmap image = new Bitmap(localDir + "/_Input/provinces.png");
-            Bitmap stateBorderMap = new Bitmap(image.Width, image.Height);
-            Bitmap stateColors = new Bitmap(image.Width, image.Height);
-            Color borderColor = Color.FromArgb(255, 0, 0, 0);
-
-
-            List<List<int>> stateLengthList = new List<List<int>>();
-            List<List<State>> compressedStateList = new List<List<State>>();
-
-            Console.WriteLine("Drawing State Map");
-            int e = 0;
-            foreach (Region r in regionList) {
-                e++;
-                if (e % 20 == 0) {
-                    Console.WriteLine("\t" + e * 100 / regionList.Count + "%");
-                }
-
+        
+        //draw state images
+        void drawStateImages(List<Region> regionList, Bitmap image) {
+            Bitmap stateImage = new Bitmap(image.Width, image.Height);
+            Bitmap stateBorder = new Bitmap(image.Width, image.Height);
+            Console.WriteLine("Drawing State Maps");
+            foreach (Region r in regionList) {                               
                 foreach (State s in r.states) {
-                    foreach ((int, int) i in s.coordList) {
-                        stateColors.SetPixel(i.Item1, i.Item2, s.color);
+                    foreach ((int, int) c in s.coordList) {
+                        stateImage.SetPixel(c.Item1, c.Item2, s.color);
                     }
                 }
             }
 
-            //draw borders of stateColors
-            Console.WriteLine("Drawing State Borders");
-            for (int i = 0; i < image.Height; i++) {
-                if (i % 2048 == 0) {
-                    Console.WriteLine("\t" + i * 50 / image.Height + "%");
-                }
-                List<Color> tmpcolorList = new List<Color>();
-
-                tmpcolorList.Add(stateColors.GetPixel(0, i));
-
-                for (int j = 0; j < image.Width; j++) {
-                    //check if pixel is the same as current last one in colorList
-                    if (stateColors.GetPixel(j, i) == tmpcolorList[tmpcolorList.Count - 1]) {
-
-                    }
-                    else {
-                        tmpcolorList.Add(stateColors.GetPixel(j, i));
-                        stateBorderMap.SetPixel(j, i, borderColor);
-                    }
-                }
-            }
+            //draw horizontal borders for state map            
             for (int i = 0; i < image.Width; i++) {
-                if (i % 2048 == 0) {
-                    Console.WriteLine("\t" + (i * 50 / image.Width + 50) + "%");
-                }
-                List<Color> tmpcolorList = new List<Color>();
-
-                tmpcolorList.Add(stateColors.GetPixel(i, 0));
-
+                Color lastColor = stateImage.GetPixel(i, 0);
                 for (int j = 0; j < image.Height; j++) {
-                    //check if pixel is the same as current last one in colorList
-                    if (stateColors.GetPixel(i, j) == tmpcolorList[tmpcolorList.Count - 1]) {
+                    Color c = stateImage.GetPixel(i, j);
+                    if (c != lastColor) {
+                        stateBorder.SetPixel(i, j, Color.Black);
+                        lastColor = c;
+                    }
+                }
 
-                    }
-                    else {
-                        tmpcolorList.Add(stateColors.GetPixel(i, j));
-                        stateBorderMap.SetPixel(i, j, borderColor);
-                    }
+                //progress bar every 25% with 0% and 100% mapping to 0% and 50% of total progress
+                if (i % (image.Width / 4) == 0) {
+                    Console.WriteLine("\t" + i * 100 / image.Width / 2 + "%");
                 }
             }
 
-            stateBorderMap.Save(localDir + "/_Output/BorderFrame/state_border.png");
-            stateColors.Save(localDir + "/_Output/ColorMap/state_colors.png");
-
-            //close images
-            image.Dispose();
-            stateBorderMap.Dispose();
-            stateColors.Dispose();
-        }
-        //drawRegionBorderFrame
-        void drawRegionBorderFrame(List<Region> regionList, List<List<int>> lengthList, List<List<Region>> d2RegionList, List<(int, int)> waterCoordList) {
-            Bitmap image = new Bitmap(localDir + "/_Input/provinces.png");
-            Bitmap regionBorderMap = new Bitmap(image.Width, image.Height);
-            Bitmap regionColors = new Bitmap(image.Width, image.Height);
-            Color borderColor = Color.FromArgb(255, 0, 0, 0);
-
-
-            List<List<int>> stateLengthList = new List<List<int>>();
-            List<List<Region>> compressedRegionList = new List<List<Region>>();
-
-            Console.WriteLine("Drawing Region Map");
-            int e = 0;
-            foreach (Region r in regionList) {
-                e++;
-                if (e % 20 == 0) {
-                    Console.WriteLine("\t" + e * 100 / regionList.Count + "%");
-                }
-
-                foreach (State s in r.states) {
-                    foreach ((int, int) i in s.coordList) {
-                        regionColors.SetPixel(i.Item1, i.Item2, r.color);
-                    }
-                }
-
-            }
-
-            //draw borders of regionColors
-            Console.WriteLine("Drawing Region Borders");
+            //draw vertical borders for state map
             for (int i = 0; i < image.Height; i++) {
-                if (i % 2048 == 0) {
-                    Console.WriteLine("\t" + i * 50 / image.Height + "%");
-                }
-                List<Color> tmpcolorList = new List<Color>();
-
-                tmpcolorList.Add(regionColors.GetPixel(0, i));
-
+                Color lastColor = stateImage.GetPixel(0, i);
                 for (int j = 1; j < image.Width; j++) {
-                    //check if pixel is the same as current last one in colorList
-                    if (regionColors.GetPixel(j, i) == tmpcolorList[tmpcolorList.Count - 1]) {
-
+                    Color c = stateImage.GetPixel(j, i);
+                    if (c != lastColor) {
+                        stateBorder.SetPixel(j, i, Color.Black);
+                        lastColor = c;
                     }
-                    else {
-                        tmpcolorList.Add(regionColors.GetPixel(j, i));
-                        regionBorderMap.SetPixel(j, i, borderColor);
+                }
+
+                //progress bar every 25% with 0% and 100% mapping to 50% and 100% of total progress
+                if (i % (image.Width / 4) == 0) {
+                    Console.WriteLine("\t" + (i * 100 / image.Width / 2 + 50) + "%");
+                }
+            }
+
+            //check if /_Output/ColorMap exists if not add it
+            if (!Directory.Exists(localDir + "/_Output/ColorMap")) {
+                Directory.CreateDirectory(localDir + "/_Output/ColorMap");
+            }
+
+            //save state images
+            stateImage.Save(localDir + "/_Output/ColorMap/state_colors.png");
+            stateBorder.Save(localDir + "/_Output/BorderFrame/state_border.png");
+
+
+        }
+
+        //draw region images
+        List<(int, int)> darwRegionImages(List<Region> regionList, Bitmap image) {
+            Bitmap regionImage = new Bitmap(image.Width, image.Height);
+            Bitmap regionBorder = new Bitmap(image.Width, image.Height);
+            Bitmap waterImage = new Bitmap(image.Width, image.Height);
+
+            List<(int, int)> waterCoordList = new List<(int, int)>();
+
+
+            Console.WriteLine("Drawing Region Maps");
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    foreach ((int, int) c in s.coordList) {
+                        regionImage.SetPixel(c.Item1, c.Item2, r.color);
                     }
                 }
             }
+
+            //draw horizontal borders for region map            
             for (int i = 0; i < image.Width; i++) {
-                if (i % 2048 == 0) {
-                    Console.WriteLine("\t" + (i * 50 / image.Width + 50) + "%");
-                }
-                List<Color> tmpcolorList = new List<Color>();
-
-                tmpcolorList.Add(regionColors.GetPixel(i, 0));
-
+                Color lastColor = regionImage.GetPixel(i, 0);
                 for (int j = 0; j < image.Height; j++) {
-                    //check if pixel is the same as current last one in colorList
-                    if (regionColors.GetPixel(i, j) == tmpcolorList[tmpcolorList.Count - 1]) {
+                    Color c = regionImage.GetPixel(i, j);
+                    if (c.A == 0) {
+                        waterCoordList.Add((i, j));
+                        waterImage.SetPixel(i, j, Color.LightBlue);
+                    }
+                    if (c != lastColor) {
+                        regionBorder.SetPixel(i, j, Color.Black);
+                        lastColor = c;
+                    }
+                }
 
-                    }
-                    else {
-                        tmpcolorList.Add(regionColors.GetPixel(i, j));
-                        regionBorderMap.SetPixel(i, j, borderColor);
-                    }
+                //progress bar every 25% with 0% and 100% mapping to 0% and 50% of total progress
+                if (i % (image.Width / 4) == 0) {
+                    Console.WriteLine("\t" + i * 100 / image.Width / 2 + "%");
                 }
             }
 
-            //draw water map
-            Console.WriteLine("Drawing Water Map");
-            Bitmap waterMap = new Bitmap(image.Width, image.Height);
+            //draw vertical borders for region map
             for (int i = 0; i < image.Height; i++) {
-                if (i % 1024 == 0) {
-                    Console.WriteLine("\t" + i * 100 / image.Height + "%");
-                }
-                for (int j = 0; j < image.Width; j++) {
-                    if (regionColors.GetPixel(j, i).Equals(Color.FromArgb(0, 0, 0, 0))) {
-                        waterMap.SetPixel(j, i, Color.LightBlue);
-                        //waterMap.SetPixel(j, i, Color.FromArgb(255, 46, 46, 231));
-                        //add coord to waterCoordList
-                        waterCoordList.Add((j, i));
+                Color lastColor = regionImage.GetPixel(0, i);
+                for (int j = 1; j < image.Width; j++) {
+                    Color c = regionImage.GetPixel(j, i);
+                    if (c != lastColor) {
+                        regionBorder.SetPixel(j, i, Color.Black);
+                        lastColor = c;
                     }
+                }
+
+                //progress bar every 25% with 0% and 100% mapping to 50% and 100% of total progress
+                if (i % (image.Width / 4) == 0) {
+                    Console.WriteLine("\t" + (i * 100 / image.Width / 2 + 50) + "%");
                 }
             }
 
-            regionBorderMap.Save(localDir + "/_Output/BorderFrame/region_border.png");
-            regionColors.Save(localDir + "/_Output/ColorMap/region_colors.png");
-            waterMap.Save(localDir + "/_Output/ColorMap/water_map.png");
+            //save region images
+            regionImage.Save(localDir + "/_Output/ColorMap/region_colors.png");
+            regionBorder.Save(localDir + "/_Output/BorderFrame/region_border.png");
+            waterImage.Save(localDir + "/_Output/ColorMap/water_map.png");
 
-            //close images
-            image.Dispose();
-            regionBorderMap.Dispose();
-            regionColors.Dispose();
-            waterMap.Dispose();
+
+
+            return waterCoordList;
+
         }
 
         //drawRGOMaps
-        ((int, int) waterCenter, (int, int) waterMaxSize) drawRGOMaps(List<Region> regionList, List<List<int>> lengthList, List<List<Region>> d2RegionList, List<(int, int)> waterCoordList) {
+        ((int, int) waterCenter, (int, int) waterMaxSize) drawRGOMaps(List<Region> regionList, List<(int, int)> waterCoordList) {
             //if Output/RGOs/ does not exist, create it
             if (!Directory.Exists(localDir + "/_Output/RGOs/")) {
                 Directory.CreateDirectory(localDir + "/_Output/RGOs/");
@@ -673,8 +531,11 @@ internal class Program
 
             //find the largest rectangle without holes in the water
             MaximumRectangle mr = new MaximumRectangle();
-            ((int, int) waterCenter, (int, int) waterMaxRecSize) = mr.center(waterCoordList, false);
-
+            ((int, int) waterCenter, (int, int) waterMaxRecSize) = ((0, 0), (0, 0));
+            if (waterCoordList.Count > 0) {
+                ( waterCenter, waterMaxRecSize) = mr.center(waterCoordList, false);
+            }
+            
 
             for (int i = 0; i < rgoNames.Count; i++) {
                 string name = rgoNames[i];
@@ -909,7 +770,7 @@ internal class Program
             }
             else if (res.name.Contains("coffee_") || res.name.Contains("ranches")) {
                 res.color = Color.SaddleBrown;
-                res.textColor = Color.LimeGreen;//Color.DarkCyan;
+                res.textColor = Color.LimeGreen;
             }
             else if (res.name.Contains("cotton") || res.name.Contains("sugar")) {
                 res.color = Color.FromArgb(255, 85, 188, 187);
@@ -983,38 +844,6 @@ internal class Program
             stateColor.Dispose();
 
             Console.WriteLine("Merged State Map\t" + sw.Elapsed);
-            if (drawHubs) {
-                Bitmap specialProvs = new Bitmap(localDir + "/_Output/ColorMap/special_prov.png");
-                Bitmap provBorder = new Bitmap(localDir + "/_Output/BorderFrame/prov_border.png");
-
-                //merge 3 maps together into new image
-                for (int i = 0; i < specialProvs.Height; i++) {
-                    for (int j = 0; j < specialProvs.Width; j++) {
-                        bool drawWhite = true;
-                        //check if special province is gray at this point and if so, set it to blue
-                        if (specialProvs.GetPixel(j, i).R > 160 && specialProvs.GetPixel(j, i).G > 160 && specialProvs.GetPixel(j, i).B > 160 && waterColor.GetPixel(j, i).A > 0) {
-                            specialProvs.SetPixel(j, i, Color.DarkBlue);
-                        }
-                        else if (waterColor.GetPixel(j, i).A != 0 && specialProvs.GetPixel(j, i).A == 0) {
-                            specialProvs.SetPixel(j, i, waterColor.GetPixel(j, i));
-                            drawWhite = false;
-                        }
-                        if (provBorder.GetPixel(j, i).A != 0) {
-                            specialProvs.SetPixel(j, i, provBorder.GetPixel(j, i));
-                            drawWhite = false;
-                        }
-
-                        if (drawWhite && specialProvs.GetPixel(j, i).A == 0) {
-                            specialProvs.SetPixel(j, i, Color.White);
-                        }
-                    }
-                }
-                specialProvs.Save(localDir + "/_Output/Special_Provinces.png");
-                specialProvs.Dispose();
-                provBorder.Dispose();
-
-                Console.WriteLine("Merged Special Map\t" + sw.Elapsed);
-            }
 
             Bitmap blankProv = new Bitmap(waterColor.Width, waterColor.Height);
             Bitmap bp = new Bitmap(localDir + "/_Output/BorderFrame/prov_border.png");
@@ -1334,17 +1163,6 @@ internal class Program
 
         }
 
-        List<State> stateList = new List<State>();
-        parseStateFiles(stateList);
-        List<Region> regionList = new List<Region>();
-        parseRegionFiles(regionList);
-        mergeStateRegion(stateList, regionList);
-        Console.WriteLine(sw.Elapsed);
-
-        List<string> seaList = new List<string>();
-        List<string> lakeList = new List<string>();
-        parseDefaultMap(seaList, lakeList);
-
-        drawMap(regionList, seaList, lakeList);
+        
     }
 }
