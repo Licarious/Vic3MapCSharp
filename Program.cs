@@ -232,12 +232,33 @@ internal class Program
                         else if (line.Trim().StartsWith("map_color")) {
                             count++;
                             string[] e = line.Split("=")[1].Split(" ");
-                            if (line.Contains(".") || int.Parse(e[3]) < 2 && int.Parse(e[4]) < 2 && int.Parse(e[5]) < 2) {
-                                r.color = Color.FromArgb((int)(float.Parse(e[3]) * 255), (int)(float.Parse(e[4]) * 255), (int)(float.Parse(e[5]) * 255));
+
+                            List<double> rgbValues = new List<double>();
+                            
+                            foreach (string s in e) {
+                                //try parse float
+                                if (double.TryParse(s, out double d)) {
+                                    //if f is outsied of 0-255 range, then set it to 0 or 255
+                                    if (d < 0) {
+                                        d = 0;
+                                    }
+                                    else if (d > 255) {
+                                        d = 255;
+                                    }
+                                    //if d is between 0 and 1.1 then multiply it by 255
+                                    else if (d > 0 && d < 1.1) {
+                                        d = d * 255;
+                                    }
+                                    rgbValues.Add(d);
+                                }
                             }
-                            else {
-                                r.color = Color.FromArgb(int.Parse(e[3]), int.Parse(e[4]), int.Parse(e[5]));
+                            //if rgbValues has less than 3 values, then add 128 to make it 3
+                            while (rgbValues.Count < 3) {
+                                rgbValues.Add(128);
                             }
+                            
+                            r.color = Color.FromArgb((int)rgbValues[0], (int)rgbValues[1], (int)rgbValues[2]);
+
                         }
                         else if (line.StartsWith("graphical_culture")){
                             r.gfxCulture = line.Split("=")[1].Replace("\"", "").Trim();
