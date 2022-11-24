@@ -3,33 +3,62 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Linq.Expressions;
 
 internal class Program
 {
     private static void Main(string[] args) {
+        //check if .net framework 6.0 is installed
+        if (System.Environment.Version.Major < 6) {
+            Console.WriteLine("This program requires .NET Framework 6.0 or higher. Please install it and try again.");
+            Console.ReadKey();
+            return;
+        }
         Stopwatch sw = Stopwatch.StartNew();
-
+        Random rand = new Random();
         //move up 3 directorys from local
         string localDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
         
+        //Draws Individual RGO Maps
+        bool doDrawRGOs = false;
+        //Draws National Maps as they woud exist at the start of the game
+        bool doDrawStartingNations = true;
+        //Draws National Maps as they exist in the provided saves (Dynamic Tags Buggy)
+        bool doDrawSaves = true;
+        //Should Decentralized Nations be drawn on the National Maps
+        bool doDrawDecentralized = true;
+
+        List<(List<string> rgoNames, Color hColor, Color tColor)> rgoColors = new List<(List<string>, Color, Color)>();        
+
+        //check input config file
+        if (!File.Exists(localDir + "/_Input/input.cfg")) {
+            Console.WriteLine("Error: input.cfg not found, using defaults");
+        }
+        else {
+            inputCFG();
+        }
+
+
         List<State> stateList = new List<State>();
         parseStateFiles(stateList);
         List<Region> regionList = new List<Region>();
         parseRegionFiles(regionList);
         mergeStateRegion(stateList, regionList);
 
-        List<string> seaList = new List<string>();
-        List<string> lakeList = new List<string>();
-        parseDefaultMap(seaList, lakeList);
+        writeRGOs(regionList);
+        //debugStateProv(regionList);
 
-        //drawMap(regionList, seaList, lakeList);
-        parseProvMap(regionList, seaList, lakeList);
+
+        parseDefaultMap(regionList);
+        
+        parseProvMap(regionList);
 
 
         //method to parse state files
         void parseStateFiles(List<State> stateList) {
             //read all files in localDir/_Input/state_regions
-            string[] files = Directory.GetFiles(localDir + "/_Input/state_regions");
+            string[] files = Directory.GetFiles(localDir + "/_Input/map_data/state_regions");
             //for each file
             int count = 0;
 
@@ -78,8 +107,10 @@ internal class Program
                                 if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                     string n = l2[i].Replace("\"", "").Replace("x", "");
                                     s.provIDList.Add(n);
+                                    s.addProv(n);
                                 }
                             }
+                            
                         }
                         //get impassable colors
                         if (line.TrimStart().StartsWith("impassable")) {
@@ -88,7 +119,11 @@ internal class Program
                                 if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                     string n = l2[i].Replace("\"", "").Replace("x", "");
                                     Color c = ColorTranslator.FromHtml("#" + n);
-                                    s.impassables.Add(c);
+                                    //set prov with color c to isImpassible
+                                    if (s.provDict.TryGetValue(c, out Province p)) {
+                                        p.isImpassible = true;
+                                    }
+
                                 }
                             }
                         }
@@ -99,7 +134,10 @@ internal class Program
                                 if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                     string n = l2[i].Replace("\"", "").Replace("x", "");
                                     Color c = ColorTranslator.FromHtml("#" + n);
-                                    s.primeLand.Add(c);
+                                    //set prov with color c to prime land
+                                    if (s.provDict.TryGetValue(c, out Province p)) {
+                                        p.isPrimeLand = true;
+                                    }
                                 }
                             }
                         }
@@ -176,9 +214,16 @@ internal class Program
 
                         //get city color
                         if (line.TrimStart().StartsWith("city") || line.TrimStart().StartsWith("port") || line.TrimStart().StartsWith("farm") || line.TrimStart().StartsWith("mine") || line.TrimStart().StartsWith("wood")) {
-                            string[] l2 = line.Split("=");
-                            s.hubs.Add((l2[0].Trim(), ColorTranslator.FromHtml("#" + l2[1].Replace("\"", "").Replace("x", "").Trim())));
-                            s.color = s.hubs[0].color;
+
+                            Color hubC = ColorTranslator.FromHtml("#" + line.Split("=")[1].Replace("\"", "").Replace("x", "").Trim());
+                            //set prov with color c hubName to name
+                            if (s.provDict.TryGetValue(hubC, out Province p)) {
+                                p.hubName = line.Split("=")[0].Trim();
+                                //if s.color.A is 0 set the color to hubcolor
+                                if (s.color.A == 0) {
+                                    s.color = p.color;
+                                }
+                            }
                         }
                         //reset cappedResourseFound and discoverableResourseFound
                         if (line.Trim().StartsWith("}")) {
@@ -191,12 +236,12 @@ internal class Program
                 }
             }
 
-            Console.WriteLine("States: " + count);
+            Console.WriteLine("States: " + count + " | " + stateList.Count);
 
         }
         //parse all region files
         void parseRegionFiles(List<Region> regionList) {
-            string[] files = Directory.GetFiles(localDir + "/_Input/strategic_regions");
+            string[] files = Directory.GetFiles(localDir + "/_Input/common/strategic_regions");
 
             int count = 0;
             foreach (string file in files) {
@@ -238,17 +283,18 @@ internal class Program
                             foreach (string s in e) {
                                 //try parse float
                                 if (double.TryParse(s, out double d)) {
-                                    //if f is outsied of 0-255 range, then set it to 0 or 255
+                                    //if d is between 0 and 1.1 then multiply it by 255
+                                    if (d > 0 && d < 1.1) {
+                                        d = d * 255;
+                                    }
+                                    //if d is outsied of 0-255 range, then set it to 0 or 255
                                     if (d < 0) {
                                         d = 0;
                                     }
                                     else if (d > 255) {
                                         d = 255;
                                     }
-                                    //if d is between 0 and 1.1 then multiply it by 255
-                                    else if (d > 0 && d < 1.1) {
-                                        d = d * 255;
-                                    }
+                                    
                                     rgbValues.Add(d);
                                 }
                             }
@@ -266,7 +312,7 @@ internal class Program
                     }
                 }
             }
-            Console.WriteLine("Regions: " + count);
+            Console.WriteLine("Regions: " + count + " | " + regionList.Count);
         }
 
 
@@ -283,8 +329,22 @@ internal class Program
         }
 
         //parse default.map
-        void parseDefaultMap(List<string> seaList, List<string> lakeList) {
-            string[] lines = File.ReadAllLines(localDir + "/_Input/default.map");
+        void parseDefaultMap(List<Region> regionList) {
+            //dictionary of color and prov object
+            Dictionary<Color, Province> colorToProvDic = new Dictionary<Color, Province>();
+
+            //itterate throu all states in regionList and add their provDict to colorToProv
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
+                        colorToProvDic.Add(kvp.Key, kvp.Value);
+                    }
+                }
+            }
+
+
+
+            string[] lines = File.ReadAllLines(localDir + "/_Input/map_data/default.map");
             bool seaStart = false;
             bool lakeStart = false;
             foreach (string line in lines) {
@@ -301,7 +361,13 @@ internal class Program
                             break;
                         }
                         else if (l2[i].StartsWith("x")) {
-                            seaList.Add(l2[i].Replace("x", ""));
+                            //set prov with that color to sea in colorToProvDic
+                            foreach (KeyValuePair<Color, Province> kvp in colorToProvDic) {
+                                if (kvp.Key.ToArgb() == ColorTranslator.FromHtml("#" + l2[i].Replace("x", "")).ToArgb()) {
+                                    kvp.Value.isSea = true;
+                                    break;
+                                }
+                            }
                         }
                         else if (l2[i].StartsWith("}")) {
                             seaStart = false;
@@ -316,7 +382,13 @@ internal class Program
                             break;
                         }
                         else if (l2[i].StartsWith("x")) {
-                            lakeList.Add(l2[i].Replace("x", ""));
+                            //similary for lakes
+                            foreach (KeyValuePair<Color, Province> kvp in colorToProvDic) {
+                                if (kvp.Key.ToArgb() == ColorTranslator.FromHtml("#" + l2[i].Replace("x", "")).ToArgb()) {
+                                    kvp.Value.isLake = true;
+                                    break;
+                                }
+                            }
                         }
                         else if (l2[i].StartsWith("}")) {
                             seaStart = false;
@@ -328,19 +400,20 @@ internal class Program
         }
 
         //pares province png
-        void parseProvMap(List<Region> regionList, List<string> seaList, List<string> lakeList) {
+        void parseProvMap(List<Region> regionList) {
             //dictionary prov color to state object
-            Dictionary<Color, State> provColorToState = new Dictionary<Color, State>();
+            Dictionary<Color, Province> provColorToProv = new Dictionary<Color, Province>();
 
             foreach (Region r in regionList) {
                 foreach (State s in r.states) {
-                    foreach (Color c in s.provColors) {
-                        provColorToState.Add(c, s);
+                    //add all prov colors to provColorToProv
+                    foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
+                        provColorToProv.Add(kvp.Key, kvp.Value);
                     }
                 }
             }
             
-            Bitmap image = new Bitmap(localDir + "/_Input/provinces.png");
+            Bitmap image = new Bitmap(localDir + "/_Input/map_data/provinces.png");
             Bitmap provBorder = new Bitmap(image.Width, image.Height);
 
             Console.WriteLine("Parsing Map");
@@ -349,8 +422,8 @@ internal class Program
                 Color lastColor = image.GetPixel(i, 0);
                 for (int j = 0; j < image.Height; j++) {
                     Color c = image.GetPixel(i, j);
-                    //if c is in provColorToState add coord to state
-                    if (provColorToState.ContainsKey(c)) provColorToState[c].coordList.Add((i, j));
+                    //if c is in provColorToProv add coord to state
+                    if (provColorToProv.ContainsKey(c)) provColorToProv[c].coordList.Add((i, j));
                     if (c != lastColor) {
                         provBorder.SetPixel(i, j, Color.Black);
                         lastColor = c;
@@ -365,7 +438,7 @@ internal class Program
             }
 
             //draw vertical borders
-            //Console.WriteLine("Drawing Vertical Borders for Prov Map");
+            //Console.WriteLine("Drawing Vertical Borders for Province Map");
             for (int i = 0; i < image.Height; i++) {
                 Color lastColor = image.GetPixel(0, i);
                 for (int j = 1; j < image.Width; j++) {
@@ -382,6 +455,13 @@ internal class Program
 
             }
 
+            //set coordList for each state
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    s.setCoords();
+                }
+            }
+
             //check if /_Output/BorderFrame exists if not add it
             if (!Directory.Exists(localDir + "/_Output/BorderFrame")) {
                 Directory.CreateDirectory(localDir + "/_Output/BorderFrame");
@@ -393,15 +473,52 @@ internal class Program
             drawStateImages(regionList, image);
             List<(int, int)> waterCoordList = darwRegionImages(regionList, image);
 
-            ((int, int) waterRecCenter, (int, int) waterRecSize) = drawRGOMaps(regionList, waterCoordList);
 
-            mergeMaps();
+            if (doDrawRGOs) {
+                ((int, int) waterRecCenter, (int, int) waterRecSize) = drawRGOMaps(regionList, waterCoordList);
 
-            namedMapes(regionList);
+                mergeMaps();
+                namedMapes(regionList);
 
+                debugDrawRectangle(regionList, waterRecCenter, waterRecSize);
+
+                drawHubs(regionList, image);
+                drawImapssiblePrime(regionList, image);
+            }
+
+            
+
+            if (doDrawStartingNations || doDrawSaves) {
+                Dictionary<string, Nation> nationDict = parseNations(regionList);
+                if (nationDict == null) {
+                    return;
+                }
+
+                if (doDrawStartingNations) {
+                    drawNationsMap(nationDict, "Starting_National", doDrawDecentralized);
+                }
+                if (doDrawSaves) {
+                    parseTerrain(regionList);
+                    //for every file in _Input/Saves
+                    foreach (string file in Directory.GetFiles(localDir + "/_Input/Saves")) {
+                        //if file is a .txt file
+                        if (file.EndsWith(".v3")) {
+                            parseSave(regionList, nationDict, file);
+
+                            //seprate name from file path
+                            string[] split = file.Split('\\');
+                            string fileName = split[split.Length - 1].Split(".")[0];
+
+                            drawNationsMap(nationDict, fileName, doDrawDecentralized);
+                        }
+                    }
+
+                    
+                    
+                    
+                }
+            }
             Console.WriteLine(sw.Elapsed);
-
-            debugDrawRectangle(regionList, waterRecCenter, waterRecSize);
 
         }
         
@@ -539,7 +656,7 @@ internal class Program
             }
 
             List<string> rgoNames = setRGOColors(regionList);
-            Bitmap image = new Bitmap(localDir + "/_Input/provinces.png");
+            Bitmap image = new Bitmap(localDir + "/_Input/map_data/provinces.png");
             Bitmap water = new Bitmap(localDir + "/_Output/ColorMap/water_map.png");
             Bitmap stateBorder = new Bitmap(localDir + "/_Output/BorderFrame/state_border.png");
 
@@ -777,45 +894,73 @@ internal class Program
 
         //RGO Colors
         void ColorList(Resource res) {
-            if (res.name.Contains("gold") || res.name.Contains("sulfur")) {
-                res.color = Color.Gold;
-                res.textColor = Color.DarkBlue;
+            //if rgoColors is empty then use default colors
+            if (rgoColors.Count == 0) {
+                if (res.name.Contains("gold") || res.name.Contains("sulfur")) {
+                    res.color = Color.Gold;
+                    res.textColor = Color.DarkBlue;
+                }
+                else if (res.name.Contains("farms") || res.name.Contains("banana")) {
+                    res.color = Color.Yellow;
+                    res.textColor = Color.Brown;
+                }
+                else if (res.name.Contains("oil_") || res.name.Contains("coal_")) {
+                    res.color = Color.FromArgb(255, 37, 37, 37);
+                    res.textColor = Color.Red;
+                }
+                else if (res.name.Contains("coffee_") || res.name.Contains("ranches")) {
+                    res.color = Color.SaddleBrown;
+                    res.textColor = Color.LimeGreen;
+                }
+                else if (res.name.Contains("cotton") || res.name.Contains("sugar")) {
+                    res.color = Color.FromArgb(255, 85, 188, 187);
+                    res.textColor = Color.DarkViolet;
+                }
+                else if (res.name.Contains("dye_") || res.name.Contains("silk_")) {
+                    res.color = Color.DarkViolet;
+                    res.textColor = Color.FromArgb(255, 85, 188, 187);
+                }
+                else if (res.name.Contains("logging") || res.name.Contains("rubber")) {
+                    res.color = Color.BurlyWood;
+                    res.textColor = Color.DarkGreen;
+                }
+                else if (res.name.Contains("plantation")) {
+                    res.color = Color.Green;
+                    res.textColor = Color.Purple;
+                }
+                else if (res.name.Contains("copper")) {
+                    res.color = Color.Orange;
+                    res.textColor = Color.DarkGreen;
+                }
+                else if (res.name.Contains("gemstone")) {
+                    res.color = Color.DarkCyan;
+                    res.textColor = Color.Red;
+                }
+                else if (res.name.Contains("mining") || res.name.Contains("tin_")) {
+                    res.color = Color.SlateGray;
+                    res.textColor = Color.Brown;
+                }
+                else if (res.name.Contains("fish") || res.name.Contains("whal")) {
+                    res.color = Color.DarkCyan;
+                    res.textColor = Color.FromArgb(255, 0, 0, 64);
+                }
             }
-            else if (res.name.Contains("farms") || res.name.Contains("banana")) {
-                res.color = Color.Yellow;
-                res.textColor = Color.Brown;
-            }
-            else if (res.name.Contains("oil_") || res.name.Contains("coal_")) {
-                res.color = Color.FromArgb(255, 37, 37, 37);
-                res.textColor = Color.Red;
-            }
-            else if (res.name.Contains("coffee_") || res.name.Contains("ranches")) {
-                res.color = Color.SaddleBrown;
-                res.textColor = Color.LimeGreen;
-            }
-            else if (res.name.Contains("cotton") || res.name.Contains("sugar")) {
-                res.color = Color.FromArgb(255, 85, 188, 187);
-                res.textColor = Color.DarkViolet;
-            }
-            else if (res.name.Contains("dye_") || res.name.Contains("silk_")) {
-                res.color = Color.DarkViolet;
-                res.textColor = Color.FromArgb(255, 85, 188, 187);
-            }
-            else if (res.name.Contains("logging") || res.name.Contains("rubber")) {
-                res.color = Color.BurlyWood;
-                res.textColor = Color.DarkGreen;
-            }
-            else if (res.name.Contains("plantation")) {
-                res.color = Color.Green;
-                res.textColor = Color.Purple;
-            }
-            else if (res.name.Contains("mining")) {
-                res.color = Color.SlateGray;
-                res.textColor = Color.Brown;
-            }
-            else if (res.name.Contains("fish") || res.name.Contains("whal")) {
-                res.color = Color.DarkCyan;
-                res.textColor = Color.FromArgb(255, 0, 0, 64);
+            else {
+                bool exitLoop = false;
+                //interate throu rgoColors and set colors if found
+                for (int i = 0; i < rgoColors.Count; i++) {
+                    for (int j = 0; j < rgoColors[i].rgoNames.Count; j++) {
+                        if (res.name.Contains(rgoColors[i].rgoNames[j])) {
+                            res.color = rgoColors[i].hColor;
+                            res.textColor = rgoColors[i].tColor;
+                            exitLoop = true;
+                            break;
+
+                        }
+                    }
+                    if (exitLoop) break;
+                }
+
             }
         }
 
@@ -875,7 +1020,7 @@ internal class Program
             blankProv.Save(localDir + "/_Output/BlankMap/Province_Blank.png");
             blankProv.Dispose();
             bp.Dispose();
-            Console.WriteLine("Merged Blank Prov Map\t" + sw.Elapsed);
+            Console.WriteLine("Merged Blank Province Map\t" + sw.Elapsed);
 
             Bitmap blankState = new Bitmap(waterColor.Width, waterColor.Height);
             Bitmap bs = new Bitmap(localDir + "/_Output/BorderFrame/state_border.png");
@@ -1119,10 +1264,11 @@ internal class Program
             stateMap.Save(localDir + "/_Output/State_Map_Names.png");
         }
 
+        //how dark is the color
         float rgbToYIQ(Color c) {
             return (c.R * 299 + c.G * 587 + c.B * 114) / 1000;
         }
-
+        
         //debug draw rectange around each region and state
         void debugDrawRectangle(List<Region> regionList, (int, int) waterRecCenter, (int, int) waterRecSize) {
             //if Output/Debug/ does not exist create it
@@ -1184,6 +1330,903 @@ internal class Program
 
         }
 
-        
+        void drawHubs(List<Region> regionList, Image image) {
+            //create a new blank image of size image
+            Bitmap hubMap = new Bitmap(image.Width, image.Height);
+
+            //hub name color pairs
+            Dictionary<string, Color> hubColor = new Dictionary<string, Color>();
+            hubColor.Add("city", Color.Purple);
+            hubColor.Add("port", Color.DarkCyan);
+            hubColor.Add("mine", Color.Red);
+            hubColor.Add("farm", Color.Yellow);
+            hubColor.Add("wood", Color.DarkGreen);
+
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    //for each prov in s.provDict
+                    foreach (Province p in s.provDict.Values) {
+                        //if p.hubname is in hubColor set all coords in p.coordList to hubColor[p.hubname]
+                        if (hubColor.ContainsKey(p.hubName)) {
+                            foreach ((int, int) coord in p.coordList) {
+                                hubMap.SetPixel(coord.Item1, coord.Item2, hubColor[p.hubName]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            hubMap.Save(localDir + "/_Output/ColorMap/hub_map.png");
+        }
+
+        void drawImapssiblePrime(List<Region> regionList, Image image) {
+            //create a new blank image of size image
+            Bitmap impossiblePrimeMap = new Bitmap(image.Width, image.Height);
+            
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    //for each prov in s.provDict
+                    foreach (Province p in s.provDict.Values) {
+                        if (p.isImpassible) {
+                            Color c = Color.Gray;
+                            if(p.isLake || p.isSea) {
+                                c = Color.Blue;
+                            }
+                            foreach ((int, int) coord in p.coordList) {
+                                impossiblePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
+                            }
+                        }
+                        else if (p.isPrimeLand) {
+                            Color c = Color.Green;
+                            foreach ((int, int) coord in p.coordList) {
+                                impossiblePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            impossiblePrimeMap.Save(localDir + "/_Output/ColorMap/impossible_prime_map.png");
+        }
+
+        Dictionary<string, Nation> parseNations(List<Region> regionList) {
+            //dictionary of nation name and nation
+            Dictionary<string, Nation> nationDict = new Dictionary<string, Nation>();
+
+            //dictionary of color and prov from region.state.prov
+            Dictionary<Color, Province> colorProv = new Dictionary<Color, Province>();
+            //dictionary of state name and state from region.state
+            Dictionary<string, State> stateDict = new Dictionary<string, State>();
+
+            //for each region in regionList
+            foreach (Region r in regionList) {
+                //for each state in region.state
+                foreach (State s in r.states) {
+                    //add state to stateDict
+                    stateDict.Add(s.name, s);
+                }
+            }
+
+
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    foreach (Province p in s.provDict.Values) {
+                        colorProv.Add(p.color, p);
+                    }
+                }
+            }
+
+            //read files in _Input/country_definitions
+            string[] files = Directory.GetFiles(localDir + "/_Input/common/country_definitions");
+            
+            //read all lines in each file
+            foreach (string file in files) {
+                string[] lines = File.ReadAllLines(file);
+                int indent = 0;
+                Nation n = new Nation();
+                foreach (string line in lines) {
+                    if (line.StartsWith("#") || line.Trim() == "") {
+                        continue;
+                    }
+
+                    string l1 = line.Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("=", " = ").Replace("\"", "").Split("#")[0].Trim();
+
+                    if (indent == 0) {
+                        if (l1.Contains("=")) {
+                            n = new Nation(l1.Split('=')[0].Trim());
+                            nationDict.Add(n.name, n);
+                        }
+                    }
+                    if (indent == 1) {
+                        if (l1.StartsWith("color")) {
+                            List<double> rgbValues = new List<double>();
+                            string[] e = l1.Split('=')[1].Trim().Split(' ');
+                            foreach (string s in e) {
+                                //try to parse s as double
+                                if (double.TryParse(s, out double d)) {
+                                    //if d is between 0 and 1.01 then multiply it by 255
+                                    if (d >= 0 && d <= 1.01) {
+                                        d *= 255;
+                                    }
+                                    //if d is outside of 0 and 255 then set it to 0 or 255
+                                    if (d < 0) {
+                                        d = 0;
+                                    }
+                                    if (d > 255) {
+                                        d = 255;
+                                    }
+
+                                    rgbValues.Add(d);
+                                }
+                            }
+                            //if rgbValues has less than 3 values, add 128 till it has 3
+                            while (rgbValues.Count < 3) {
+                                rgbValues.Add(128);
+                            }
+                            if (l1.Contains("hsv360")) {
+                                n.color = ColorFromHSV360(rgbValues[0], rgbValues[1], rgbValues[2]);
+                            }
+                            else if (l1.Contains("hvs")){
+                                n.color = ColorFromHSV(rgbValues[0], rgbValues[1], rgbValues[2]);
+                            }
+                            else {
+                                //set n.color to rgbValues
+                                n.color = Color.FromArgb((int)rgbValues[0], (int)rgbValues[1], (int)rgbValues[2]);
+                            }
+                        }
+                        //country_type
+                        if (l1.StartsWith("country_type")) {
+                            n.type = l1.Split('=')[1].Trim();
+                        }
+                        //tier
+                        if (l1.StartsWith("tier")) {
+                            n.tier = l1.Split('=')[1].Trim();
+                        }
+                        //cultures
+                        if (l1.StartsWith("cultures")) {
+                            n.cultures = l1.Replace("{", "").Replace("}", "").Split('=')[1].Trim().Split(' ').ToList();
+                        }
+                        //capital
+                        if (l1.StartsWith("capital")) {
+                            string capital = l1.Split('=')[1].Trim();
+                            //find the state in stateDict that has the capital as its name
+                            n.capital = stateDict[capital];                            
+                        }
+                    }
+
+
+                    //if { or } is in l1, increment or decrement indent
+                    if (l1.Contains("{")) {
+                        indent++;
+                    }
+                    if (l1.Contains("}")) {
+                        indent--;
+                    }
+                }
+                
+
+            }
+
+            //read files in _Input/history/states
+            files = Directory.GetFiles(localDir + "/_Input/common/history/states");
+
+            //if files is not empty
+            if (files.Count() == 0) {
+                Console.WriteLine("No country definitions found");
+                return null;
+            }
+
+            //read all lines in each file
+            foreach (string file in files) {
+                string[] lines = File.ReadAllLines(file);
+                int indent = 0;
+                Nation n = new Nation();
+                State s = new State();
+                bool createStateFound = false;
+                int stateIndent = -1;
+                bool stateProvsFound = false;
+                int stateProvsIndent = -1;
+                foreach (string line in lines) {
+                    if (line.StartsWith("#") || line == "") {
+                        continue;
+                    }
+
+                    string l1 = line.Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("=", " = ").Replace("\"", "").Split("#")[0].Trim();
+
+                    if (indent == 1) {
+                        if (l1.StartsWith("s:")) {
+                            string stateName = l1.Split('=')[0].Split("s:")[1].Trim();
+                            if (stateDict.ContainsKey(stateName)) {
+                                s = stateDict[stateName];
+                            }
+                        }
+                    }
+                    if (indent == 2) {
+                        //add_homeland
+                        if (l1.StartsWith("add_homeland")) {
+                            s.homeLandList.Add(l1.Split('=')[1].Trim());
+                        }
+                        //create_state
+                        if (l1.StartsWith("create_state")) {
+                            createStateFound = true;
+                            stateIndent = indent;
+                        }
+                        //add_claim
+                        if (l1.StartsWith("add_claim")) {
+                            string statetag = l1.Split('=')[1].Trim();
+                            if (nationDict.ContainsKey(statetag)) {
+                                nationDict[statetag].claimList.Add(s);
+                            }
+                        }
+                    }
+
+                    if (createStateFound) {
+                        //country
+                        if (l1.StartsWith("country")) {
+                            string tag = l1.Split("c:")[1].Trim();
+                            if (nationDict.ContainsKey(tag)) {
+                                n = nationDict[tag];
+                            }
+                        }
+                        //owned_provinces
+                        if (l1.StartsWith("owned_provinces")) {
+                            stateProvsFound = true;
+                            stateProvsIndent = indent;
+
+                        }
+                        //state_type
+                        if (l1.StartsWith("state_type")) {
+                            n.type = l1.Split('=')[1].Trim();
+                        }
+
+                    }
+                    
+                    if (stateProvsFound) {
+                        string[] provs = l1.Replace("{", "").Replace("}", "").Replace("x", "#").Trim().Split();
+
+                        if (l1.Contains('=')) {
+                            provs = l1.Replace("{", "").Replace("}", "").Replace("x", "#").Split('=')[1].Trim().Split();
+                        }
+                        foreach (string p in provs) {
+                            try {
+                                //create new color using p as a hex string
+                                Color c = ColorTranslator.FromHtml(p);
+                                //if colorProv contains c as a key
+                                if (colorProv.ContainsKey(c)) {
+                                    //add colorProv[c] to n.provDict
+                                    n.provDict.Add(c, colorProv[c]);
+                                }
+                            }
+                            catch (Exception e) {
+                                /*
+                                Console.WriteLine(n.name + "\t" + p);
+                                Console.WriteLine(e.Message);
+                                */
+                            }
+                        }
+                    }
+
+
+
+                    //if { or } is in l1, increment or decrement indent
+                    if (l1.Contains("{")) {
+                        indent++;
+                    }
+                    if (l1.Contains("}")) {
+                        indent--;
+                        if (indent == stateIndent) {
+                            createStateFound = false;
+                        }
+                        if (indent == stateProvsIndent) {
+                            stateProvsFound = false;
+                        }
+
+                    }
+                }
+            }
+
+            return nationDict;
+        }
+
+        void drawNationsMap(Dictionary<string, Nation> nationDict, string fileName, bool drawDecentralized) {
+            Console.WriteLine("Drawing "+ fileName);
+
+            //if the output folder doesn't exist, create it
+            if (!Directory.Exists(localDir + "/_Output/National")) {
+                Directory.CreateDirectory(localDir + "/_Output/National");
+            }
+
+            //create a new bitmap with the same size as the image
+            Bitmap bitmap = new Bitmap(localDir+"/_Output/ColorMap/water_map.png");
+
+            //for each nation in nationDict
+            foreach (Nation n in nationDict.Values) {
+                //draw decentralised nations?
+                if (n.type == "decentralized" && !drawDecentralized) {
+                    continue;
+                }
+                //for each province in n.provDict
+                foreach (Province p in n.provDict.Values) {
+                    //for each pixel in p set the pixel in bitmap to n.color
+                    foreach ((int X, int Y) point in p.coordList) {
+                        bitmap.SetPixel(point.X, point.Y, n.color);
+                    }
+                }
+            }
+
+            //save bitmap to _Output/nations.png
+            bitmap.Save(localDir + "/_Output/National/" + fileName + ".png");
+
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+            PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+            privateFontCollection.AddFontFile(localDir + "/_Input/ParadoxVictorian-Condensed.otf"); //font for nation names
+
+            Graphics g = Graphics.FromImage(bitmap);
+
+            //add name to bitmap for each nation
+            foreach (Nation n in nationDict.Values) {
+
+                //draw decentralised nations?
+                if (n.type == "decentralized" && !drawDecentralized) {
+                    continue;
+                }
+
+                Color textColor = Color.Black;
+
+                if (rgbToYIQ(n.color) < 90) {
+                    textColor = Color.White;
+                }
+                
+                //get the center of the nation
+                n.getCenter2();
+
+                string text = n.name.ToLower();
+
+                int numberFontSize = 8; //minimum font size for nation name
+                Font font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+
+                //check pixel size of font1
+                SizeF textSize = g.MeasureString(text, font1);
+
+                //if size1 is smaller than state maxRecSize then increase font size to fit
+                while (textSize.Width < n.maxRecSize.Item1 && textSize.Height < n.maxRecSize.Item2) {
+                    numberFontSize++;
+                    font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+                    textSize = g.MeasureString(text, font1);
+                }
+                numberFontSize = (int)(numberFontSize * 1.3);
+
+
+                int recFontSize = numberFontSize;
+
+                //check if square getCenter2 would give a larger font size
+                n.getCenter2(true);
+                numberFontSize = 8; //minimum font size for nation name
+                font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+
+                //check pixel size of font1
+                textSize = g.MeasureString(text, font1);
+
+                //if size1 is smaller than state maxRecSize then increase font size to fit
+                while (textSize.Width < n.maxRecSize.Item1 && textSize.Height < n.maxRecSize.Item2) {
+                    numberFontSize++;
+                    font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+                    textSize = g.MeasureString(text, font1);
+                }
+                numberFontSize = (int)(numberFontSize * 1.3);
+
+                if (recFontSize > numberFontSize) {
+                    //Console.WriteLine(n.name + " would be larger as a rectange by " + (recFontSize - numberFontSize) + " size");
+                    n.getCenter2();
+                    numberFontSize = recFontSize;                    
+                }
+
+
+                font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+                //draw the name on bitmap
+                //drawText(bitmap, text, center.X, center.Y, Color.White);
+                g.DrawString(text, font1, new SolidBrush(textColor), new Point(n.center.Item1, n.center.Item2), stringFormat);
+            }
+
+            bitmap.Save(localDir + "/_Output/National/" + fileName+"_tags.png");
+
+        }
+
+        Color ColorFromHSV(double v1, double v2, double v3) {
+            //convert hsv to rgb
+            double r, g, b;
+            if (v3 == 0) {
+                r = g = b = 0;
+            }
+            else {
+                if (v2 == -1) v2 = 1;
+                int i = (int)Math.Floor(v1 * 6);
+                double f = v1 * 6 - i;
+                double p = v3 * (1 - v2);
+                double q = v3 * (1 - f * v2);
+                double t = v3 * (1 - (1 - f) * v2);
+                switch (i % 6) {
+                    case 0: r = v3; g = t; b = p; break;
+                    case 1: r = q; g = v3; b = p; break;
+                    case 2: r = p; g = v3; b = t; break;
+                    case 3: r = p; g = q; b = v3; break;
+                    case 4: r = t; g = p; b = v3; break;
+                    case 5: r = v3; g = p; b = q; break;
+                    default: r = g = b = v3; break;
+                }
+            }
+            return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
+        }
+
+        Color ColorFromHSV360(double v1, double v2, double v3) {
+            //converts hsv360 to rgb
+            return ColorFromHSV(v1 / 360, v2 / 100, v3 / 100);
+        }
+
+        void parseTerrain(List<Region> regionList) {
+            //prov dictionary for matching prov name to prov object
+            Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
+
+            //for each region in regionList
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    foreach (Province p in s.provDict.Values) {
+                        //add province to provDict
+                        provDict.Add(p.color, p);
+                    }
+                }
+            }
+            
+            //read province_terrains.txt
+            string[] lines = File.ReadAllLines(localDir + "/_Input/map_data/province_terrains.txt");
+
+            int count = 1;
+            //for each line in lines
+            foreach (string line in lines) {
+                if (line.StartsWith("#") || line.Trim() == "") {
+                    continue;
+                }
+                if (line.Contains("=")) {
+                    string[] l1 = line.Replace("\"", "").Trim().Split("=");
+
+                    //match province to provDict on l1[0] to name
+                    Color c = ColorTranslator.FromHtml(l1[0].Replace("x", "#"));
+                    if (provDict.ContainsKey(c)) {
+                        //set prov.terrain to l1[1]
+                        provDict[c].terrain = l1[1];
+                        provDict[c].intearnlID = count;
+                    }
+                    else {
+                        //Console.WriteLine("Error: " + c + " not found in provDict");
+                    }
+                }
+                count++;
+
+            }
+
+
+
+        }
+
+        void parseSave(List<Region> regionList, Dictionary<string, Nation> nationDict, string filePath) {
+            //prov dictionary for matching prov intearnlID to prov object
+            Dictionary<int, Province> provDict = new Dictionary<int, Province>();
+
+            //for each region in regionList
+            foreach (Region r in regionList) {
+                foreach (State s in r.states) {
+                    foreach (Province p in s.provDict.Values) {
+                        //check if p.intearnlID is -1
+                        if (p.intearnlID == -1) {
+                            Console.WriteLine("Error: " + p.name + " has no intearnlID");
+                            continue;
+                        }
+                        //add province to provDict
+                        provDict.Add(p.intearnlID, p);
+                    }
+                }
+            }
+
+            //sort on intearnlID
+            provDict = provDict.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+            //reset all provDict in nationDict
+            foreach (Nation nat in nationDict.Values) {
+                nat.provDict = new Dictionary<Color, Province>();
+                nat.maxRecSize = (0, 0);
+                nat.center = (0, 0);
+            }
+            
+            //read all lines in save file from filePath
+            string[] lines = File.ReadAllLines(filePath);
+
+            int indintation = -2;
+            Nation n = null;
+            int potentialID = -1;
+            bool foundSeaNodes = false;
+            bool civilWarFound = false;
+            //for each line in lines
+            foreach (string line in lines) {
+                if (line.Trim().StartsWith("#") || line.Trim() == "") {
+                    continue;
+                }
+                string l1 = line.Replace("{", " { ").Replace("}", " }").Trim().Split("#")[0];
+
+                if (l1.Contains("sea_nodes")) {
+                    foundSeaNodes = true;
+                }
+
+                if (indintation == 0) {
+                    if (l1.Contains("= {")) {
+                        string l2 = l1.Split("=")[0].Trim();
+                        // if l1.Split("=")[0] is int
+                        if (int.TryParse(l2, out potentialID)) {
+                            //Console.WriteLine(potentialID);
+                        }
+                    }
+                }
+                if (indintation == 1) {
+                    if (l1.StartsWith("definition=")) {                    
+                        string tag = l1.Split("=")[1].Replace("\"", "").Trim();
+                        if (tag.Length < 8) {
+                            //Console.WriteLine(indintation);
+                            if (nationDict.ContainsKey(tag) && !civilWarFound) {
+                                n = nationDict[tag];
+                                n.interalID = potentialID;
+                                //Console.WriteLine(n);
+                            }
+                            else if(civilWarFound) {
+                                try {
+                                    //supprot for dynaimc tags
+                                    n = new Nation(tag + "_cw");
+                                    n.interalID = potentialID;
+                                    //assigne n a random color
+                                    n.color = ColorFromHSV360(rand.Next(0, 360), 100, 100);
+                                    nationDict.Add(tag + "_cw", n);
+                                    Console.WriteLine(n);
+                                    civilWarFound = false;
+                                }
+                                catch{
+                                    //Console.WriteLine("Error: " + tag + " is a duplicate Civil War tag?");
+                                }
+                            }
+                        }
+
+                    }
+                    else if (l1.StartsWith("map_color=rgb")) {
+                        List<int> rgbValues = new List<int>();
+                        //try to parss l1 words to int, if they are add them to rgbValues
+                        foreach (string s in l1.Split("=")[1].Replace("(", "").Replace(")", "").Replace("rgb", "").Split(",")) {
+                            if (int.TryParse(s, out int i)) {
+                                rgbValues.Add(i);
+                            }
+                        }
+                        //if rgbValues has 3 values
+                        if (rgbValues.Count == 3) {
+                            //set n.color to rgbValues
+                            n.color = Color.FromArgb(rgbValues[0], rgbValues[1], rgbValues[2]);
+                        }
+
+                    }
+                    else if (l1.StartsWith("civil_war=yes")) {
+                        civilWarFound = true;
+                    }
+                    else if (l1.StartsWith("country=")) {
+                        //try parse int on l1[1]
+                        if (int.TryParse(l1.Split("=")[1].Trim(), out potentialID)) {
+                            try {
+                                //set n to nationDict where n.interalID == potentialID
+                                n = nationDict.Values.Where(x => x.interalID == potentialID).First();
+                                //Console.WriteLine(n);
+
+                            }
+                            catch {
+                                //Console.WriteLine("Error: " + potentialID + " not found in nationDict");
+                            }
+                        }
+                    }
+                }
+                if (indintation > 1 && !foundSeaNodes) {
+                    if (l1.StartsWith("provinces=")) {
+                        //Console.WriteLine(l1);
+                        //if nation with interalID == potentialID in nationDict, set n to it
+
+                        try {
+                            //find nation with interalID == potentialID
+                            n = nationDict.Values.Where(x => x.interalID == potentialID).First();
+
+                            //check if substring after = has less than 3 characters
+                            if (l1.Split("=")[1].Trim().Length < 3) {
+                                continue;
+                            }
+
+                            //split on = and trim
+                            string[] l2 = l1.Split("=")[1].Replace("{", "").Replace("}", "").Trim().Split();
+
+                            //try parse int on l2
+                            List<int> idList = new List<int>();
+                            foreach (string s in l2) {
+                                int id;
+                                if (int.TryParse(s, out id)) {
+                                    idList.Add(id);
+                                }
+                            }
+
+                            //int in idList are in pairs of 2 where they reperent a range starting and the first number and ending at the first+second number
+                            //for each int in idList
+                            for (int i = 0; i < idList.Count; i += 2) {
+                                //Console.WriteLine(n + "\t\t\t" + idList[i] + "\t" + idList[i + 1]);
+                                //for each int in ranged
+                                for (int j = idList[i]; j < idList[i] + idList[i + 1]+1; j++) {
+                                    //check if provDict contains j
+                                    if (provDict.ContainsKey(j)) {
+                                        //add provDict[j] to n.provDict
+                                        n.provDict.Add(provDict[j].color, provDict[j]);
+                                    }
+                                    else {
+                                        //Console.WriteLine("Error: " + j + " not found in provDict");
+                                    }
+                                }
+                            }
+                            //Console.WriteLine(n);
+                        }
+                        catch { }
+                    }
+                }
+                
+
+
+                if (l1.Contains("{") || l1.Contains("}")) {
+                    string[] w = l1.Split();
+                    foreach (string s in w) {
+                        if (s == "{") {
+                            indintation++;
+                        }
+                        else if (s == "}") {
+                            indintation--;
+                        }
+                    }
+
+                }
+            }
+            /*
+            //print out the first 10 nations in nationDict and their provDict size
+            int count = 0;
+            foreach (Nation nat in nationDict.Values) {
+                Console.WriteLine(nat);
+                count++;
+                if (count == 20) {
+                    break;
+                }
+            }
+            */
+        }
+    
+        void writeRGOs(List<Region> regionList) {
+            //check if _Output/TextFiles folder exists
+            if (!Directory.Exists(localDir + "/_Output/TextFiles/")) {
+                Directory.CreateDirectory(localDir + "/_Output/TextFiles/");
+            }
+
+            //dictionary of resource type and resource name
+            Dictionary<string, List<string>> resDict = new Dictionary<string, List<string>>();
+
+            //go through each region in regionList
+            foreach (Region r in regionList) {
+                foreach(State s in r.states) {
+                    //go through each resource in s.resDict
+                    foreach (Resource res in s.resoures) {
+                        //if resDict does not contain res.type
+                        if (!resDict.ContainsKey(res.type)) {
+                            //add res.type to resDict
+                            resDict.Add(res.type, new List<string>());
+                        }
+                        //if resDict[res.type] does not contain res.name
+                        if (!resDict[res.type].Contains(res.name)) {
+                            //add res.name to resDict[res.type]
+                            resDict[res.type].Add(res.name);
+                        }
+                    }
+                }
+            }
+
+            //create a new csv file for each RGOs
+            StreamWriter stwr = new StreamWriter(localDir + "/_Output/TextFiles/RGOs.csv");
+
+            //headder
+            stwr.Write("Region;State;");
+            foreach (string resType in resDict.Keys) {
+                //resource
+                if (resType == "resource") {
+                    foreach (string resName in resDict[resType]) {
+                        stwr.Write(resName.Replace("bg_", "") + ";");
+                    }
+                }
+            }
+            foreach (string resType in resDict.Keys) {
+                //discoverable
+                if (resType == "discoverable") {
+                    foreach (string resName in resDict[resType]) {
+                        stwr.Write("Known "+resName.Replace("bg_","") + ";");
+                        stwr.Write("Discoverable " + resName.Replace("bg_", "") + ";");
+                    }
+                }
+            }
+            stwr.Write("Arable Land;Agricultureal RGOs\n");
+
+
+            foreach (Region r in regionList) {
+                if (r.states.Count < 2) continue; //don't write naval states/regions
+
+                //stwr.Write(r.name.Replace("region_","") + "\n");
+                foreach(State s in r.states) {
+                    stwr.Write(r.name.Replace("region_", "") +";" + s.name.ToLower().Replace("state_","") + ";");
+
+                    //resource
+                    foreach (string resType in resDict.Keys) {
+                        if (resType == "resource") {
+                            foreach (string resName in resDict[resType]) {
+                                //if res with resName is in s.resoures lsit
+                                if (s.resoures.Where(x => x.name == resName).Count() > 0) {
+                                    //write res.amount
+                                    stwr.Write(s.resoures.Where(x => x.name == resName).First().knownAmmount + ";");
+                                }
+                                else {
+                                    //write 0
+                                    stwr.Write("0;");
+                                }
+                            }
+                        }
+                    }
+                    //discoverable
+                    foreach (string resType in resDict.Keys) {
+                        if (resType == "discoverable") {
+                            foreach (string resName in resDict[resType]) {
+                                //if res with resName is in s.resoures lsit
+                                if (s.resoures.Where(x => x.name == resName).Count() > 0) {
+                                    //write res.amount
+                                    stwr.Write(s.resoures.Where(x => x.name == resName).First().knownAmmount + ";");
+                                    stwr.Write(s.resoures.Where(x => x.name == resName).First().discoverableAmmount + ";");
+                                }
+                                else {
+                                    //write 0
+                                    stwr.Write("0;");
+                                    stwr.Write("0;");
+                                }
+                            }
+                        }
+                    }
+
+                    //arable
+                    stwr.Write(s.arableLand + ";");
+                    foreach (Resource res in s.resoures) {
+                        if (res.type == "agriculture") {
+                            stwr.Write(res.name.Replace("bg_", "") + " ");
+                        }
+                    }
+
+
+
+                    stwr.Write("\n");
+                }
+            }
+
+
+
+            stwr.Close();
+
+        }
+
+        void inputCFG(){
+            //get cfg file in _Input folder
+            string[] cfgFiles = Directory.GetFiles(localDir + "/_Input/", "*.cfg");
+
+
+            string[] lines = File.ReadAllLines(cfgFiles[0]);
+
+            bool colorFound = false;
+            //go through each line in input.cfg
+            foreach (string line in lines) {
+                string l1 = line.Split("#")[0].Trim();
+                if (l1 == "") continue;
+
+                //doDrawRGOs
+                if (l1.StartsWith("DrawRGOs")) {
+                    doDrawRGOs = bool.Parse(l1.Split("=")[1].Trim());
+                }
+                //doDrawStartingNations
+                if (l1.StartsWith("DrawStartingNations")) {
+                    doDrawStartingNations = bool.Parse(l1.Split("=")[1].Trim());
+                }
+                //doDrawSaves
+                if (l1.StartsWith("DrawSaves")) {
+                    doDrawSaves = bool.Parse(l1.Split("=")[1].Trim());
+                }
+                //doDrawDecentralized
+                if (l1.StartsWith("DrawDecentralized")) {
+                    doDrawDecentralized = bool.Parse(l1.Split("=")[1].Trim());
+                }
+
+                //Color
+                if (l1.StartsWith("Color")) {
+                    colorFound = true;
+                }
+
+                if (colorFound && l1.Contains("(")) {
+
+                    List<string> buildingSubstring = l1.Split('=')[0].Split(',').ToList();
+                    //trim list
+                    for (int i = 0; i < buildingSubstring.Count; i++) {
+                        buildingSubstring[i] = buildingSubstring[i].Trim();
+                    }
+
+                    //split l1 on ( ) , and space
+                    List<string> colorSubstring = l1.Split(new char[] { '(', ')', ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                    List<int> color = new List<int>();
+                    foreach (string s in colorSubstring) {
+                        //try parse int
+                        if (int.TryParse(s, out int i)) {
+                            //if i is out of range 0-255 set to 0 or 255
+                            if (i < 0) i = 0;
+                            if (i > 255) i = 255;
+                            color.Add(i);
+                        }
+                    }
+                    //if color is not 6 long add 128 to the end
+                    if (color.Count < 6) {
+                        color.Add(128);
+                    }
+
+
+                    Color hColor = Color.FromArgb(color[0], color[1], color[2]);
+                    Color tColor = Color.FromArgb(color[3], color[4], color[5]);
+
+
+                    rgoColors.Add((buildingSubstring, hColor, tColor));
+                }
+            }
+        }
+
+        void debugStateProv(List<Region> regionList) {
+            //group regionList by number of states in each region
+            var stateCount = regionList.GroupBy(x => x.states.Count).OrderBy(x => x.Key);
+
+            List<string> lines = new List<string>();
+
+            lines.Add("Region;State;Provinces\n");
+            //print out number of states in each region
+            foreach (var s in stateCount) {
+                lines.Add(s.Key + ";" + s.Count()+";\n");
+                Console.WriteLine(s.Key + " states: " + s.Count());
+            }
+            Console.WriteLine();
+            lines.Add("\n");
+
+            //group states by number of provinces
+            var provCount = regionList.SelectMany(x => x.states).GroupBy(x => x.provDict.Count).OrderBy(x => x.Key);
+
+            //print out number of provinces in each state
+            foreach (var p in provCount) {
+                lines.Add(";"+p.Key + ";" + p.Count() + "\n");
+                Console.WriteLine(p.Key + " provinces: " + p.Count());
+                
+            }
+
+            
+
+            //write to file
+            StreamWriter stwr = new StreamWriter(localDir + "/_Output/Debug/StateProv.csv");
+
+            //write lines
+            foreach (string line in lines) {
+                stwr.Write(line);
+            }
+            stwr.Close();
+
+        }
     }
 }

@@ -8,9 +8,6 @@ public class State
     public List<string> traits = new List<string>();
     public string subsistanceBuilding = "";
     public int navalID = 0;
-    public List<(string type,Color color)> hubs = new List<(string, Color)>();
-    public List<Color> impassables = new List<Color>();
-    public List<Color> primeLand = new List<Color>();
     public List<Resource> resoures = new List<Resource>();
     public int arableLand = 0;
     public List<Color> provColors = new List<Color>();
@@ -19,6 +16,11 @@ public class State
     public (int, int) center = (0, 0);
     public (int, int) maxRecSize = (0, 0);
     public bool floodFillMaxRec = false;
+    public List<string> homeLandList = new List<string>();
+
+    //dictionary of color and its prov
+    public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
+
     public State(string name) {
         this.name = name;
     }
@@ -41,6 +43,21 @@ public class State
         MaximumRectangle mr = new MaximumRectangle();
 
         (center, maxRecSize) = mr.center(coordList, floodFillMaxRec, squareDefault);
+    }
+
+    //creat a new prov object and add it to provDict
+    public void addProv(string p) {
+        Province prov = new Province(p, ColorTranslator.FromHtml("#" + p.Replace("x", "")));
+        provDict.Add(prov.color, prov);
+    }
+    
+
+    //set coords of state from provDict
+    public void setCoords() {
+        coordList = new List<(int, int)>();
+        foreach (KeyValuePair<Color, Province> entry in provDict) {
+            coordList.AddRange(entry.Value.coordList);
+        }
     }
 
 
