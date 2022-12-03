@@ -46,3 +46,7 @@ _Output/ColorMap/impossible_prime_map.png
 _Output/National/Starting_National.png
 _Output/National/Starting_National_tags.png
 _Output/TextFiles/RGOs.csv
+_Output/Create_State/00_states.txt
+_Output/Create_State/provs_not_matched.txt
+_Output/National/Create_State.png
+_Output/National/Create_State_tags.png
