@@ -175,7 +175,7 @@ namespace Vic3MapCSharp
                                 for (int i = 0; i < resList.Length; i++) {
                                     if (resList[i].StartsWith("bg_")) {
                                         Resource r = new Resource(resList[i]);
-                                        r.knownAmmount = s.arableLand;
+                                        r.knownAmount = s.arableLand;
                                         r.type = "agriculture";
                                         s.resources.Add(r);
                                     }
@@ -189,7 +189,7 @@ namespace Vic3MapCSharp
                                 if (line.TrimStart().StartsWith("bg_")) {
                                     string[] l2 = line.Replace("\"", "").Split("=");
                                     Resource r = new Resource(l2[0].Trim());
-                                    r.knownAmmount = int.Parse(l2[1].Trim());
+                                    r.knownAmount = int.Parse(l2[1].Trim());
                                     r.type = "resource";
                                     s.resources.Add(r);
                                 }
@@ -208,11 +208,11 @@ namespace Vic3MapCSharp
                                 }
                                 else if (line.TrimStart().StartsWith("undiscovered_amount")) {
                                     string[] l2 = line.Split("=");
-                                    dr.discoverableAmmount = int.Parse(l2[1].Trim());
+                                    dr.discoverableAmount = int.Parse(l2[1].Trim());
                                 }
                                 else if (line.TrimStart().StartsWith("amount") || line.TrimStart().StartsWith("discovered_amount")) {
                                     string[] l2 = line.Split("=");
-                                    dr.knownAmmount = int.Parse(l2[1].Trim());
+                                    dr.knownAmount = int.Parse(l2[1].Trim());
                                 }
                             }
                             //get naval id
@@ -737,14 +737,14 @@ namespace Vic3MapCSharp
                                         val = s.arableLand.ToString();
                                     }
                                     else {
-                                        if (res.knownAmmount > 0) {
-                                            val += res.knownAmmount;
+                                        if (res.knownAmount > 0) {
+                                            val += res.knownAmount;
                                         }
-                                        if (res.discoverableAmmount > 0) {
-                                            if (res.knownAmmount > 0) {
+                                        if (res.discoverableAmount > 0) {
+                                            if (res.knownAmount > 0) {
                                                 val += "|";
                                             }
-                                            val += "(" + res.discoverableAmmount + ")";
+                                            val += "(" + res.discoverableAmount + ")";
                                         }
                                     }
 
@@ -2092,7 +2092,7 @@ namespace Vic3MapCSharp
                                     //if res with resName is in s.resources list
                                     if (s.resources.Where(x => x.name == resName).Count() > 0) {
                                         //write res.amount
-                                        stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmmount + ";");
+                                        stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmount + ";");
                                     }
                                     else {
                                         //write 0
@@ -2108,8 +2108,8 @@ namespace Vic3MapCSharp
                                     //if res with resName is in s.resources list
                                     if (s.resources.Where(x => x.name == resName).Count() > 0) {
                                         //write res.amount
-                                        stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmmount + ";");
-                                        stwr.Write(s.resources.Where(x => x.name == resName).First().discoverableAmmount + ";");
+                                        stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmount + ";");
+                                        stwr.Write(s.resources.Where(x => x.name == resName).First().discoverableAmount + ";");
                                     }
                                     else {
                                         //write 0
