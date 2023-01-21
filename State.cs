@@ -2,16 +2,16 @@
 
 namespace Vic3MapCSharp
 {
-    //State class stores provIDlsit, name, arabelResoures, cappedResoures, and discoverableResources
+    //State class stores provIDlist, name, arableResources, cappedResources, and discoverableResources
     public class State
     {
         public List<string> provIDList = new List<string>();
         public string name = "";
         public int stateID = 0;
         public List<string> traits = new List<string>();
-        public string subsistanceBuilding = "";
+        public string subsistenceBuilding = "";
         public int navalID = 0;
-        public List<Resource> resoures = new List<Resource>();
+        public List<Resource> resources = new List<Resource>();
         public int arableLand = 0;
         public List<Color> provColors = new List<Color>();
         public Color color = Color.FromArgb(0, 0, 0, 0);
@@ -29,7 +29,7 @@ namespace Vic3MapCSharp
         }
         public State() { }
 
-        //convert hexdicimal to color
+        //convert hexadecimal to color
         public void hexToColor() {
             for (int i = 0; i < provIDList.Count; i++) {
                 Color c = ColorTranslator.FromHtml("#" + provIDList[i]);
@@ -48,7 +48,7 @@ namespace Vic3MapCSharp
             (center, maxRecSize) = mr.center(coordList, floodFillMaxRec, squareDefault);
         }
 
-        //creat a new province object and add it to provDict
+        //create a new province object and add it to provDict
         public void addProv(string p) {
             Province prov = new Province(p, ColorTranslator.FromHtml("#" + p.Replace("x", "")));
             provDict.Add(prov.color, prov);

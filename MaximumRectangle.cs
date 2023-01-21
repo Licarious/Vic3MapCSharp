@@ -123,7 +123,7 @@ public class MaximumRectangle
         return (max, x, y);
     }
 
-    //givin a matrix of 1s and 0s fill in all 0s that are fully surrounded by 1s and return the matrix
+    //given a matrix of 1s and 0s fill in all 0s that are fully surrounded by 1s and return the matrix
     public void replaceSurrounded(int[][] mat) {
         //replace all 0s with -1
         for (int i = 0; i < mat.Length; i++) {
@@ -133,7 +133,7 @@ public class MaximumRectangle
                 }
             }
         }
-        //call floodFill for all -1 lying on deges
+        //call floodFill for all -1 lying on edges
         for (int i = 0; i < mat.Length; i++) {
             if (mat[i][0] == -1) {
                 floodFill(mat, i, 0, -1, 0);
@@ -165,7 +165,7 @@ public class MaximumRectangle
         }
     }
 
-    //stack bassed flood fill algorithm
+    //stack based flood fill algorithm
     public void floodFill(int[][] mat, int x, int y, int prevV, int newV) {
         Stack<(int, int)> stack = new Stack<(int, int)>();
         stack.Push((x, y));
@@ -208,7 +208,7 @@ public class MaximumRectangle
             }
         }
 
-        //create rectanglural matrix of size (maxX - minX + 1) x (maxY - minY + 1)
+        //create rectangular matrix of size (maxX - minX + 1) x (maxY - minY + 1)
         int[][] A = new int[maxX - minX + 1][];
         for (int i = 0; i < maxX - minX + 1; i++) {
             A[i] = new int[maxY - minY + 1];
@@ -235,10 +235,10 @@ public class MaximumRectangle
         (int, int) squareCenter = (0, 0);
         (int, int) squareSize = (0, 0);
         
-        //find the maxSize in region and return the length of the square and the bottem right corner of the square as xy    ints
+        //find the maxSize in region and return the length of the square and the bottom right corner of the square as xy    ints
         (int maxSizeSquare, int x, int y) = maxSize(A);
 
-        //set center to middle of square givin by maxSize and x,y as ints of bottem right corner
+        //set center to middle of square given by maxSize and x,y as ints of bottom right corner
         squareCenter = (x - maxSizeSquare / 2 + minX, y - maxSizeSquare / 2 + minY);
         squareSize = (maxSizeSquare, maxSizeSquare);
             
@@ -249,7 +249,7 @@ public class MaximumRectangle
         //find the largest rectangle without holes in the region and return the top left and bottom right corners of the rectangle as a tuple
         (int area, int top, int bottem, int left, int right) = maxRectangle(maxX - minX + 1, maxY - minY + 1, A);
 
-        //set center to center middle of (left,top) and (right,bottem) as ints
+        //set center to center middle of (left,top) and (right,bottom) as ints
         center = ((top + bottem) / 2 + minX, (left + right) / 2 + minY);
         size = ((bottem - top), (right - left));
 
@@ -264,7 +264,7 @@ public class MaximumRectangle
                 useMaxSquare = true;
             }
 
-            //check if corrers are not in A
+            //check if corners are not in A
             if (A[top][left] == 0 || A[top][right] == 0 || A[bottem][left] == 0 || A[bottem][right] == 0) {
                 useMaxSquare = true;
             }

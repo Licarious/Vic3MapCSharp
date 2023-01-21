@@ -53,7 +53,7 @@ namespace Vic3MapCSharp
         }
 
         public override string ToString() {
-            //returns name, interalID, provDict.Count
+            //returns name, internalID, provDict.Count
             return name + "\t ID: " + interalID + "\t Provs:" + provDict.Count;
 
         }
