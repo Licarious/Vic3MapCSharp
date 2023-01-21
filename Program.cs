@@ -492,7 +492,8 @@ namespace Vic3MapCSharp
                     debugDrawRectangle(regionList, waterRecCenter, waterRecSize);
 
                     drawHubs(regionList, image);
-                    drawImapssiblePrime(regionList, image);
+                    drawImpassablePrime(regionList, image);
+                    drawTerrain(regionList, image);
                 }
 
 
@@ -1379,9 +1380,9 @@ namespace Vic3MapCSharp
                 hubMap.Save(localDir + "/_Output/ColorMap/hub_map.png");
             }
 
-            void drawImapssiblePrime(List<Region> regionList, Image image) {
+            void drawImpassablePrime(List<Region> regionList, Image image) {
                 //create a new blank image of size image
-                Bitmap impossiblePrimeMap = new Bitmap(image.Width, image.Height);
+                Bitmap impassablePrimeMap = new Bitmap(image.Width, image.Height);
 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -1393,13 +1394,13 @@ namespace Vic3MapCSharp
                                     c = Color.Blue;
                                 }
                                 foreach ((int, int) coord in p.coordList) {
-                                    impossiblePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
+                                    impassablePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
                                 }
                             }
                             else if (p.isPrimeLand) {
                                 Color c = Color.Green;
                                 foreach ((int, int) coord in p.coordList) {
-                                    impossiblePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
+                                    impassablePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
                                 }
                             }
 
@@ -1407,7 +1408,97 @@ namespace Vic3MapCSharp
                     }
                 }
 
-                impossiblePrimeMap.Save(localDir + "/_Output/ColorMap/impossible_prime_map.png");
+                impassablePrimeMap.Save(localDir + "/_Output/ColorMap/impassable_prime_map.png");
+            }
+
+            void drawTerrain(List<Region> regionList, Image image) {
+                //add terrain definitions
+                parseTerrain(regionList);
+
+                //create a new blank image of size image
+                Bitmap terrainMap = new Bitmap(image.Width, image.Height);
+
+                foreach (Region r in regionList) {
+                    foreach (State s in r.states) {
+                        //for each province in s.provDict
+                        foreach (Province p in s.provDict.Values) {
+                            if (p.isLake || p.isSea) {
+                                Color c = Color.Blue;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "plains") {
+                                Color c = Color.LawnGreen;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "forest") {
+                                Color c = Color.ForestGreen;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "jungle") {
+                                Color c = Color.DarkOliveGreen;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "desert") {
+                                Color c = Color.SandyBrown;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "hills") {
+                                Color c = Color.Red;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "mountain") {
+                                Color c = Color.Black;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "savanna") {
+                                Color c = Color.Orange;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "snow") {
+                                Color c = Color.Snow;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "tundra") {
+                                Color c = Color.MediumOrchid;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "wetland") {
+                                Color c = Color.Brown;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else {
+                                Color c = Color.LightGray;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                terrainMap.Save(localDir + "/_Output/ColorMap/terrain_map.png");
             }
 
             Dictionary<string, Nation> parseNations(List<Region> regionList) {
@@ -1817,7 +1908,7 @@ namespace Vic3MapCSharp
                         if (provDict.ContainsKey(c)) {
                             //set province.terrain to l1[1]
                             provDict[c].terrain = l1[1];
-                            provDict[c].intearnlID = count;
+                            provDict[c].internalID = count;
                         }
                         else {
                             //Console.WriteLine("Error: " + c + " not found in provDict");
@@ -1840,12 +1931,12 @@ namespace Vic3MapCSharp
                     foreach (State s in r.states) {
                         foreach (Province p in s.provDict.Values) {
                             //check if p.internalID is -1
-                            if (p.intearnlID == -1) {
+                            if (p.internalID == -1) {
                                 Console.WriteLine("Error: " + p.name + " has no internalID");
                                 continue;
                             }
                             //add province to provDict
-                            provDict.Add(p.intearnlID, p);
+                            provDict.Add(p.internalID, p);
                         }
                     }
                 }
