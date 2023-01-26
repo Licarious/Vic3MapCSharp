@@ -2,12 +2,12 @@
 
 namespace Vic3MapCSharp
 {
-    //Resource class stores type, knownAmmount, discoverableAmmount
+    //Resource class stores type, knownAmount, discoverableAmount
     public class Resource
     {
         public string name = "";
-        public int knownAmmount = 0;
-        public int discoverableAmmount = 0;
+        public int knownAmount = 0;
+        public int discoverableAmount = 0;
         public string type = "";
         public Color color = Color.HotPink;
         public Color textColor = Color.DarkBlue;
@@ -19,7 +19,7 @@ namespace Vic3MapCSharp
         }
         //toString method
         public override string ToString() {
-            return name + ": " + knownAmmount + "/" + discoverableAmmount;
+            return name + ": " + knownAmount + "/" + discoverableAmount;
         }
     }
 }

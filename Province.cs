@@ -5,7 +5,7 @@ namespace Vic3MapCSharp
     public class Province
     {
         public string name = "";
-        public int intearnlID = -1;
+        public int internalID = -1;
         public string terrain = "";
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public List<(int, int)> coordList = new List<(int, int)>();

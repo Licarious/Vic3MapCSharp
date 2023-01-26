@@ -16,13 +16,13 @@ namespace Vic3MapCSharp
             }
             Stopwatch sw = Stopwatch.StartNew();
             Random rand = new Random();
-            //move up 3 directorys from local
+            //move up 3 directories from local
             string localDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
 
             //Draws Individual RGO Maps
             bool doDrawRGOs = false;
-            //Draws National Maps as they woud exist at the start of the game
+            //Draws National Maps as they would exist at the start of the game
             bool doDrawStartingNations = true;
             //Draws National Maps as they exist in the provided saves (Dynamic Tags Buggy)
             bool doDrawSaves = true;
@@ -90,7 +90,7 @@ namespace Vic3MapCSharp
                                 //Console.WriteLine("\t"+line.Split()[0]);
                                 s = new State(line.Split()[0]);
 
-                                //incase people are orverriding states in latter files
+                                //in-case people are overriding states in latter files
                                 //check if state with same name already exists in stateList and if so, delete it
                                 foreach (State state in stateList) {
                                     if (state.name == s.name) {
@@ -106,7 +106,7 @@ namespace Vic3MapCSharp
                                 s.stateID = int.Parse(line.Split()[2]);
                             }
                             if (line.StartsWith("subsistence_building")) {
-                                s.subsistanceBuilding = line.Split("=")[1].Replace("\"", "").Trim();
+                                s.subsistenceBuilding = line.Split("=")[1].Replace("\"", "").Trim();
                             }
 
                             //get provinces
@@ -175,9 +175,9 @@ namespace Vic3MapCSharp
                                 for (int i = 0; i < resList.Length; i++) {
                                     if (resList[i].StartsWith("bg_")) {
                                         Resource r = new Resource(resList[i]);
-                                        r.knownAmmount = s.arableLand;
+                                        r.knownAmount = s.arableLand;
                                         r.type = "agriculture";
-                                        s.resoures.Add(r);
+                                        s.resources.Add(r);
                                     }
                                 }
                             }
@@ -189,12 +189,12 @@ namespace Vic3MapCSharp
                                 if (line.TrimStart().StartsWith("bg_")) {
                                     string[] l2 = line.Replace("\"", "").Split("=");
                                     Resource r = new Resource(l2[0].Trim());
-                                    r.knownAmmount = int.Parse(l2[1].Trim());
+                                    r.knownAmount = int.Parse(l2[1].Trim());
                                     r.type = "resource";
-                                    s.resoures.Add(r);
+                                    s.resources.Add(r);
                                 }
                             }
-                            //get discvorable resources
+                            //get discoverable resources
                             if (line.TrimStart().StartsWith("resource")) {
                                 discoverableResourseFound = true;
                             }
@@ -204,15 +204,15 @@ namespace Vic3MapCSharp
                                     string[] l2 = line.Split("=");
                                     dr = new Resource(l2[1].Trim().Replace("\"", ""));
                                     dr.type = "discoverable";
-                                    s.resoures.Add(dr);
+                                    s.resources.Add(dr);
                                 }
                                 else if (line.TrimStart().StartsWith("undiscovered_amount")) {
                                     string[] l2 = line.Split("=");
-                                    dr.discoverableAmmount = int.Parse(l2[1].Trim());
+                                    dr.discoverableAmount = int.Parse(l2[1].Trim());
                                 }
                                 else if (line.TrimStart().StartsWith("amount") || line.TrimStart().StartsWith("discovered_amount")) {
                                     string[] l2 = line.Split("=");
-                                    dr.knownAmmount = int.Parse(l2[1].Trim());
+                                    dr.knownAmount = int.Parse(l2[1].Trim());
                                 }
                             }
                             //get naval id
@@ -296,7 +296,7 @@ namespace Vic3MapCSharp
                                         if (d > 0 && d < 1.1) {
                                             d = d * 255;
                                         }
-                                        //if d is outsied of 0-255 range, then set it to 0 or 255
+                                        //if d is outside of 0-255 range, then set it to 0 or 255
                                         if (d < 0) {
                                             d = 0;
                                         }
@@ -342,7 +342,7 @@ namespace Vic3MapCSharp
                 //dictionary of color and province object
                 Dictionary<Color, Province> colorToProvDic = new Dictionary<Color, Province>();
 
-                //itterate throu all states in regionList and add their provDict to colorToProv
+                //iterate through all states in regionList and add their provDict to colorToProv
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
@@ -391,7 +391,7 @@ namespace Vic3MapCSharp
                                 break;
                             }
                             else if (l2[i].StartsWith("x")) {
-                                //similary for lakes
+                                //similarly for lakes
                                 foreach (KeyValuePair<Color, Province> kvp in colorToProvDic) {
                                     if (kvp.Key.ToArgb() == ColorTranslator.FromHtml("#" + l2[i].Replace("x", "")).ToArgb()) {
                                         kvp.Value.isLake = true;
@@ -492,7 +492,8 @@ namespace Vic3MapCSharp
                     debugDrawRectangle(regionList, waterRecCenter, waterRecSize);
 
                     drawHubs(regionList, image);
-                    drawImapssiblePrime(regionList, image);
+                    drawImpassablePrime(regionList, image);
+                    drawTerrain(regionList, image);
                 }
 
 
@@ -514,7 +515,7 @@ namespace Vic3MapCSharp
                             if (file.EndsWith(".v3")) {
                                 parseSave(regionList, nationDict, file);
 
-                                //seprate name from file path
+                                //separate name from file path
                                 string[] split = file.Split('\\');
                                 string fileName = split[split.Length - 1].Split(".")[0];
 
@@ -713,7 +714,7 @@ namespace Vic3MapCSharp
 
                     foreach (Region r in regionList) {
                         foreach (State s in r.states) {
-                            foreach (Resource res in s.resoures) {
+                            foreach (Resource res in s.resources) {
                                 if (res.name.Contains(name)) {
                                     //setpixel for each s.coords in rgoMap
                                     foreach ((int, int) c in s.coordList) {
@@ -728,7 +729,7 @@ namespace Vic3MapCSharp
 
                     foreach (Region r in regionList) {
                         foreach (State s in r.states) {
-                            foreach (Resource res in s.resoures) {
+                            foreach (Resource res in s.resources) {
                                 if (res.name.Contains(name)) {
                                     wType = res.type;
                                     //write text  
@@ -737,14 +738,14 @@ namespace Vic3MapCSharp
                                         val = s.arableLand.ToString();
                                     }
                                     else {
-                                        if (res.knownAmmount > 0) {
-                                            val += res.knownAmmount;
+                                        if (res.knownAmount > 0) {
+                                            val += res.knownAmount;
                                         }
-                                        if (res.discoverableAmmount > 0) {
-                                            if (res.knownAmmount > 0) {
+                                        if (res.discoverableAmount > 0) {
+                                            if (res.knownAmount > 0) {
                                                 val += "|";
                                             }
-                                            val += "(" + res.discoverableAmmount + ")";
+                                            val += "(" + res.discoverableAmount + ")";
                                         }
                                     }
 
@@ -895,7 +896,7 @@ namespace Vic3MapCSharp
                 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
-                        foreach (Resource res in s.resoures) {
+                        foreach (Resource res in s.resources) {
                             if (s.center == (0, 0)) {
                                 s.getCenter2(true);
                             }
@@ -1092,7 +1093,7 @@ namespace Vic3MapCSharp
                             wName.Add(tmpWord);
                         }
 
-                        //if region maxRecSize width is atleast 2.5x the height merge wName into one line
+                        //if region maxRecSize width is at least 2.5x the height merge wName into one line
                         if (regionList[i].maxRecSize.Item1 >= regionList[i].maxRecSize.Item2 * 2) {
                             string tmp = "";
                             for (int j = 0; j < wName.Count; j++) {
@@ -1214,7 +1215,7 @@ namespace Vic3MapCSharp
                             }
 
 
-                            //else if region maxRecSize width is atleast 2.1x the height merge wName into one line
+                            //else if region maxRecSize width is at least 2.1x the height merge wName into one line
                             else if ((regionList[i].states[j].maxRecSize.Item1 >= regionList[i].states[j].maxRecSize.Item2 * 2.1 || wLength < 8) && wName.Count > 1) {
                                 string tmp = "";
                                 for (int k = 0; k < wName.Count; k++) {
@@ -1289,14 +1290,14 @@ namespace Vic3MapCSharp
                 return (c.R * 299 + c.G * 587 + c.B * 114) / 1000;
             }
 
-            //debug draw rectange around each region and state
+            //debug draw rectangle around each region and state
             void debugDrawRectangle(List<Region> regionList, (int, int) waterRecCenter, (int, int) waterRecSize) {
                 //if Output/Debug/ does not exist create it
                 if (!Directory.Exists(localDir + "/_Output/Debug/")) {
                     Directory.CreateDirectory(localDir + "/_Output/Debug/");
                 }
 
-                //creat a new blank region map
+                //create a new blank region map
                 Bitmap regionMap = new Bitmap(localDir + "/_Output/BlankMap/Region_Blank.png");
                 Graphics g = Graphics.FromImage(regionMap);
 
@@ -1379,9 +1380,9 @@ namespace Vic3MapCSharp
                 hubMap.Save(localDir + "/_Output/ColorMap/hub_map.png");
             }
 
-            void drawImapssiblePrime(List<Region> regionList, Image image) {
+            void drawImpassablePrime(List<Region> regionList, Image image) {
                 //create a new blank image of size image
-                Bitmap impossiblePrimeMap = new Bitmap(image.Width, image.Height);
+                Bitmap impassablePrimeMap = new Bitmap(image.Width, image.Height);
 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -1393,13 +1394,13 @@ namespace Vic3MapCSharp
                                     c = Color.Blue;
                                 }
                                 foreach ((int, int) coord in p.coordList) {
-                                    impossiblePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
+                                    impassablePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
                                 }
                             }
                             else if (p.isPrimeLand) {
                                 Color c = Color.Green;
                                 foreach ((int, int) coord in p.coordList) {
-                                    impossiblePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
+                                    impassablePrimeMap.SetPixel(coord.Item1, coord.Item2, c);
                                 }
                             }
 
@@ -1407,7 +1408,97 @@ namespace Vic3MapCSharp
                     }
                 }
 
-                impossiblePrimeMap.Save(localDir + "/_Output/ColorMap/impossible_prime_map.png");
+                impassablePrimeMap.Save(localDir + "/_Output/ColorMap/impassable_prime_map.png");
+            }
+
+            void drawTerrain(List<Region> regionList, Image image) {
+                //add terrain definitions
+                parseTerrain(regionList);
+
+                //create a new blank image of size image
+                Bitmap terrainMap = new Bitmap(image.Width, image.Height);
+
+                foreach (Region r in regionList) {
+                    foreach (State s in r.states) {
+                        //for each province in s.provDict
+                        foreach (Province p in s.provDict.Values) {
+                            if (p.isLake || p.isSea) {
+                                Color c = Color.Blue;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "plains") {
+                                Color c = Color.LawnGreen;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "forest") {
+                                Color c = Color.ForestGreen;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "jungle") {
+                                Color c = Color.DarkOliveGreen;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "desert") {
+                                Color c = Color.SandyBrown;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "hills") {
+                                Color c = Color.Red;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "mountain") {
+                                Color c = Color.Black;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "savanna") {
+                                Color c = Color.Orange;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "snow") {
+                                Color c = Color.Snow;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "tundra") {
+                                Color c = Color.MediumOrchid;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else if (p.terrain == "wetland") {
+                                Color c = Color.Brown;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                            else {
+                                Color c = Color.LightGray;
+                                foreach ((int, int) coord in p.coordList) {
+                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                terrainMap.Save(localDir + "/_Output/ColorMap/terrain_map.png");
             }
 
             Dictionary<string, Nation> parseNations(List<Region> regionList) {
@@ -1689,7 +1780,7 @@ namespace Vic3MapCSharp
                 //add name to bitmap for each nation
                 foreach (Nation n in nationDict.Values) {
 
-                    //draw decentralised nations?
+                    //draw decentralized nations?
                     if (n.type == "decentralized" && !drawDecentralized) {
                         continue;
                     }
@@ -1739,7 +1830,7 @@ namespace Vic3MapCSharp
                     numberFontSize = (int)(numberFontSize * 1.3);
 
                     if (recFontSize > numberFontSize) {
-                        //Console.WriteLine(n.name + " would be larger as a rectange by " + (recFontSize - numberFontSize) + " size");
+                        //Console.WriteLine(n.name + " would be larger as a rectangle by " + (recFontSize - numberFontSize) + " size");
                         n.getCenter2();
                         numberFontSize = recFontSize;
                     }
@@ -1817,7 +1908,7 @@ namespace Vic3MapCSharp
                         if (provDict.ContainsKey(c)) {
                             //set province.terrain to l1[1]
                             provDict[c].terrain = l1[1];
-                            provDict[c].intearnlID = count;
+                            provDict[c].internalID = count;
                         }
                         else {
                             //Console.WriteLine("Error: " + c + " not found in provDict");
@@ -1832,25 +1923,25 @@ namespace Vic3MapCSharp
             }
 
             void parseSave(List<Region> regionList, Dictionary<string, Nation> nationDict, string filePath) {
-                //province dictionary for matching province intearnlID to province object
+                //province dictionary for matching province internalID to province object
                 Dictionary<int, Province> provDict = new Dictionary<int, Province>();
 
                 //for each region in regionList
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         foreach (Province p in s.provDict.Values) {
-                            //check if p.intearnlID is -1
-                            if (p.intearnlID == -1) {
-                                Console.WriteLine("Error: " + p.name + " has no intearnlID");
+                            //check if p.internalID is -1
+                            if (p.internalID == -1) {
+                                Console.WriteLine("Error: " + p.name + " has no internalID");
                                 continue;
                             }
                             //add province to provDict
-                            provDict.Add(p.intearnlID, p);
+                            provDict.Add(p.internalID, p);
                         }
                     }
                 }
 
-                //sort on intearnlID
+                //sort on internalID
                 provDict = provDict.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
 
                 //reset all provDict in nationDict
@@ -1892,7 +1983,7 @@ namespace Vic3MapCSharp
                         if (l1.StartsWith("definition=")) {
                             string tag = l1.Split("=")[1].Replace("\"", "").Trim();
                             if (tag.Length < 8) {
-                                //Console.WriteLine(indintation);
+                                //Console.WriteLine(indentation);
                                 if (nationDict.ContainsKey(tag) && !civilWarFound) {
                                     n = nationDict[tag];
                                     n.interalID = potentialID;
@@ -1900,10 +1991,10 @@ namespace Vic3MapCSharp
                                 }
                                 else if (civilWarFound) {
                                     try {
-                                        //supprot for dynaimc tags
+                                        //support for dynamic tags
                                         n = new Nation(tag + "_cw");
                                         n.interalID = potentialID;
-                                        //assigne n a random color
+                                        //assign n a random color
                                         n.color = ColorFromHSV360(rand.Next(0, 360), 100, 100);
                                         nationDict.Add(tag + "_cw", n);
                                         Console.WriteLine(n);
@@ -1918,7 +2009,7 @@ namespace Vic3MapCSharp
                         }
                         else if (l1.StartsWith("map_color=rgb")) {
                             List<int> rgbValues = new List<int>();
-                            //try to parss l1 words to int, if they are add them to rgbValues
+                            //try to parse l1 words to int, if they are add them to rgbValues
                             foreach (string s in l1.Split("=")[1].Replace("(", "").Replace(")", "").Replace("rgb", "").Split(",")) {
                                 if (int.TryParse(s, out int i)) {
                                     rgbValues.Add(i);
@@ -1938,7 +2029,7 @@ namespace Vic3MapCSharp
                             //try parse int on l1[1]
                             if (int.TryParse(l1.Split("=")[1].Trim(), out potentialID)) {
                                 try {
-                                    //set n to nationDict where n.interalID == potentialID
+                                    //set n to nationDict where n.internalID == potentialID
                                     n = nationDict.Values.Where(x => x.interalID == potentialID).First();
                                     //Console.WriteLine(n);
 
@@ -1952,10 +2043,10 @@ namespace Vic3MapCSharp
                     if (indintation > 1 && !foundSeaNodes) {
                         if (l1.StartsWith("provinces=")) {
                             //Console.WriteLine(l1);
-                            //if nation with interalID == potentialID in nationDict, set n to it
+                            //if nation with internalID == potentialID in nationDict, set n to it
 
                             try {
-                                //find nation with interalID == potentialID
+                                //find nation with internalID == potentialID
                                 n = nationDict.Values.Where(x => x.interalID == potentialID).First();
 
                                 //check if substring after = has less than 3 characters
@@ -1975,7 +2066,7 @@ namespace Vic3MapCSharp
                                     }
                                 }
 
-                                //int in idList are in pairs of 2 where they reperent a range starting and the first number and ending at the first+second number
+                                //int in idList are in pairs of 2 where they represent a range starting and the first number and ending at the first+second number
                                 //for each int in idList
                                 for (int i = 0; i < idList.Count; i += 2) {
                                     //Console.WriteLine(n + "\t\t\t" + idList[i] + "\t" + idList[i + 1]);
@@ -2038,7 +2129,7 @@ namespace Vic3MapCSharp
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         //go through each resource in s.resDict
-                        foreach (Resource res in s.resoures) {
+                        foreach (Resource res in s.resources) {
                             //if resDict does not contain res.type
                             if (!resDict.ContainsKey(res.type)) {
                                 //add res.type to resDict
@@ -2056,7 +2147,7 @@ namespace Vic3MapCSharp
                 //create a new csv file for each RGOs
                 StreamWriter stwr = new StreamWriter(localDir + "/_Output/TextFiles/RGOs.csv");
 
-                //headder
+                //header
                 stwr.Write("Region;State;");
                 foreach (string resType in resDict.Keys) {
                     //resource
@@ -2089,10 +2180,10 @@ namespace Vic3MapCSharp
                         foreach (string resType in resDict.Keys) {
                             if (resType == "resource") {
                                 foreach (string resName in resDict[resType]) {
-                                    //if res with resName is in s.resoures lsit
-                                    if (s.resoures.Where(x => x.name == resName).Count() > 0) {
+                                    //if res with resName is in s.resources list
+                                    if (s.resources.Where(x => x.name == resName).Count() > 0) {
                                         //write res.amount
-                                        stwr.Write(s.resoures.Where(x => x.name == resName).First().knownAmmount + ";");
+                                        stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmount + ";");
                                     }
                                     else {
                                         //write 0
@@ -2105,11 +2196,11 @@ namespace Vic3MapCSharp
                         foreach (string resType in resDict.Keys) {
                             if (resType == "discoverable") {
                                 foreach (string resName in resDict[resType]) {
-                                    //if res with resName is in s.resoures lsit
-                                    if (s.resoures.Where(x => x.name == resName).Count() > 0) {
+                                    //if res with resName is in s.resources list
+                                    if (s.resources.Where(x => x.name == resName).Count() > 0) {
                                         //write res.amount
-                                        stwr.Write(s.resoures.Where(x => x.name == resName).First().knownAmmount + ";");
-                                        stwr.Write(s.resoures.Where(x => x.name == resName).First().discoverableAmmount + ";");
+                                        stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmount + ";");
+                                        stwr.Write(s.resources.Where(x => x.name == resName).First().discoverableAmount + ";");
                                     }
                                     else {
                                         //write 0
@@ -2122,7 +2213,7 @@ namespace Vic3MapCSharp
 
                         //arable
                         stwr.Write(s.arableLand + ";");
-                        foreach (Resource res in s.resoures) {
+                        foreach (Resource res in s.resources) {
                             if (res.type == "agriculture") {
                                 stwr.Write(res.name.Replace("bg_", "") + " ");
                             }
@@ -2429,7 +2520,7 @@ namespace Vic3MapCSharp
                 //create new file in localDir + "/_Output/Create_State/"
                 StreamWriter stwr = new StreamWriter(localDir + "/_Output/Create_State/00_states.txt");
 
-                //write headder
+                //write header
                 stwr.WriteLine("STATES = {");
 
                 //group mapOverlap by regionName
