@@ -8,10 +8,10 @@ namespace Vic3MapCSharp
         public string name = "";
         public string gfxCulture = "";
         public Color color = Color.FromArgb(0, 0, 0, 0);
-        public List<State> states = new List<State>();
-        public List<string> stateNames = new List<string>();
+        public List<State> states = new();
+        public List<string> stateNames = new();
         public (int, int) center = (0, 0);
-        public List<(int, int)> coordList = new List<(int, int)>();
+        public List<(int, int)> coordList = new();
         public (int, int) maxRecSize = (0, 0);
         public bool floodFillMaxRec = true;
         public Region(string name) {
@@ -19,7 +19,7 @@ namespace Vic3MapCSharp
         }
         public Region() { }
 
-        public void getCenter2(bool squareDefault = false) {
+        public void GetCenter2(bool squareDefault = false) {
             //all coords from each state in region to coordlist
             if (coordList.Count == 0) {
                 for (int i = 0; i < states.Count; i++) {
@@ -33,11 +33,8 @@ namespace Vic3MapCSharp
             if (coordList.Count == 0) {
                 return;
             }
-
-            //create gfg object
-            MaximumRectangle mr = new MaximumRectangle();
-
-            (center, maxRecSize) = mr.center(coordList, floodFillMaxRec, squareDefault);
+            
+            (center, maxRecSize) = MaximumRectangle.Center(coordList, floodFillMaxRec, squareDefault);
 
         }
 

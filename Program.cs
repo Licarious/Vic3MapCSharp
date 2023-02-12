@@ -15,7 +15,7 @@ namespace Vic3MapCSharp
                 return;
             }
             Stopwatch sw = Stopwatch.StartNew();
-            Random rand = new Random();
+            Random rand = new();
             //move up 3 directories from local
             string localDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
@@ -29,14 +29,12 @@ namespace Vic3MapCSharp
             //Should Decentralized Nations be drawn on the National Maps
             bool doDrawDecentralized = true;
 
-            bool doCreateStateHistory = true;
-
             bool doDrawDebug = true;
 
-            List<(List<string> rgoNames, Color hColor, Color tColor)> rgoColors = new List<(List<string>, Color, Color)>();
+            List<(List<string> rgoNames, Color hColor, Color tColor)> rgoColors = new();
 
             //create new List ignoreRGONames and initialize it with "bg_monuments", "bg_skyscraper"
-            List<string> ignoreRGONames = new List<string> { "bg_monuments", "bg_skyscraper" };
+            List<string> ignoreRGONames = new() { "bg_monuments", "bg_skyscraper" };
 
 
             //check input config file
@@ -48,9 +46,9 @@ namespace Vic3MapCSharp
             }
 
 
-            List<State> stateList = new List<State>();
+            List<State> stateList = new();
             parseStateFiles(stateList);
-            List<Region> regionList = new List<Region>();
+            List<Region> regionList = new();
             parseRegionFiles(regionList);
             mergeStateRegion(stateList, regionList);
 
@@ -77,8 +75,8 @@ namespace Vic3MapCSharp
                         string[] lines = File.ReadAllLines(file);
                         //for each line
                         //Console.WriteLine(file);
-                        State s = new State();
-                        Resource dr = new Resource();
+                        State s = new();
+                        Resource dr = new();
                         bool cappedResourseFound = false;
                         bool discoverableResourseFound = false;
                         bool traitsfound = false;
@@ -116,7 +114,7 @@ namespace Vic3MapCSharp
                                     if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
                                         s.provIDList.Add(n);
-                                        s.addProv(n);
+                                        s.AddProv(n);
                                     }
                                 }
 
@@ -129,7 +127,7 @@ namespace Vic3MapCSharp
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
                                         Color c = ColorTranslator.FromHtml("#" + n);
                                         //set province with color c to isImpassible
-                                        if (s.provDict.TryGetValue(c, out Province p)) {
+                                        if (s.provDict.TryGetValue(c, out var p)) {
                                             p.isImpassible = true;
                                         }
 
@@ -144,7 +142,7 @@ namespace Vic3MapCSharp
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
                                         Color c = ColorTranslator.FromHtml("#" + n);
                                         //set province with color c to prime land
-                                        if (s.provDict.TryGetValue(c, out Province p)) {
+                                        if (s.provDict.TryGetValue(c, out var p)) {
                                             p.isPrimeLand = true;
                                         }
                                     }
@@ -174,9 +172,10 @@ namespace Vic3MapCSharp
                                 string[] resList = line.Split("=")[1].Replace("\"", "").Split(" ");
                                 for (int i = 0; i < resList.Length; i++) {
                                     if (resList[i].StartsWith("bg_")) {
-                                        Resource r = new Resource(resList[i]);
-                                        r.knownAmount = s.arableLand;
-                                        r.type = "agriculture";
+                                        Resource r = new(resList[i]) {
+                                            knownAmount = s.arableLand,
+                                            type = "agriculture"
+                                        };
                                         s.resources.Add(r);
                                     }
                                 }
@@ -188,9 +187,10 @@ namespace Vic3MapCSharp
                             if (cappedResourseFound) {
                                 if (line.TrimStart().StartsWith("bg_")) {
                                     string[] l2 = line.Replace("\"", "").Split("=");
-                                    Resource r = new Resource(l2[0].Trim());
-                                    r.knownAmount = int.Parse(l2[1].Trim());
-                                    r.type = "resource";
+                                    Resource r = new(l2[0].Trim()) {
+                                        knownAmount = int.Parse(l2[1].Trim()),
+                                        type = "resource"
+                                    };
                                     s.resources.Add(r);
                                 }
                             }
@@ -202,8 +202,9 @@ namespace Vic3MapCSharp
 
                                 if (line.TrimStart().StartsWith("type")) {
                                     string[] l2 = line.Split("=");
-                                    dr = new Resource(l2[1].Trim().Replace("\"", ""));
-                                    dr.type = "discoverable";
+                                    dr = new Resource(l2[1].Trim().Replace("\"", "")) {
+                                        type = "discoverable"
+                                    };
                                     s.resources.Add(dr);
                                 }
                                 else if (line.TrimStart().StartsWith("undiscovered_amount")) {
@@ -226,7 +227,7 @@ namespace Vic3MapCSharp
 
                                 Color hubC = ColorTranslator.FromHtml("#" + line.Split("=")[1].Replace("\"", "").Replace("x", "").Trim());
                                 //set province with color c hubName to name
-                                if (s.provDict.TryGetValue(hubC, out Province p)) {
+                                if (s.provDict.TryGetValue(hubC, out var p)) {
                                     p.hubName = line.Split("=")[0].Trim();
                                     //if s.color.A is 0 set the color to hubcolor
                                     if (s.color.A == 0) {
@@ -256,7 +257,7 @@ namespace Vic3MapCSharp
                 foreach (string file in files) {
                     if (file.EndsWith(".txt")) {
                         string[] lines = File.ReadAllLines(file);
-                        Region r = new Region();
+                        Region r = new();
                         //Console.WriteLine(file);
                         foreach (string l1 in lines) {
                             string line = l1.Replace("=", " = ").Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("  ", " ").Trim();
@@ -287,14 +288,14 @@ namespace Vic3MapCSharp
                                 count++;
                                 string[] e = line.Split("=")[1].Split(" ");
 
-                                List<double> rgbValues = new List<double>();
+                                List<double> rgbValues = new();
 
                                 foreach (string s in e) {
                                     //try parse float
                                     if (double.TryParse(s, out double d)) {
                                         //if d is between 0 and 1.1 then multiply it by 255
                                         if (d > 0 && d < 1.1) {
-                                            d = d * 255;
+                                            d *= 255;
                                         }
                                         //if d is outside of 0-255 range, then set it to 0 or 255
                                         if (d < 0) {
@@ -331,7 +332,7 @@ namespace Vic3MapCSharp
                     foreach (State s in stateList) {
                         if (r.stateNames.Contains(s.name)) {
                             r.states.Add(s);
-                            s.hexToColor();
+                            s.HexToColor();
                         }
                     }
                 }
@@ -340,7 +341,7 @@ namespace Vic3MapCSharp
             //parse default.map
             void parseDefaultMap(List<Region> regionList) {
                 //dictionary of color and province object
-                Dictionary<Color, Province> colorToProvDic = new Dictionary<Color, Province>();
+                Dictionary<Color, Province> colorToProvDic = new();
 
                 //iterate through all states in regionList and add their provDict to colorToProv
                 foreach (Region r in regionList) {
@@ -411,7 +412,7 @@ namespace Vic3MapCSharp
             //pares province png
             void parseProvMap(List<Region> regionList) {
                 //dictionary province color to state object
-                Dictionary<Color, Province> provColorToProv = new Dictionary<Color, Province>();
+                Dictionary<Color, Province> provColorToProv = new();
 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -422,44 +423,27 @@ namespace Vic3MapCSharp
                     }
                 }
 
-                Bitmap image = new Bitmap(localDir + "/_Input/map_data/provinces.png");
-                Bitmap provBorder = new Bitmap(image.Width, image.Height);
+                Bitmap image = new(localDir + "/_Input/map_data/provinces.png");
+                Bitmap provBorder = new(image.Width, image.Height);
 
                 Console.WriteLine("Parsing Map");
                 //parse image and get coords of each color and add them to the state and draw borders
                 for (int i = 0; i < image.Width; i++) {
-                    Color lastColor = image.GetPixel(i, 0);
                     for (int j = 0; j < image.Height; j++) {
                         Color c = image.GetPixel(i, j);
                         //if c is in provColorToProv add coord to state
                         if (provColorToProv.ContainsKey(c)) provColorToProv[c].coordList.Add((i, j));
-                        if (c != lastColor) {
+
+                        //check left and above pixel for border
+                        if ((i > 0 && image.GetPixel(i - 1, j) != c) || (j > 0 && image.GetPixel(i, j - 1) != c)) {
                             provBorder.SetPixel(i, j, Color.Black);
-                            lastColor = c;
                         }
+
                     }
 
-                    //progress bar every 25% with 0% and 100% mapping to 0% and 50% of total progress
+                    //print progress every 25%
                     if (i % (image.Width / 4) == 0) {
-                        Console.WriteLine("\t" + i * 100 / image.Width / 2 + "%");
-                    }
-
-                }
-
-                //draw vertical borders
-                //Console.WriteLine("Drawing Vertical Borders for Province Map");
-                for (int i = 0; i < image.Height; i++) {
-                    Color lastColor = image.GetPixel(0, i);
-                    for (int j = 1; j < image.Width; j++) {
-                        Color c = image.GetPixel(j, i);
-                        if (c != lastColor) {
-                            provBorder.SetPixel(j, i, Color.Black);
-                            lastColor = c;
-                        }
-                    }
-                    //progress bar every 25% with 0% and 100% mapping to 50% and 100% of total progress
-                    if (i % (image.Width / 4) == 0) {
-                        Console.WriteLine("\t" + (i * 100 / image.Width / 2 + 50) + "%");
+                        Console.WriteLine("\t"+(i / (image.Width / 100)) + "%");
                     }
 
                 }
@@ -467,7 +451,7 @@ namespace Vic3MapCSharp
                 //set coordList for each state
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
-                        s.setCoords();
+                        s.SetCoords();
                     }
                 }
 
@@ -517,29 +501,11 @@ namespace Vic3MapCSharp
 
                                 //separate name from file path
                                 string[] split = file.Split('\\');
-                                string fileName = split[split.Length - 1].Split(".")[0];
+                                string fileName = split[^1].Split(".")[0];
 
                                 drawNationsMap(nationDict, fileName, doDrawDecentralized);
                             }
                         }
-                    }
-                }
-                
-                if (doCreateStateHistory) {
-                    Dictionary<Color, Nation> newNations = parseCreateState();
-                    if (newNations == null) {
-                        return;
-                    }
-                    matchCreateState(newNations, regionList);
-
-                    if (doDrawDebug) {
-                        //convert newNations dictionary to new dictionary by replacing color key with nation name
-                        Dictionary<string, Nation> newNationsName = new Dictionary<string, Nation>();
-                        foreach (KeyValuePair<Color, Nation> kvp in newNations) {
-                            newNationsName.Add(kvp.Value.name, kvp.Value);
-                        }
-
-                        drawNationsMap(newNationsName, "Create_State", doDrawDecentralized);
                     }
                 }
 
@@ -549,8 +515,8 @@ namespace Vic3MapCSharp
 
             //draw state images
             void drawStateImages(List<Region> regionList, Bitmap image) {
-                Bitmap stateImage = new Bitmap(image.Width, image.Height);
-                Bitmap stateBorder = new Bitmap(image.Width, image.Height);
+                Bitmap stateImage = new(image.Width, image.Height);
+                Bitmap stateBorder = new(image.Width, image.Height);
                 Console.WriteLine("Drawing State Maps");
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -608,11 +574,11 @@ namespace Vic3MapCSharp
 
             //draw region images
             List<(int, int)> darwRegionImages(List<Region> regionList, Bitmap image) {
-                Bitmap regionImage = new Bitmap(image.Width, image.Height);
-                Bitmap regionBorder = new Bitmap(image.Width, image.Height);
-                Bitmap waterImage = new Bitmap(image.Width, image.Height);
+                Bitmap regionImage = new(image.Width, image.Height);
+                Bitmap regionBorder = new(image.Width, image.Height);
+                Bitmap waterImage = new(image.Width, image.Height);
 
-                List<(int, int)> waterCoordList = new List<(int, int)>();
+                List<(int, int)> waterCoordList = new();
 
 
                 Console.WriteLine("Drawing Region Maps");
@@ -681,22 +647,23 @@ namespace Vic3MapCSharp
                 }
 
                 List<string> rgoNames = setRGOColors(regionList);
-                Bitmap image = new Bitmap(localDir + "/_Input/map_data/provinces.png");
-                Bitmap water = new Bitmap(localDir + "/_Output/ColorMap/water_map.png");
-                Bitmap stateBorder = new Bitmap(localDir + "/_Output/BorderFrame/state_border.png");
+                Bitmap image = new(localDir + "/_Input/map_data/provinces.png");
+                Bitmap water = new(localDir + "/_Output/ColorMap/water_map.png");
+                Bitmap stateBorder = new(localDir + "/_Output/BorderFrame/state_border.png");
 
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Center;
-                stringFormat.LineAlignment = StringAlignment.Center;
+                StringFormat stringFormat = new() {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
 
-                PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+                PrivateFontCollection privateFontCollection = new();
                 privateFontCollection.AddFontFile(localDir + "/_Input/ParadoxVictorian-Condensed.otf"); //font for numbers and names
 
                 //find the largest rectangle without holes in the water
-                MaximumRectangle mr = new MaximumRectangle();
+                MaximumRectangle mr = new();
                 ((int, int) waterCenter, (int, int) waterMaxRecSize) = ((0, 0), (0, 0));
                 if (waterCoordList.Count > 0) {
-                    (waterCenter, waterMaxRecSize) = mr.center(waterCoordList, false);
+                    (waterCenter, waterMaxRecSize) = MaximumRectangle.Center(waterCoordList, false);
                 }
 
 
@@ -706,8 +673,8 @@ namespace Vic3MapCSharp
                     Color resColor = Color.FromArgb(255, 255, 255, 255);
                     Color textColor = Color.FromArgb(255, 255, 255, 255);
                     Console.WriteLine(name + "\t" + sw.Elapsed);
-                    Bitmap rgoMap = new Bitmap(image.Width, image.Height);
-                    Bitmap rgoName = new Bitmap(image.Width, image.Height);
+                    Bitmap rgoMap = new(image.Width, image.Height);
+                    Bitmap rgoName = new(image.Width, image.Height);
                     Graphics g = Graphics.FromImage(rgoMap);
                     g.Clear(Color.White);
                     g.DrawImage(water, Point.Empty);
@@ -752,14 +719,14 @@ namespace Vic3MapCSharp
 
                                     bool gotRectangularBox = false;
                                     if (val.Length > 4) { //for those cases where the number would look better in a long rectangle than a square
-                                        s.getCenter2();
+                                        s.GetCenter2();
                                         gotRectangularBox = true;
                                         Console.WriteLine("\t" + res.name + " in " + s.name + " switching to rectange");
                                     }
 
 
                                     int numberFontSize = 8; //minimum font size for number
-                                    Font font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+                                    Font font1 = new(privateFontCollection.Families[0], numberFontSize);
 
                                     //check pixel size of font1
                                     SizeF size1 = g.MeasureString(val, font1);
@@ -791,7 +758,7 @@ namespace Vic3MapCSharp
                                     g.DrawString(val, font1, new SolidBrush(res.textColor), new Point(s.center.Item1, s.center.Item2), stringFormat);
 
                                     if (gotRectangularBox) { //revert back to square for the rest of the res in that state
-                                        s.getCenter2(true);
+                                        s.GetCenter2(true);
                                     }
 
                                 }
@@ -802,21 +769,22 @@ namespace Vic3MapCSharp
                     List<string> tmpName = name.Replace("bg_", "").Split("_").ToList();
                     string wName = "";
                     for (int j = 0; j < tmpName.Count; j++) {
-                        string tmpWord = tmpName[j][0].ToString().ToUpper() + tmpName[j].Substring(1);
+                        string tmpWord = tmpName[j][0].ToString().ToUpper() + tmpName[j][1..];
                         wName += tmpWord + " ";
                     }
                     //wName += "("+wType+")";
                     //wNameList new list containing wName
-                    List<string> wNameList = new List<string>();
-                    wNameList.Add(wName);
-                    wNameList.Add("(" + wType + ")");
+                    List<string> wNameList = new() {
+                        wName,
+                        "(" + wType + ")"
+                    };
 
                     //draw solid rectangle centered on waterCenter with size of waterMaxRecSize and color of Black (DEBUG)
                     //g.FillRectangle(new SolidBrush(Color.Black), waterCenter.Item1 - waterMaxRecSize.Item1 / 2, waterCenter.Item2 - waterMaxRecSize.Item2 / 2, waterMaxRecSize.Item1, waterMaxRecSize.Item2);
 
                     //scale font2 to fit inside waterMaxRecSize
                     int fontSize = 200; //minimum font size for name
-                    Font font2 = new Font(privateFontCollection.Families[0], fontSize);
+                    Font font2 = new(privateFontCollection.Families[0], fontSize);
 
                     //check pixel size of font2
                     SizeF size2 = g.MeasureString(wNameList[0], font2);
@@ -830,7 +798,7 @@ namespace Vic3MapCSharp
                     //check if single line wName would be bigger
                     string wName2 = wNameList[0] + " " + wNameList[1];
                     int fontSize2 = 200; //minimum font size for name
-                    Font font3 = new Font(privateFontCollection.Families[0], fontSize2);
+                    Font font3 = new(privateFontCollection.Families[0], fontSize2);
                     SizeF size3 = g.MeasureString(wName2, font3);
                     while (size3.Width < waterMaxRecSize.Item1 && size3.Height < (int)(waterMaxRecSize.Item2 * 1.3)) {
                         fontSize2++;
@@ -847,7 +815,7 @@ namespace Vic3MapCSharp
                             g.DrawString(s, font2, new SolidBrush(resColor), new Point(waterCenter.Item1, y), stringFormat);
 
                             //border outline
-                            GraphicsPath p = new GraphicsPath();
+                            GraphicsPath p = new();
                             p.AddString(
                                 s,             // text to draw
                                 privateFontCollection.Families[0],  // or any other font family
@@ -855,7 +823,7 @@ namespace Vic3MapCSharp
                                 g.DpiY * font2.Size / 72,       // em size
                                 new Point(waterCenter.Item1, y),              // location where to draw text
                                 stringFormat);          // set options here (e.g. center alignment)
-                            Pen p1 = new Pen(textColor, 4);
+                            Pen p1 = new(textColor, 4);
                             g.DrawPath(p1, p);
 
                             y += (int)(size2.Height * 0.5);
@@ -867,7 +835,7 @@ namespace Vic3MapCSharp
                         g.DrawString(wName2, font3, new SolidBrush(resColor), new Point(waterCenter.Item1, y), stringFormat);
 
                         //border outline
-                        GraphicsPath p = new GraphicsPath();
+                        GraphicsPath p = new();
                         p.AddString(
                             wName2,             // text to draw
                             privateFontCollection.Families[0],  // or any other font family
@@ -875,7 +843,7 @@ namespace Vic3MapCSharp
                             g.DpiY * font3.Size / 72,       // em size
                             new Point(waterCenter.Item1, y),              // location where to draw text
                             stringFormat);          // set options here (e.g. center alignment)
-                        Pen p1 = new Pen(textColor, 4);
+                        Pen p1 = new(textColor, 4);
                         g.DrawPath(p1, p);
 
                     }
@@ -892,13 +860,13 @@ namespace Vic3MapCSharp
 
             //set RGO Colors
             List<string> setRGOColors(List<Region> regionList) {
-                List<string> rgoList = new List<string>();
+                List<string> rgoList = new();
                 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         foreach (Resource res in s.resources) {
                             if (s.center == (0, 0)) {
-                                s.getCenter2(true);
+                                s.GetCenter2(true);
                             }
                             ColorList(res);
                             if (!rgoList.Contains(res.name) && !ignoreRGONames.Any(res.name.Contains)) {
@@ -992,9 +960,9 @@ namespace Vic3MapCSharp
                     Directory.CreateDirectory(localDir + "/_Output/BlankMap/");
                 }
 
-                Bitmap waterColor = new Bitmap(localDir + "/_Output/ColorMap/water_map.png");
-                Bitmap regionColor = new Bitmap(localDir + "/_Output/ColorMap/region_colors.png");
-                Bitmap regionBorder = new Bitmap(localDir + "/_Output/BorderFrame/region_border.png");
+                Bitmap waterColor = new(localDir + "/_Output/ColorMap/water_map.png");
+                Bitmap regionColor = new(localDir + "/_Output/ColorMap/region_colors.png");
+                Bitmap regionBorder = new(localDir + "/_Output/BorderFrame/region_border.png");
 
                 //merge 3 maps together into new image
                 for (int i = 0; i < regionColor.Height; i++) {
@@ -1013,8 +981,8 @@ namespace Vic3MapCSharp
 
                 Console.WriteLine("Merged Region Map\t" + sw.Elapsed);
 
-                Bitmap stateColor = new Bitmap(localDir + "/_Output/ColorMap/state_colors.png");
-                Bitmap stateBorder = new Bitmap(localDir + "/_Output/BorderFrame/state_border.png");
+                Bitmap stateColor = new(localDir + "/_Output/ColorMap/state_colors.png");
+                Bitmap stateBorder = new(localDir + "/_Output/BorderFrame/state_border.png");
 
                 //merge 3 maps together into new image
                 for (int i = 0; i < stateColor.Height; i++) {
@@ -1032,8 +1000,8 @@ namespace Vic3MapCSharp
 
                 Console.WriteLine("Merged State Map\t" + sw.Elapsed);
 
-                Bitmap blankProv = new Bitmap(waterColor.Width, waterColor.Height);
-                Bitmap bp = new Bitmap(localDir + "/_Output/BorderFrame/prov_border.png");
+                Bitmap blankProv = new(waterColor.Width, waterColor.Height);
+                Bitmap bp = new(localDir + "/_Output/BorderFrame/prov_border.png");
                 Graphics g = Graphics.FromImage(blankProv);
                 g.Clear(Color.White);
                 g.DrawImage(waterColor, Point.Empty);
@@ -1043,8 +1011,8 @@ namespace Vic3MapCSharp
                 bp.Dispose();
                 Console.WriteLine("Merged Blank Province Map\t" + sw.Elapsed);
 
-                Bitmap blankState = new Bitmap(waterColor.Width, waterColor.Height);
-                Bitmap bs = new Bitmap(localDir + "/_Output/BorderFrame/state_border.png");
+                Bitmap blankState = new(waterColor.Width, waterColor.Height);
+                Bitmap bs = new(localDir + "/_Output/BorderFrame/state_border.png");
                 g = Graphics.FromImage(blankState);
                 g.Clear(Color.White);
                 g.DrawImage(waterColor, Point.Empty);
@@ -1054,8 +1022,8 @@ namespace Vic3MapCSharp
                 bs.Dispose();
                 Console.WriteLine("Merged Blank State Map\t" + sw.Elapsed);
 
-                Bitmap blankRegion = new Bitmap(waterColor.Width, waterColor.Height);
-                Bitmap br = new Bitmap(localDir + "/_Output/BorderFrame/region_border.png");
+                Bitmap blankRegion = new(waterColor.Width, waterColor.Height);
+                Bitmap br = new(localDir + "/_Output/BorderFrame/region_border.png");
                 g = Graphics.FromImage(blankRegion);
                 g.Clear(Color.White);
                 g.DrawImage(waterColor, Point.Empty);
@@ -1069,27 +1037,28 @@ namespace Vic3MapCSharp
 
             //write names on merged maps
             void namedMapes(List<Region> regionList) {
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Center;
-                stringFormat.LineAlignment = StringAlignment.Center;
-                PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+                StringFormat stringFormat = new() {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
+                PrivateFontCollection privateFontCollection = new();
                 privateFontCollection.AddFontFile(localDir + "/_Input/ParadoxVictorian-Condensed.otf"); //font for region names
 
 
                 //region map
-                Bitmap regionMap = new Bitmap(localDir + "/_Output/Region_Map.png");
+                Bitmap regionMap = new(localDir + "/_Output/Region_Map.png");
                 Graphics g = Graphics.FromImage(regionMap);
 
 
                 for (int i = 0; i < regionList.Count; i++) {
                     if (regionList[i].color != Color.FromArgb(0, 0, 0, 0)) {    //no ocean/sea names
 
-                        regionList[i].getCenter2();
+                        regionList[i].GetCenter2();
 
                         List<string> tmpName = regionList[i].name.Replace("region_", "").Split("_").ToList();
-                        List<string> wName = new List<string>();
+                        List<string> wName = new();
                         for (int j = 0; j < tmpName.Count; j++) {
-                            string tmpWord = tmpName[j][0].ToString().ToUpper() + tmpName[j].Substring(1).ToLower();
+                            string tmpWord = tmpName[j][0].ToString().ToUpper() + tmpName[j][1..].ToLower();
                             wName.Add(tmpWord);
                         }
 
@@ -1105,7 +1074,7 @@ namespace Vic3MapCSharp
                         }
 
                         int numberFontSize = 25; //minimum font size for region name
-                        Font font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+                        Font font1 = new(privateFontCollection.Families[0], numberFontSize);
 
                         //check pixel size of font1
                         //longest name in wName
@@ -1120,7 +1089,6 @@ namespace Vic3MapCSharp
                             vertBias = 1.0;
                         }
 
-                        bool fontTooSmall = false;
                         SizeF size1 = g.MeasureString(longestName, font1);
                         //if size1 is smaller than region maxRecSize then increase font size to fit
                         while (size1.Width < regionList[i].maxRecSize.Item1 * 1.2 && size1.Height < regionList[i].maxRecSize.Item2 * wName.Count * vertBias) {
@@ -1160,7 +1128,7 @@ namespace Vic3MapCSharp
 
 
                 //state map
-                Bitmap stateMap = new Bitmap(localDir + "/_Output/State_Map.png");
+                Bitmap stateMap = new(localDir + "/_Output/State_Map.png");
 
 
                 g = Graphics.FromImage(stateMap);
@@ -1168,13 +1136,13 @@ namespace Vic3MapCSharp
 
                 for (int i = 0; i < regionList.Count; i++) {
                     for (int j = 0; j < regionList[i].states.Count; j++) {
-                        regionList[i].states[j].getCenter2();
+                        regionList[i].states[j].GetCenter2();
                         if (regionList[i].color != Color.FromArgb(0, 0, 0, 0)) {    //no ocean/sea names
                             List<string> tmpName = regionList[i].states[j].name.Replace("STATE_", "").Split("_").ToList();
-                            List<string> wName = new List<string>();
+                            List<string> wName = new();
                             int wLength = -1;
                             for (int k = 0; k < tmpName.Count; k++) {
-                                string tmpWord = tmpName[k][0].ToString().ToUpper() + tmpName[k].Substring(1).ToLower();
+                                string tmpWord = tmpName[k][0].ToString().ToUpper() + tmpName[k][1..].ToLower();
                                 wName.Add(tmpWord);
                                 wLength += tmpWord.Length;
                                 wLength++;
@@ -1205,8 +1173,8 @@ namespace Vic3MapCSharp
                                 if (spaceIndex - tmpSpaceIndex < spaceIndex) {
                                     spaceIndex = tmpSpaceIndex;
                                 }
-                                string tmp1 = wName[0].Substring(0, spaceIndex);
-                                string tmp2 = wName[0].Substring(spaceIndex + 1);
+                                string tmp1 = wName[0][..spaceIndex];
+                                string tmp2 = wName[0][(spaceIndex + 1)..];
                                 wName.Clear();
                                 wName.Add(tmp1);
                                 wName.Add(tmp2);
@@ -1238,14 +1206,14 @@ namespace Vic3MapCSharp
                             }
 
                             int numberFontSize = 7; //minimum font size for state name
-                            Font font2 = new Font("Verdna", numberFontSize);
+                            Font font2 = new("Verdna", numberFontSize);
 
                             SizeF size1 = g.MeasureString(longestName, font2);
                             double vertBias = 1.2;
                             if (wName.Count > 1) {
                                 vertBias = 1.0;
                             }
-                            bool fontTooSmall = false;
+
                             //if size1 is smaller than region maxRecSize then increase font size to fit
                             while (size1.Width < regionList[i].states[j].maxRecSize.Item1 && size1.Height < regionList[i].states[j].maxRecSize.Item2 * wName.Count * vertBias) {
                                 numberFontSize++;
@@ -1298,7 +1266,7 @@ namespace Vic3MapCSharp
                 }
 
                 //create a new blank region map
-                Bitmap regionMap = new Bitmap(localDir + "/_Output/BlankMap/Region_Blank.png");
+                Bitmap regionMap = new(localDir + "/_Output/BlankMap/Region_Blank.png");
                 Graphics g = Graphics.FromImage(regionMap);
 
                 for (int i = 0; i < regionList.Count; i++) {
@@ -1315,7 +1283,7 @@ namespace Vic3MapCSharp
                 regionMap.Dispose();
 
                 //state map
-                Bitmap stateMap = new Bitmap(localDir + "/_Output/BlankMap/State_Blank.png");
+                Bitmap stateMap = new(localDir + "/_Output/BlankMap/State_Blank.png");
                 g = Graphics.FromImage(stateMap);
 
                 for (int i = 0; i < regionList.Count; i++) {
@@ -1333,11 +1301,11 @@ namespace Vic3MapCSharp
 
 
                 //state square
-                Bitmap stateSquareMap = new Bitmap(localDir + "/_Output/BlankMap/State_Blank.png");
+                Bitmap stateSquareMap = new(localDir + "/_Output/BlankMap/State_Blank.png");
                 g = Graphics.FromImage(stateSquareMap);
                 for (int i = 0; i < regionList.Count; i++) {
                     for (int j = 0; j < regionList[i].states.Count; j++) {
-                        regionList[i].states[j].getCenter2(true);
+                        regionList[i].states[j].GetCenter2(true);
                         //fill a solid rectangle of size maxRecSize and color regionList[i].color centered on regionList[i].state[j].center
                         g.FillRectangle(new SolidBrush(regionList[i].states[j].color), regionList[i].states[j].center.Item1 - regionList[i].states[j].maxRecSize.Item1 / 2, regionList[i].states[j].center.Item2 - regionList[i].states[j].maxRecSize.Item2 / 2, regionList[i].states[j].maxRecSize.Item1, regionList[i].states[j].maxRecSize.Item2);
                     }
@@ -1353,15 +1321,16 @@ namespace Vic3MapCSharp
 
             void drawHubs(List<Region> regionList, Image image) {
                 //create a new blank image of size image
-                Bitmap hubMap = new Bitmap(image.Width, image.Height);
+                Bitmap hubMap = new(image.Width, image.Height);
 
                 //hub name color pairs
-                Dictionary<string, Color> hubColor = new Dictionary<string, Color>();
-                hubColor.Add("city", Color.Purple);
-                hubColor.Add("port", Color.DarkCyan);
-                hubColor.Add("mine", Color.Red);
-                hubColor.Add("farm", Color.Yellow);
-                hubColor.Add("wood", Color.DarkGreen);
+                Dictionary<string, Color> hubColor = new() {
+                    { "city", Color.Purple },
+                    { "port", Color.DarkCyan },
+                    { "mine", Color.Red },
+                    { "farm", Color.Yellow },
+                    { "wood", Color.DarkGreen }
+                };
 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -1382,7 +1351,7 @@ namespace Vic3MapCSharp
 
             void drawImpassablePrime(List<Region> regionList, Image image) {
                 //create a new blank image of size image
-                Bitmap impassablePrimeMap = new Bitmap(image.Width, image.Height);
+                Bitmap impassablePrimeMap = new(image.Width, image.Height);
 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -1416,7 +1385,7 @@ namespace Vic3MapCSharp
                 parseTerrain(regionList);
 
                 //create a new blank image of size image
-                Bitmap terrainMap = new Bitmap(image.Width, image.Height);
+                Bitmap terrainMap = new(image.Width, image.Height);
 
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -1501,14 +1470,14 @@ namespace Vic3MapCSharp
                 terrainMap.Save(localDir + "/_Output/ColorMap/terrain_map.png");
             }
 
-            Dictionary<string, Nation> parseNations(List<Region> regionList) {
+            Dictionary<string, Nation>? parseNations(List<Region> regionList) {
                 //dictionary of nation name and nation
-                Dictionary<string, Nation> nationDict = new Dictionary<string, Nation>();
+                Dictionary<string, Nation> nationDict = new();
 
                 //dictionary of color and province from region.state.province
-                Dictionary<Color, Province> colorProv = new Dictionary<Color, Province>();
+                Dictionary<Color, Province> colorProv = new();
                 //dictionary of state name and state from region.state
-                Dictionary<string, State> stateDict = new Dictionary<string, State>();
+                Dictionary<string, State> stateDict = new();
 
                 //for each region in regionList
                 foreach (Region r in regionList) {
@@ -1535,7 +1504,7 @@ namespace Vic3MapCSharp
                 foreach (string file in files) {
                     string[] lines = File.ReadAllLines(file);
                     int indent = 0;
-                    Nation n = new Nation();
+                    Nation n = new();
                     foreach (string line in lines) {
                         if (line.StartsWith("#") || line.Trim() == "") {
                             continue;
@@ -1544,14 +1513,14 @@ namespace Vic3MapCSharp
                         string l1 = line.Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("=", " = ").Replace("\"", "").Split("#")[0].Trim();
 
                         if (indent == 0) {
-                            if (l1.Contains("=")) {
+                            if (l1.Contains('=')) {
                                 n = new Nation(l1.Split('=')[0].Trim());
                                 nationDict.Add(n.name, n);
                             }
                         }
                         if (indent == 1) {
                             if (l1.StartsWith("color")) {
-                                List<double> rgbValues = new List<double>();
+                                List<double> rgbValues = new();
                                 string[] e = l1.Split('=')[1].Trim().Split(' ');
                                 foreach (string s in e) {
                                     //try to parse s as double
@@ -1608,10 +1577,10 @@ namespace Vic3MapCSharp
 
 
                         //if { or } is in l1, increment or decrement indent
-                        if (l1.Contains("{")) {
+                        if (l1.Contains('{')) {
                             indent++;
                         }
-                        if (l1.Contains("}")) {
+                        if (l1.Contains('}')) {
                             indent--;
                         }
                     }
@@ -1623,7 +1592,7 @@ namespace Vic3MapCSharp
                 files = Directory.GetFiles(localDir + "/_Input/common/history/states");
 
                 //if files is not empty
-                if (files.Count() == 0) {
+                if (files.Length == 0) {
                     Console.WriteLine("No country definitions found");
                     return null;
                 }
@@ -1632,8 +1601,8 @@ namespace Vic3MapCSharp
                 foreach (string file in files) {
                     string[] lines = File.ReadAllLines(file);
                     int indent = 0;
-                    Nation n = new Nation();
-                    State s = new State();
+                    Nation n = new();
+                    State s = new();
                     bool createStateFound = false;
                     int stateIndent = -1;
                     bool stateProvsFound = false;
@@ -1709,22 +1678,17 @@ namespace Vic3MapCSharp
                                         n.provDict.Add(c, colorProv[c]);
                                     }
                                 }
-                                catch (Exception e) {
-                                    /*
-                                    Console.WriteLine(n.name + "\t" + p);
-                                    Console.WriteLine(e.Message);
-                                    */
-                                }
+                                catch { }
                             }
                         }
 
 
 
                         //if { or } is in l1, increment or decrement indent
-                        if (l1.Contains("{")) {
+                        if (l1.Contains('{')) {
                             indent++;
                         }
-                        if (l1.Contains("}")) {
+                        if (l1.Contains('}')) {
                             indent--;
                             if (indent == stateIndent) {
                                 createStateFound = false;
@@ -1749,7 +1713,7 @@ namespace Vic3MapCSharp
                 }
 
                 //create a new bitmap with the same size as the image
-                Bitmap bitmap = new Bitmap(localDir + "/_Output/ColorMap/water_map.png");
+                Bitmap bitmap = new(localDir + "/_Output/ColorMap/water_map.png");
 
                 //for each nation in nationDict
                 foreach (Nation n in nationDict.Values) {
@@ -1769,10 +1733,11 @@ namespace Vic3MapCSharp
                 //save bitmap to _Output/nations.png
                 bitmap.Save(localDir + "/_Output/National/" + fileName + ".png");
 
-                StringFormat stringFormat = new StringFormat();
-                stringFormat.Alignment = StringAlignment.Center;
-                stringFormat.LineAlignment = StringAlignment.Center;
-                PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+                StringFormat stringFormat = new() {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
+                PrivateFontCollection privateFontCollection = new();
                 privateFontCollection.AddFontFile(localDir + "/_Input/ParadoxVictorian-Condensed.otf"); //font for nation names
 
                 Graphics g = Graphics.FromImage(bitmap);
@@ -1792,12 +1757,12 @@ namespace Vic3MapCSharp
                     }
 
                     //get the center of the nation
-                    n.getCenter2();
+                    n.GetCenter2();
 
                     string text = n.name.ToLower();
 
                     int numberFontSize = 8; //minimum font size for nation name
-                    Font font1 = new Font(privateFontCollection.Families[0], numberFontSize);
+                    Font font1 = new(privateFontCollection.Families[0], numberFontSize);
 
                     //check pixel size of font1
                     SizeF textSize = g.MeasureString(text, font1);
@@ -1814,7 +1779,7 @@ namespace Vic3MapCSharp
                     int recFontSize = numberFontSize;
 
                     //check if square getCenter2 would give a larger font size
-                    n.getCenter2(true);
+                    n.GetCenter2(true);
                     numberFontSize = 8; //minimum font size for nation name
                     font1 = new Font(privateFontCollection.Families[0], numberFontSize);
 
@@ -1831,7 +1796,7 @@ namespace Vic3MapCSharp
 
                     if (recFontSize > numberFontSize) {
                         //Console.WriteLine(n.name + " would be larger as a rectangle by " + (recFontSize - numberFontSize) + " size");
-                        n.getCenter2();
+                        n.GetCenter2();
                         numberFontSize = recFontSize;
                     }
 
@@ -1879,7 +1844,7 @@ namespace Vic3MapCSharp
 
             void parseTerrain(List<Region> regionList) {
                 //province dictionary for matching province name to province object
-                Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
+                Dictionary<Color, Province> provDict = new();
 
                 //for each region in regionList
                 foreach (Region r in regionList) {
@@ -1900,7 +1865,7 @@ namespace Vic3MapCSharp
                     if (line.StartsWith("#") || line.Trim() == "") {
                         continue;
                     }
-                    if (line.Contains("=")) {
+                    if (line.Contains('=')) {
                         string[] l1 = line.Replace("\"", "").Trim().Split("=");
 
                         //match province to provDict on l1[0] to name
@@ -1924,7 +1889,7 @@ namespace Vic3MapCSharp
 
             void parseSave(List<Region> regionList, Dictionary<string, Nation> nationDict, string filePath) {
                 //province dictionary for matching province internalID to province object
-                Dictionary<int, Province> provDict = new Dictionary<int, Province>();
+                Dictionary<int, Province> provDict = new();
 
                 //for each region in regionList
                 foreach (Region r in regionList) {
@@ -1955,7 +1920,7 @@ namespace Vic3MapCSharp
                 string[] lines = File.ReadAllLines(filePath);
 
                 int indintation = -2;
-                Nation n = null;
+                Nation? n = null;
                 int potentialID = -1;
                 bool foundSeaNodes = false;
                 bool civilWarFound = false;
@@ -1992,10 +1957,11 @@ namespace Vic3MapCSharp
                                 else if (civilWarFound) {
                                     try {
                                         //support for dynamic tags
-                                        n = new Nation(tag + "_cw");
-                                        n.interalID = potentialID;
-                                        //assign n a random color
-                                        n.color = ColorFromHSV360(rand.Next(0, 360), 100, 100);
+                                        n = new Nation(tag + "_cw") {
+                                            interalID = potentialID,
+                                            //assign n a random color
+                                            color = ColorFromHSV360(rand.Next(0, 360), 100, 100)
+                                        };
                                         nationDict.Add(tag + "_cw", n);
                                         Console.WriteLine(n);
                                         civilWarFound = false;
@@ -2008,7 +1974,7 @@ namespace Vic3MapCSharp
 
                         }
                         else if (l1.StartsWith("map_color=rgb")) {
-                            List<int> rgbValues = new List<int>();
+                            List<int> rgbValues = new();
                             //try to parse l1 words to int, if they are add them to rgbValues
                             foreach (string s in l1.Split("=")[1].Replace("(", "").Replace(")", "").Replace("rgb", "").Split(",")) {
                                 if (int.TryParse(s, out int i)) {
@@ -2058,10 +2024,9 @@ namespace Vic3MapCSharp
                                 string[] l2 = l1.Split("=")[1].Replace("{", "").Replace("}", "").Trim().Split();
 
                                 //try parse int on l2
-                                List<int> idList = new List<int>();
+                                List<int> idList = new();
                                 foreach (string s in l2) {
-                                    int id;
-                                    if (int.TryParse(s, out id)) {
+                                    if (int.TryParse(s, out int id)) {
                                         idList.Add(id);
                                     }
                                 }
@@ -2090,7 +2055,7 @@ namespace Vic3MapCSharp
 
 
 
-                    if (l1.Contains("{") || l1.Contains("}")) {
+                    if (l1.Contains('{') || l1.Contains('}')) {
                         string[] w = l1.Split();
                         foreach (string s in w) {
                             if (s == "{") {
@@ -2123,7 +2088,7 @@ namespace Vic3MapCSharp
                 }
 
                 //dictionary of resource type and resource name
-                Dictionary<string, List<string>> resDict = new Dictionary<string, List<string>>();
+                Dictionary<string, List<string>> resDict = new();
 
                 //go through each region in regionList
                 foreach (Region r in regionList) {
@@ -2145,7 +2110,7 @@ namespace Vic3MapCSharp
                 }
 
                 //create a new csv file for each RGOs
-                StreamWriter stwr = new StreamWriter(localDir + "/_Output/TextFiles/RGOs.csv");
+                StreamWriter stwr = new(localDir + "/_Output/TextFiles/RGOs.csv");
 
                 //header
                 stwr.Write("Region;State;");
@@ -2181,7 +2146,7 @@ namespace Vic3MapCSharp
                             if (resType == "resource") {
                                 foreach (string resName in resDict[resType]) {
                                     //if res with resName is in s.resources list
-                                    if (s.resources.Where(x => x.name == resName).Count() > 0) {
+                                    if (s.resources.Where(x => x.name == resName).Any()) {
                                         //write res.amount
                                         stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmount + ";");
                                     }
@@ -2197,7 +2162,7 @@ namespace Vic3MapCSharp
                             if (resType == "discoverable") {
                                 foreach (string resName in resDict[resType]) {
                                     //if res with resName is in s.resources list
-                                    if (s.resources.Where(x => x.name == resName).Count() > 0) {
+                                    if (s.resources.Where(x => x.name == resName).Any()) {
                                         //write res.amount
                                         stwr.Write(s.resources.Where(x => x.name == resName).First().knownAmount + ";");
                                         stwr.Write(s.resources.Where(x => x.name == resName).First().discoverableAmount + ";");
@@ -2261,10 +2226,6 @@ namespace Vic3MapCSharp
                     if (l1.StartsWith("DrawDecentralized")) {
                         doDrawDecentralized = bool.Parse(l1.Split("=")[1].Trim());
                     }
-                    //doCreateStateHistory
-                    if (l1.StartsWith("CreateStateHistory")) {
-                        doCreateStateHistory = bool.Parse(l1.Split("=")[1].Trim());
-                    }
                     //doDrawDebug
                     if (l1.StartsWith("DrawDebug")) {
                         doDrawDebug = bool.Parse(l1.Split("=")[1].Trim());
@@ -2275,7 +2236,7 @@ namespace Vic3MapCSharp
                         colorFound = true;
                     }
 
-                    if (colorFound && l1.Contains("(")) {
+                    if (colorFound && l1.Contains('(')) {
 
                         List<string> buildingSubstring = l1.Split('=')[0].Split(',').ToList();
                         //trim list
@@ -2286,7 +2247,7 @@ namespace Vic3MapCSharp
                         //split l1 on ( ) , and space
                         List<string> colorSubstring = l1.Split(new char[] { '(', ')', ',', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-                        List<int> color = new List<int>();
+                        List<int> color = new();
                         foreach (string s in colorSubstring) {
                             //try parse int
                             if (int.TryParse(s, out int i)) {
@@ -2314,7 +2275,7 @@ namespace Vic3MapCSharp
                         ignoreFound = true;
                         ignoreRGONames.Clear();
                     }
-                    if (ignoreFound && l1.Contains("\"")) {
+                    if (ignoreFound && l1.Contains('"')) {
                         //split l1 on " 
                         List<string> ignoreSubstring = l1.Split(new char[] { '"' }, StringSplitOptions.RemoveEmptyEntries).ToList();
                         //trim list
@@ -2329,7 +2290,7 @@ namespace Vic3MapCSharp
                         }
                     }
 
-                    if (l1.Contains("}")) {
+                    if (l1.Contains('}')) {
                         colorFound = false;
                         ignoreFound = false;
                     }
@@ -2341,9 +2302,9 @@ namespace Vic3MapCSharp
                 //group regionList by number of states in each region
                 var stateCount = regionList.GroupBy(x => x.states.Count).OrderBy(x => x.Key);
 
-                List<string> lines = new List<string>();
-
-                lines.Add("Region;State;Provinces\n");
+                List<string> lines = new() {
+                    "Region;State;Provinces\n"
+                };
                 //print out number of states in each region
                 foreach (var s in stateCount) {
                     lines.Add(s.Key + ";" + s.Count() + ";\n");
@@ -2365,7 +2326,7 @@ namespace Vic3MapCSharp
 
 
                 //write to file
-                StreamWriter stwr = new StreamWriter(localDir + "/_Output/Debug/StateProv.csv");
+                StreamWriter stwr = new(localDir + "/_Output/Debug/StateProv.csv");
 
                 //write lines
                 foreach (string line in lines) {
@@ -2374,249 +2335,6 @@ namespace Vic3MapCSharp
                 stwr.Close();
 
             }
-
-            Dictionary<Color, Nation> parseCreateState() {
-                //check if "/_Input/create_states/Nation_Colors.csv" exists
-                if (!File.Exists(localDir + "/_Input/create_states/Nation_Colors.csv")) {
-                    Console.WriteLine("Nation_Colors.csv not found");
-                    return null;
-                }
-
-                Console.WriteLine("Parsing Create_State");
-                //open _Input/create_states/Nation_Colors file
-                string[] lines = File.ReadAllLines(localDir + "/_Input/create_states/Nation_Colors.csv");
-
-                //dictionary color nation
-                Dictionary<Color, Nation> colorNation = new Dictionary<Color, Nation>();
-
-                //go through each line
-                foreach (string line in lines) {
-                    if (line.Trim().StartsWith("#") || line.Trim() == "") continue;
-
-                    if (line.Contains(";")) {
-                        try {
-                            //split line on ;
-                            string[] split = line.Split(';');
-
-                            //first item is nation name
-                            Nation n = new Nation(split[0].Trim());
-
-                            if (split[1].Contains("#")) {
-                                //color is a hexcode
-                                n.color = ColorTranslator.FromHtml(split[1].Trim());
-                            }
-                            else {
-                                //items 1-3 are RGB color
-                                n.color = Color.FromArgb(int.Parse(split[1]), int.Parse(split[2]), int.Parse(split[3]));
-                            }
-
-                            //if n.color is already in colorNations write error message
-                            if (colorNation.ContainsKey(n.color)) {
-                                Console.WriteLine("\n\nError: " + n.name + " has the same color as " + colorNation[n.color].name + "\n\n");
-                            }
-                            //check if n.name is contained in colorNations nation.name
-                            else if (colorNation.Values.Any(x => x.name == n.name)) {
-                                Console.WriteLine("\n\nError: multiple occurrences of tag " + n.name + "\n\n");
-                            }
-                            else {
-                                //add color and nation to dictionary
-                                colorNation.Add(n.color, n);
-                            }
-                        }
-                        catch (Exception e) {
-                            Console.WriteLine("Error on line: " + line);
-                            Console.WriteLine(e.Message);
-                        }
-                    }
-                }
-
-                //find first png in _Input/create_states/
-                string[] pngFiles = Directory.GetFiles(localDir + "/_Input/create_states/", "*.png");
-
-                if (pngFiles.Length == 0) {
-                    Console.WriteLine("No png files found in _Input/create_states/");
-                    return colorNation;
-                }
-
-                Bitmap nationMap = new Bitmap(pngFiles[0]);
-
-                //go through each pixel if color is in dictionary add to nation
-                for (int x = 0; x < nationMap.Width; x++) {
-                    for (int y = 0; y < nationMap.Height; y++) {
-                        Color c = nationMap.GetPixel(x, y);
-                        if (colorNation.ContainsKey(c)) {
-                            colorNation[c].coordSet.Add((x, y));
-                        }
-                    }
-                }
-
-
-
-                return colorNation;
-            }
-
-            void matchCreateState(Dictionary<Color, Nation> colorNation, List<Region> regions) {
-                Console.WriteLine("Matching Create_States");
-                List<MapOverlap> mapOverlap = new List<MapOverlap>();                
-                
-                //go through each region
-                foreach (Region r in regions) {
-                    bool printReginoComplete = false;
-                    
-                    //go through each state
-                    foreach (State s in r.states) {
-                        //go through each province
-                        //Console.WriteLine("Region: " + r.name + " State: " + s.name);
-                        foreach (Province p in s.provDict.Values) {
-                            p.setHashSet();                            
-                            //check if p coords overlaps with any nation coords
-                            if (colorNation.Values.Any(x => x.coordSet.Overlaps(p.coordSet))) {
-                                //add all nations that overlap to mapOverlap
-                                foreach (Nation n in colorNation.Values.Where(x => x.coordSet.Overlaps(p.coordSet))) {
-                                    mapOverlap.Add(new MapOverlap(p, n, s.name, r.name));
-                                }
-                                if (!p.isSea) printReginoComplete = true;
-                            }
-
-                        }
-                    }
-                    if(printReginoComplete) Console.WriteLine("\t" + r.name); 
-                }
-
-                List<MapOverlap> removeOverlapList = new List<MapOverlap>();
-                //if there are multiple of the same province and in the mapOverlap list remove all but the one with the most overlap
-                foreach (Province p in mapOverlap.Select(x => x.province).Distinct()) {
-                    //if p is lake or sea remove from mapOverlap
-                    if (p.isSea || p.isLake) {
-                        removeOverlapList.AddRange(mapOverlap.Where(x => x.province == p));
-                        continue;
-                    }
-
-                    //get all mapOverlap with the same province
-                    List<MapOverlap> provOverlap = mapOverlap.Where(x => x.province == p).ToList();
-
-                    //if there is more than one
-                    if (provOverlap.Count > 1) {
-                        //get the one with the most overlap
-                        MapOverlap mostOverlap = provOverlap.OrderByDescending(x => x.OverlapArea).First();
-
-                        //remove all but the one with the most overlap
-                        removeOverlapList.AddRange(provOverlap.Where(x => x != mostOverlap));
-                    }
-                }
-
-                //remove all but the one with the most overlap
-                mapOverlap.RemoveAll(x => removeOverlapList.Contains(x));
-
-
-                Console.WriteLine("Writing Nations to state file");
-                //write to file
-                //check if localDir + "/_Output/Create_State/" exists
-                if (!Directory.Exists(localDir + "/_Output/Create_State/")) {
-                    //if not create it
-                    Directory.CreateDirectory(localDir + "/_Output/Create_State/");
-                }
-
-                //create new file in localDir + "/_Output/Create_State/"
-                StreamWriter stwr = new StreamWriter(localDir + "/_Output/Create_State/00_states.txt");
-
-                //write header
-                stwr.WriteLine("STATES = {");
-
-                //group mapOverlap by regionName
-                var regionGroup = mapOverlap.GroupBy(x => x.regionName);
-                foreach (var r in regionGroup) {
-                    //write region name
-                    stwr.WriteLine("#" + r.Key);
-                    Console.WriteLine(r.Key);
-
-                    
-                    //group mapOverlap by state
-                    var stateOverlap = r.GroupBy(x => x.stateName).OrderBy(x => x.Key);
-
-                    //go through each state
-                    foreach (var s in stateOverlap) {
-                        Console.WriteLine("\t" + s.Key);
-                        //write state name
-                        stwr.WriteLine("\ts:" + s.Key + " = {");
-
-                        //group by nation
-                        var nationOverlap = s.GroupBy(x => x.nation).OrderBy(x => x.Key.name);
-
-                        //go through each nation
-                        foreach (var n in nationOverlap) {
-                            Console.WriteLine("\t\t" + n.Key.name);
-                            stwr.WriteLine("\t\tcreate_state = {");
-                            //write nation name
-                            stwr.WriteLine("\t\t\tcountry = c:" + n.Key.name);
-
-                            stwr.Write("\t\t\towned_provinces = {\n\t\t\t\t");
-                            //write each province hex code
-                            foreach (var p in n) {
-                                //convert p color to hex
-                                string hex = "x" + p.province.color.R.ToString("X2") + p.province.color.G.ToString("X2") + p.province.color.B.ToString("X2");
-                                stwr.Write(hex + " ");
-
-                                //add province to nation
-                                n.Key.provDict.Add(p.province.color, p.province);
-                            }
-                            stwr.WriteLine("\n\t\t\t}");
-                            stwr.WriteLine("\t\t}");
-                        }
-                        stwr.WriteLine("\t}");
-                    }
-                }
-                stwr.WriteLine("}");
-
-
-                stwr.Close();
-
-                //write new file that contains all the provinces that were not matched
-                
-                List<string> regionLines = new List<string>();
-                //go through each region
-                foreach (Region r in regions) {
-                    bool writeRegion = false;
-                    List<string> stateLines = new List<string>();
-                    //go through each state
-                    foreach (State s in r.states) {
-                        bool writeState = false;
-                        string line = "";
-                        //go through each province
-                        foreach (Province p in s.provDict.Values) {
-                            //if p isSea or isLake skip
-                            if (p.isSea || p.isLake) continue;
-                            //if province is not in mapOverlap write to file
-                            if (!mapOverlap.Any(x => x.province == p)) {
-                                //convert p color to hex
-                                string hex = "x" + p.color.R.ToString("X2") + p.color.G.ToString("X2") + p.color.B.ToString("X2");
-                                line += hex + " ";
-                                writeState = true;
-                                writeRegion = true;
-                            }
-                            
-                        }
-                        if (writeState) {
-                            stateLines.Add("\t#"+s.name);
-                            stateLines.Add("\t\t"+line);
-                        }
-                    }
-                    if (writeRegion) {
-                        regionLines.Add("#" + r.name);
-                        foreach (string l in stateLines) {
-                            regionLines.Add(l);
-                        }
-                    }
-                }
-
-                stwr = new StreamWriter(localDir + "/_Output/Create_State/provs_not_matched.txt");
-                foreach (string l in regionLines) {
-                    stwr.WriteLine(l);
-                }
-                stwr.Close();
-
-            }
-
 
         }
     }

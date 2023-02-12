@@ -5,24 +5,24 @@ namespace Vic3MapCSharp
     //State class stores provIDlist, name, arableResources, cappedResources, and discoverableResources
     public class State
     {
-        public List<string> provIDList = new List<string>();
+        public List<string> provIDList = new();
         public string name = "";
         public int stateID = 0;
-        public List<string> traits = new List<string>();
+        public List<string> traits = new();
         public string subsistenceBuilding = "";
         public int navalID = 0;
-        public List<Resource> resources = new List<Resource>();
+        public List<Resource> resources = new();
         public int arableLand = 0;
-        public List<Color> provColors = new List<Color>();
+        public List<Color> provColors = new();
         public Color color = Color.FromArgb(0, 0, 0, 0);
-        public List<(int, int)> coordList = new List<(int, int)>();
+        public List<(int, int)> coordList = new();
         public (int, int) center = (0, 0);
         public (int, int) maxRecSize = (0, 0);
         public bool floodFillMaxRec = false;
-        public List<string> homeLandList = new List<string>();
+        public List<string> homeLandList = new();
 
         //dictionary of color and its province
-        public Dictionary<Color, Province> provDict = new Dictionary<Color, Province>();
+        public Dictionary<Color, Province> provDict = new();
 
         public State(string name) {
             this.name = name;
@@ -30,33 +30,30 @@ namespace Vic3MapCSharp
         public State() { }
 
         //convert hexadecimal to color
-        public void hexToColor() {
+        public void HexToColor() {
             for (int i = 0; i < provIDList.Count; i++) {
                 Color c = ColorTranslator.FromHtml("#" + provIDList[i]);
                 provColors.Add(c);
             }
         }
-        public void getCenter2(bool squareDefault = false) {
+        public void GetCenter2(bool squareDefault = false) {
             //check if coordList has elements
             if (coordList.Count == 0) {
                 return;
             }
-
-            //create gfg object
-            MaximumRectangle mr = new MaximumRectangle();
-
-            (center, maxRecSize) = mr.center(coordList, floodFillMaxRec, squareDefault);
+            
+            (center, maxRecSize) = MaximumRectangle.Center(coordList, floodFillMaxRec, squareDefault);
         }
 
         //create a new province object and add it to provDict
-        public void addProv(string p) {
-            Province prov = new Province(p, ColorTranslator.FromHtml("#" + p.Replace("x", "")));
+        public void AddProv(string p) {
+            Province prov = new(p, ColorTranslator.FromHtml("#" + p.Replace("x", "")));
             provDict.Add(prov.color, prov);
         }
 
 
         //set coords of state from provDict
-        public void setCoords() {
+        public void SetCoords() {
             coordList = new List<(int, int)>();
             foreach (KeyValuePair<Color, Province> entry in provDict) {
                 coordList.AddRange(entry.Value.coordList);
