@@ -81,7 +81,7 @@ namespace Vic3MapCSharp
                         bool discoverableResourseFound = false;
                         bool traitsfound = false;
                         foreach (string l1 in lines) {
-                            string line = l1.Replace("=", " = ").Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("  ", " ").Trim();
+                            string line = CleanLine(l1);
 
                             //get STATE_NAME
                             if (line.StartsWith("STATE_")) {
@@ -260,7 +260,7 @@ namespace Vic3MapCSharp
                         Region r = new();
                         //Console.WriteLine(file);
                         foreach (string l1 in lines) {
-                            string line = l1.Replace("=", " = ").Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("  ", " ").Trim();
+                            string line = CleanLine(l1);
 
                             if (line.Trim().StartsWith("region_")) {
                                 r = new Region(line.Split("=")[0].Trim());
@@ -325,6 +325,9 @@ namespace Vic3MapCSharp
                 Console.WriteLine("Regions: " + count + " | " + regionList.Count);
             }
 
+            string CleanLine(string line) {
+                return line.Replace("=", " = ").Replace("{", " { ").Replace("}", " } ").Replace("  ", " ").Split('#')[0].Trim();
+            }
 
             //merge state into regions
             void mergeStateRegion(List<State> stateList, List<Region> regionList) {
@@ -1571,7 +1574,13 @@ namespace Vic3MapCSharp
                             if (l1.StartsWith("capital")) {
                                 string capital = l1.Split('=')[1].Trim();
                                 //find the state in stateDict that has the capital as its name
-                                n.capital = stateDict[capital];
+                                //if not found, set n.capital to null
+                                if (stateDict.ContainsKey(capital)) {
+                                    n.capital = stateDict[capital];
+                                }
+                                else {
+                                    n.capital = null;
+                                }
                             }
                         }
 
@@ -1612,7 +1621,7 @@ namespace Vic3MapCSharp
                             continue;
                         }
 
-                        string l1 = line.Replace("{", " { ").Replace("}", " } ").Replace("#", " # ").Replace("=", " = ").Replace("\"", "").Split("#")[0].Trim();
+                        string l1 = CleanLine(line);
 
                         if (indent == 1) {
                             if (l1.StartsWith("s:")) {
@@ -1644,6 +1653,10 @@ namespace Vic3MapCSharp
                         if (createStateFound) {
                             //country
                             if (l1.StartsWith("country")) {
+                                //check if "C:" and correct it to "c:"
+                                if (l1.Contains("C:")) {
+                                    l1 = l1.Replace("C:", "c:");
+                                }
                                 string tag = l1.Split("c:")[1].Trim();
                                 if (nationDict.ContainsKey(tag)) {
                                     n = nationDict[tag];

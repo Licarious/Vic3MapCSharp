@@ -50,3 +50,5 @@ _Output/Create_State/00_states.txt
 _Output/Create_State/provs_not_matched.txt
 _Output/National/Create_State.png
 _Output/National/Create_State_tags.png
+_Output/ColorMap/impassable_prime_map.png
+_Output/ColorMap/terrain_map.png
