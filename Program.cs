@@ -1631,7 +1631,7 @@ namespace Vic3MapCSharp
                                 }
                             }
                         }
-                        if (indent == 2) {
+                        if (indent >= 2) {
                             //add_homeland
                             if (l1.StartsWith("add_homeland")) {
                                 s.homeLandList.Add(l1.Split('=')[1].Trim());
@@ -1676,10 +1676,10 @@ namespace Vic3MapCSharp
                         }
 
                         if (stateProvsFound) {
-                            string[] provs = l1.Replace("{", "").Replace("}", "").Replace("x", "#").Trim().Split();
+                            string[] provs = l1.Replace("{", "").Replace("}", "").Replace("x", "#").Replace("\"", "").Trim().Split();
 
                             if (l1.Contains('=')) {
-                                provs = l1.Replace("{", "").Replace("}", "").Replace("x", "#").Split('=')[1].Trim().Split();
+                                provs = l1.Replace("{", "").Replace("}", "").Replace("x", "#").Replace("\"","").Split('=')[1].Trim().Split();
                             }
                             foreach (string p in provs) {
                                 try {
@@ -1812,7 +1812,6 @@ namespace Vic3MapCSharp
                         n.GetCenter2();
                         numberFontSize = recFontSize;
                     }
-
 
                     font1 = new Font(privateFontCollection.Families[0], numberFontSize);
                     //draw the name on bitmap
