@@ -523,6 +523,18 @@ namespace Vic3MapCSharp
                 Console.WriteLine("Drawing State Maps");
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
+                        //catch if a state has no hubs but is not water to apply a color
+                        //if the state color alpha is 0 and atleast 1 province is not a sea or lake then set color to first province color
+                        if (s.color.A == 0 && s.provDict.Count > 0) {
+                            foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
+                                if (!kvp.Value.isSea && !kvp.Value.isLake) {
+                                    s.color = kvp.Key;
+                                    break;
+                                }
+                            }
+                        }
+
+
                         foreach ((int, int) c in s.coordList) {
                             stateImage.SetPixel(c.Item1, c.Item2, s.color);
                         }
@@ -1518,7 +1530,12 @@ namespace Vic3MapCSharp
                         if (indent == 0) {
                             if (l1.Contains('=')) {
                                 n = new Nation(l1.Split('=')[0].Trim());
-                                nationDict.Add(n.name, n);
+                                try {
+                                    nationDict.Add(n.name, n);
+                                }
+                                catch (ArgumentException) {
+                                    Console.WriteLine("Duplicate nation tag: " + n.name + " in file: " + file + "\n\tusing first instance");
+                                }
                             }
                         }
                         if (indent == 1) {
