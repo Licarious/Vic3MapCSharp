@@ -69,6 +69,8 @@ namespace Vic3MapCSharp
                 //for each file
                 int count = 0;
 
+                HashSet<string> usedColors = new();
+
                 foreach (string file in files) {
                     if (file.EndsWith(".txt")) {
                         //read file
@@ -115,6 +117,25 @@ namespace Vic3MapCSharp
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
                                         s.provIDList.Add(n);
                                         s.AddProv(n);
+                                        try {
+                                            usedColors.Add(n);
+                                        }
+                                        catch {
+                                            //find the other state that uses this color and remove it
+                                            foreach (State state in stateList) {
+                                                //continue if state is the same as the one we are currently parsing
+                                                if (state.name == s.name) {
+                                                    continue;
+                                                }
+                                                //if the state has a province with the same color as the one we are currently parsing
+                                                if (state.provIDList.Contains(n)) {
+                                                    //remove the province from the state
+                                                    state.provIDList.Remove(n);
+                                                    break;
+                                                }
+                                            }
+
+                                        }
                                     }
                                 }
 
@@ -350,7 +371,10 @@ namespace Vic3MapCSharp
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
-                            colorToProvDic.Add(kvp.Key, kvp.Value);
+                            try {
+                                colorToProvDic.Add(kvp.Key, kvp.Value);
+                            }
+                            catch { }
                         }
                     }
                 }
@@ -421,7 +445,10 @@ namespace Vic3MapCSharp
                     foreach (State s in r.states) {
                         //add all province colors to provColorToProv
                         foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
-                            provColorToProv.Add(kvp.Key, kvp.Value);
+                            try {
+                                provColorToProv.Add(kvp.Key, kvp.Value);
+                            }
+                            catch { }
                         }
                     }
                 }
@@ -1507,7 +1534,10 @@ namespace Vic3MapCSharp
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         foreach (Province p in s.provDict.Values) {
-                            colorProv.Add(p.color, p);
+                            try {
+                                colorProv.Add(p.color, p);
+                            }
+                            catch { }
                         }
                     }
                 }
@@ -1880,7 +1910,12 @@ namespace Vic3MapCSharp
                     foreach (State s in r.states) {
                         foreach (Province p in s.provDict.Values) {
                             //add province to provDict
-                            provDict.Add(p.color, p);
+                            try {
+                                provDict.Add(p.color, p);
+                            }
+                            catch {
+
+                            }
                         }
                     }
                 }

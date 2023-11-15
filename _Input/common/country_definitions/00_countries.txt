@@ -697,7 +697,7 @@ PRA = { #Gao-Para
 
 	tier = principality
 	
-	cultures = { brazilian }
+	cultures = { amazonic }
 	religion = catholic
 	capital = STATE_PARA
 }
@@ -765,7 +765,7 @@ BOH = {
 	
 	country_type = recognized
 
-	tier = kingdom
+	tier = principality
 	
 	cultures = { czech }	
 	capital = STATE_BOHEMIA
@@ -883,7 +883,8 @@ SWI = {
 	tier = kingdom
 	
 	capital = STATE_WEST_SWITZERLAND
-	cultures = { swiss }
+	cultures = { alemannic francoprovencal }
+	religion = protestant
 }
 
 TRS = {
@@ -1039,6 +1040,8 @@ MON = {
 
 ROM = {
 	color = { 21  96  178 }
+
+	valid_as_home_country_for_separatists = { always = no }
 	
 	country_type = recognized
 
@@ -1244,7 +1247,7 @@ KAZ = {
 }
 
 MUG = {
-	color = { 150  230  255 }
+	color = { 48  96  48 }
 	
 	country_type = unrecognized
 	
@@ -1306,7 +1309,7 @@ YEM = {
 	
 	country_type = unrecognized
 	
-	tier = principality
+	tier = kingdom
 	
 	cultures = { yemenite bedouin }
 	capital = STATE_YEMEN
@@ -2029,7 +2032,7 @@ DOM = {
 	
 	tier = principality
 	
-	cultures = { caribeno }
+	cultures = { caribeno afro_caribeno }
 	capital = STATE_SANTO_DOMINGO
 	is_named_from_capital = yes
 }
@@ -2059,7 +2062,7 @@ GUA = {
 }
 
 ALT = {
-	color = { 115 194 251 }
+	color = { 115 251 194 }
 	
 	country_type = colonial
 	
@@ -2076,7 +2079,7 @@ HAI = {
 	
 	tier = principality
 	
-	cultures = { afro_antillean caribeno afro_caribeno }
+	cultures = { afro_antillean }
 	capital = STATE_HAITI
 }
 
@@ -2330,7 +2333,7 @@ PRG = {
 	
 	tier = principality
 	
-	cultures = { platinean }
+	cultures = { platinean guarani }
 	capital = STATE_BAJO_PARAGUAY
 }
 
@@ -2441,7 +2444,7 @@ PLC = {
 GCO = {
 	color = { 255  244  100 }
 	
-	country_type = recognized
+	country_type = colonial
 
 	tier = empire
 	
@@ -2472,7 +2475,7 @@ BIC = {
 }
 
 BRI = {
-	color = { 110 25 96 }
+	color = { 215 195 225 }
 	
 	country_type = recognized
 
@@ -3040,7 +3043,7 @@ TWT = { # Tawantinsuyu
 	
 	country_type = unrecognized
 	
-	tier = principality
+	tier = kingdom
 	
 	cultures = { quechua }
 	
@@ -3304,7 +3307,7 @@ PNI = {
 	
 	tier = principality
 	
-	cultures = { brazilian }
+	cultures = { sulista }
 	capital = STATE_RIO_GRANDE_DO_SUL
 }
 
@@ -3358,7 +3361,7 @@ OCC = {
 	country_type = recognized
 	tier = principality
 	cultures = { occitan }
-	capital = STATE_ARMAGNAC
+	capital = STATE_LANGUEDOC
 
 }
 
@@ -3399,7 +3402,8 @@ IUS = {
 	color = { 11 115 39 }
 	country_type = recognized
 	tier = principality
-	cultures = { russian tatar }
+	cultures = { tatar }
+	religion = sunni
 	capital = STATE_KAZAN
 }
 
@@ -3707,6 +3711,8 @@ BHT = {
 	
 	country_type = recognized
 
+	valid_as_home_country_for_separatists = { always = no }
+
 	tier = hegemony
 	
 	cultures = { assamese avadhi baluchi bengali bihari gujarati kanauji kannada malayalam marathi oriya panjabi pashtun rajput sindi tamil telegu }
@@ -3823,10 +3829,281 @@ OZH = {
 CAU = {
 	color = { 200 100 55 }
 	
-	country_type = unrecognized
+	country_type = recognized
 
 	tier = empire
 	
 	cultures = { azerbaijani armenian georgian }
 	capital = STATE_GREATER_CAUCASUS
+}
+
+SAV = {
+	color = { 235 196 231 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	capital = STATE_SAVOY
+	cultures = { francoprovencal }
+}
+
+RHE = {
+	color = { 5 85 5 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { north_german }
+	capital = STATE_NORTH_RHINE
+	is_named_from_capital = yes
+}
+
+PRC = {
+	color = { 237 41 57 }
+	
+	country_type = recognized
+
+	tier = empire
+	
+	cultures = { french }
+	capital = STATE_ILE_DE_FRANCE
+}
+
+PAU = {
+	color = { 69 103 77 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { paulista }
+	capital = STATE_SAO_PAULO
+}
+
+EQT = {
+	color = { 168 193 183 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { nordestino }
+	capital = STATE_PERNAMBUCO
+}
+
+CTR = {
+	color = { 223 249 104 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { sulista }
+	capital = STATE_SANTA_CATARINA
+}
+
+MNG = {
+	color = { 32 191 148 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { brazilian }
+	capital = STATE_MINAS_GERAIS
+}
+
+BHI = {
+	color = { 197 206 191 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { nordestino }
+	capital = STATE_BAHIA
+}
+
+CNW = {
+	color = { 194 94 63}
+	country_type = recognized
+	tier = principality
+	cultures = { british }
+	capital = STATE_WEST_COUNTRY
+}
+
+FND = {
+	color = { 220 220 245 }
+	country_type = colonial
+	tier = hegemony
+	cultures = { north_andean south_andean }
+	capital = STATE_PANAMA
+}
+
+PBC = {
+    color = { 234 107 163 }
+    country_type = colonial
+    tier = empire
+    cultures = { south_andean }
+    capital = STATE_LA_PAZ
+}
+
+IQU = {
+    color = { 245 210 80 }
+    country_type = unrecognized
+    tier = principality
+    cultures = { quechua }
+    capital = STATE_ICA
+}
+
+NPU = {
+    color = { 157 55 55 }
+    country_type = colonial
+    tier = principality
+    cultures = { south_andean }
+    capital = STATE_LIMA
+}
+
+SPU = {
+    color = { 55 167 77 }
+    country_type = colonial
+    tier = principality
+    cultures = { south_andean }
+    capital = STATE_ICA
+}
+
+RSM = {
+	color = { 110 10 45 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { north_italian }
+	capital = STATE_LOMBARDY
+}
+
+HRE = {
+	color = { 250  250  245 }
+	
+	country_type = recognized
+
+	tier = hegemony
+	
+	cultures = { north_german south_german czech dutch flemish wallonian alemannic north_italian slovene }
+	capital = STATE_AUSTRIA
+}
+
+UNL = {
+	color = { 255 118 28 }
+	
+	country_type = recognized
+
+	tier = empire
+	
+	cultures = { dutch flemish wallonian }
+	capital = STATE_HOLLAND
+}
+
+RHN = {
+	color = { 77 165 128 }
+	
+	country_type = recognized
+
+	tier = empire
+	
+	cultures = { north_german south_german }
+	capital = STATE_HESSE
+}
+
+PLT = {
+	color = { 130  135  240 }
+	
+	country_type = colonial
+
+	tier = empire
+	
+	cultures = { platinean }
+	capital = STATE_BUENOS_AIRES
+}
+
+NCR = {
+	color = { 123 175 212 } #Carolina Blue. It pains me to do this as an NCSU alumnus.
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { dixie }
+	capital = STATE_NORTH_CAROLINA
+}
+
+SCR = {
+	color = { 245 102 0 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { dixie }
+	capital = STATE_SOUTH_CAROLINA
+}
+
+CLI = {
+	color = { 135 113 196 } 
+	
+	country_type = recognized
+
+	tier = kingdom
+	
+	cultures = { dixie }
+	capital = STATE_NORTH_CAROLINA
+}
+
+GRG = {
+	color = { 181 0 39 } 
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { dixie }
+	capital = STATE_GEORGIA
+}
+
+
+FLR = {
+	color = { 255 198 142 } 
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { dixie }
+	capital = STATE_FLORIDA
+}
+
+PAK = {
+	color = { 164 157 96 }
+
+	country_type = unrecognized
+
+	tier = empire
+	
+	cultures = { kashmiri panjabi sindi baluchi pashtun }
+	religion = sunni
+	capital = STATE_SINDH
+}
+
+TIS = {
+	color = { 190 133 82 }
+
+	country_type = unrecognized
+
+	tier = empire
+	
+	cultures = { cherokee iroquoian siouan }
+	capital = STATE_OKLAHOMA
 }

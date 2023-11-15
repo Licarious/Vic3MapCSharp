@@ -3,9 +3,22 @@
 	
 	country_type = unrecognized
 	
+	tier = kingdom
+	
+	cultures = { maghrebi berber }
+	
+	capital = STATE_ALGIERS
+}
+
+
+CON = {
+	color = { 228 3 16 }
+	
+	country_type = unrecognized
+	
 	tier = principality
 	
-	cultures = { maghrebi }
+	cultures = { maghrebi berber }
 	
 	capital = STATE_CONSTANTINE
 }
@@ -41,6 +54,18 @@ MAD = {
 	
 	cultures = { malagasy }
 	capital = STATE_NORTH_MADAGASCAR
+}
+
+MAS = {
+	color = { 0 129 48 }
+	
+	country_type = unrecognized
+	
+	tier = principality
+	
+	cultures = { maghrebi berber }
+	
+	capital = STATE_ORAN
 }
 
 LIB = {
@@ -1081,7 +1106,7 @@ TRZ = {
 	
 	tier = principality
 	
-	cultures = { maures }
+	cultures = { bidan }
 	capital = STATE_MAURITANIA
 }
 
@@ -1256,7 +1281,7 @@ OUA = {
 	
 	tier = principality
 	
-	cultures = { maures }
+	cultures = { bidan }
 	capital = STATE_INNER_MAURITANIA
 }
 
@@ -1494,7 +1519,7 @@ MAL = {
 	color = { 75 179 27}
 	country_type = unrecognized
 	tier = kingdom
-	cultures = { bambara fulbe}
+	cultures = { bambara fulbe wolof mande }
 	capital = STATE_WESTERN_MALI
 }
 
@@ -1513,4 +1538,82 @@ SAH = { # Sahrawi
 	
 	cultures = { berber }
 	capital = STATE_WEST_SAHARA
+}
+
+TUG = {
+	color = { 90 140 190 }
+	
+	country_type = unrecognized
+	
+	tier = principality
+	
+	cultures = { berber }
+	capital = STATE_EAST_SAHARA
+}
+
+AIT = {
+	color = { 255 255 153 }
+	
+	country_type = unrecognized
+	
+	tier = principality
+	
+	cultures = { berber }
+	capital = STATE_CONSTANTINE
+}
+
+GZA = {
+	color = { 191 154 108 }
+	
+	country_type = unrecognized
+	
+	tier = principality
+	
+	cultures = { nguni }
+	capital = STATE_LOURENCO_MARQUES
+}
+
+MRV = {
+	color = { 220 220 75 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { chewa }
+	capital = STATE_KAZEMBE
+}
+
+BRG = {
+	color = { 218 231 235 }
+	
+	country_type = unrecognized
+	
+	tier = principality
+	
+	cultures = { mande fulbe }
+	capital = STATE_HAUSALAND
+}
+
+BMM = {
+	color = { 197 201 163 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { equatorial_bantu }
+	religion = sunni
+	capital = STATE_NORTH_CAMEROON
+}
+
+MGB = {
+	color = { 209 63 44 }
+	
+	country_type = unrecognized
+	
+	tier = empire
+	
+	cultures = { maghrebi berber bidan }
+	capital = STATE_TUNISIA
 }
