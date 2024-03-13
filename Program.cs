@@ -7,7 +7,7 @@ namespace Vic3MapCSharp
 {
     internal class Program
     {
-        private static void Main(string[] args) {
+        private static void Main() {
             //check if .net framework 6.0 is installed
             if (Environment.Version.Major < 6) {
                 Console.WriteLine("This program requires .NET Framework 6.0 or higher. Please install it and try again.");
@@ -47,9 +47,12 @@ namespace Vic3MapCSharp
 
 
             List<State> stateList = new();
+            Dictionary<Color, Province> provinceDict = new();
             parseStateFiles(stateList);
             List<Region> regionList = new();
             parseRegionFiles(regionList);
+            parseTerrain(regionList, provinceDict);
+
             mergeStateRegion(stateList, regionList);
 
             writeRGOs(regionList);
@@ -59,7 +62,7 @@ namespace Vic3MapCSharp
 
             parseDefaultMap(regionList);
 
-            parseProvMap(regionList);
+            parseProvMap(regionList, provinceDict);
 
 
             //method to parse state files
@@ -134,7 +137,6 @@ namespace Vic3MapCSharp
                                                     break;
                                                 }
                                             }
-
                                         }
                                     }
                                 }
@@ -190,7 +192,7 @@ namespace Vic3MapCSharp
                             }
                             //get arable_resources
                             if (line.TrimStart().StartsWith("arable_resources")) {
-                                string[] resList = line.Split("=")[1].Replace("\"", "").Split(" ");
+                                string[] resList = line.Split("=")[1].Replace("\"", "").Split();
                                 for (int i = 0; i < resList.Length; i++) {
                                     if (resList[i].StartsWith("bg_")) {
                                         Resource r = new(resList[i]) {
@@ -298,7 +300,7 @@ namespace Vic3MapCSharp
                                 regionList.Add(r);
                             }
                             else if (line.Trim().StartsWith("states")) {
-                                string[] states = line.Split("=")[1].Replace("{", "").Replace("}", "").Split(" ");
+                                string[] states = line.Split("=")[1].Replace("{", "").Replace("}", "").Split();
                                 for (int i = 0; i < states.Length; i++) {
                                     if (states[i].StartsWith("STATE_")) {
                                         r.stateNames.Add(states[i]);
@@ -307,7 +309,7 @@ namespace Vic3MapCSharp
                             }
                             else if (line.Trim().StartsWith("map_color")) {
                                 count++;
-                                string[] e = line.Split("=")[1].Split(" ");
+                                string[] e = line.Split("=")[1].Split();
 
                                 List<double> rgbValues = new();
 
@@ -392,7 +394,7 @@ namespace Vic3MapCSharp
                         lakeStart = true;
                     }
                     if (seaStart) {
-                        string[] l2 = line.Trim().Split(" ");
+                        string[] l2 = line.Trim().Split();
                         for (int i = 0; i < l2.Length; i++) {
                             if (l2[i].StartsWith("#")) {
                                 break;
@@ -413,7 +415,7 @@ namespace Vic3MapCSharp
                         }
                     }
                     if (lakeStart) {
-                        string[] l2 = line.Trim().Split(" ");
+                        string[] l2 = line.Trim().Split();
                         for (int i = 0; i < l2.Length; i++) {
                             if (l2[i].StartsWith("#")) {
                                 break;
@@ -437,22 +439,7 @@ namespace Vic3MapCSharp
             }
 
             //pares province png
-            void parseProvMap(List<Region> regionList) {
-                //dictionary province color to state object
-                Dictionary<Color, Province> provColorToProv = new();
-
-                foreach (Region r in regionList) {
-                    foreach (State s in r.states) {
-                        //add all province colors to provColorToProv
-                        foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
-                            try {
-                                provColorToProv.Add(kvp.Key, kvp.Value);
-                            }
-                            catch { }
-                        }
-                    }
-                }
-
+            void parseProvMap(List<Region> regionList, Dictionary<Color, Province> ProvinceDict) {
                 Bitmap image = new(localDir + "/_Input/map_data/provinces.png");
                 Bitmap provBorder = new(image.Width, image.Height);
 
@@ -462,7 +449,7 @@ namespace Vic3MapCSharp
                     for (int j = 0; j < image.Height; j++) {
                         Color c = image.GetPixel(i, j);
                         //if c is in provColorToProv add coord to state
-                        if (provColorToProv.ContainsKey(c)) provColorToProv[c].coordList.Add((i, j));
+                        if (ProvinceDict.ContainsKey(c)) ProvinceDict[c].coordList.Add((i, j));
 
                         //check left and above pixel for border
                         if ((i > 0 && image.GetPixel(i - 1, j) != c) || (j > 0 && image.GetPixel(i, j - 1) != c)) {
@@ -477,14 +464,18 @@ namespace Vic3MapCSharp
                     }
 
                 }
-
-                //set coordList for each state
+                //update coords in each state
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
+                        foreach (KeyValuePair<Color, Province> kvp in s.provDict) {
+                            if (ProvinceDict.ContainsKey(kvp.Key)) {
+                                kvp.Value.coordList = ProvinceDict[kvp.Key].coordList;
+                            }
+                        }
                         s.SetCoords();
                     }
                 }
-
+                
                 //check if /_Output/BorderFrame exists if not add it
                 if (!Directory.Exists(localDir + "/_Output/BorderFrame")) {
                     Directory.CreateDirectory(localDir + "/_Output/BorderFrame");
@@ -507,7 +498,7 @@ namespace Vic3MapCSharp
 
                     drawHubs(regionList, image);
                     drawImpassablePrime(regionList, image);
-                    drawTerrain(regionList, image);
+                    drawTerrain(provinceDict, image);
                 }
 
 
@@ -522,7 +513,7 @@ namespace Vic3MapCSharp
                         drawNationsMap(nationDict, "Starting_National", doDrawDecentralized);
                     }
                     if (doDrawSaves) {
-                        parseTerrain(regionList);
+                        
                         //for every file in _Input/Saves
                         foreach (string file in Directory.GetFiles(localDir + "/_Input/Saves")) {
                             //if file is a .txt file
@@ -546,7 +537,6 @@ namespace Vic3MapCSharp
             //draw state images
             void drawStateImages(List<Region> regionList, Bitmap image) {
                 Bitmap stateImage = new(image.Width, image.Height);
-                Bitmap stateBorder = new(image.Width, image.Height);
                 Console.WriteLine("Drawing State Maps");
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
@@ -567,41 +557,6 @@ namespace Vic3MapCSharp
                         }
                     }
                 }
-
-                //draw horizontal borders for state map            
-                for (int i = 0; i < image.Width; i++) {
-                    Color lastColor = stateImage.GetPixel(i, 0);
-                    for (int j = 0; j < image.Height; j++) {
-                        Color c = stateImage.GetPixel(i, j);
-                        if (c != lastColor) {
-                            stateBorder.SetPixel(i, j, Color.Black);
-                            lastColor = c;
-                        }
-                    }
-
-                    //progress bar every 25% with 0% and 100% mapping to 0% and 50% of total progress
-                    if (i % (image.Width / 4) == 0) {
-                        Console.WriteLine("\t" + i * 100 / image.Width / 2 + "%");
-                    }
-                }
-
-                //draw vertical borders for state map
-                for (int i = 0; i < image.Height; i++) {
-                    Color lastColor = stateImage.GetPixel(0, i);
-                    for (int j = 1; j < image.Width; j++) {
-                        Color c = stateImage.GetPixel(j, i);
-                        if (c != lastColor) {
-                            stateBorder.SetPixel(j, i, Color.Black);
-                            lastColor = c;
-                        }
-                    }
-
-                    //progress bar every 25% with 0% and 100% mapping to 50% and 100% of total progress
-                    if (i % (image.Width / 4) == 0) {
-                        Console.WriteLine("\t" + (i * 100 / image.Width / 2 + 50) + "%");
-                    }
-                }
-
                 //check if /_Output/ColorMap exists if not add it
                 if (!Directory.Exists(localDir + "/_Output/ColorMap")) {
                     Directory.CreateDirectory(localDir + "/_Output/ColorMap");
@@ -609,8 +564,8 @@ namespace Vic3MapCSharp
 
                 //save state images
                 stateImage.Save(localDir + "/_Output/ColorMap/state_colors.png");
-                stateBorder.Save(localDir + "/_Output/BorderFrame/state_border.png");
 
+                drawBorders(localDir + "/_Output/ColorMap/state_colors.png", localDir + "/_Output/BorderFrame/state_border.png", Color.Black);
 
             }
 
@@ -632,50 +587,23 @@ namespace Vic3MapCSharp
                     }
                 }
 
-                //draw horizontal borders for region map            
-                for (int i = 0; i < image.Width; i++) {
-                    Color lastColor = regionImage.GetPixel(i, 0);
-                    for (int j = 0; j < image.Height; j++) {
-                        Color c = regionImage.GetPixel(i, j);
-                        if (c.A == 0) {
+                //for all pixles in regionImage with an alpha value of 0 set waterImage to light blue
+                for (int i = 0; i < regionImage.Width; i++) {
+                    for (int j = 0; j < regionImage.Height; j++) {
+                        if (regionImage.GetPixel(i, j).A == 0) {
+                            //light blue with an alpha of 254
+                            waterImage.SetPixel(i, j, Color.FromArgb(254, 173, 216, 230));
+                            //waterImage.SetPixel(i, j, Color.LightBlue);
                             waterCoordList.Add((i, j));
-                            waterImage.SetPixel(i, j, Color.LightBlue);
                         }
-                        if (c != lastColor) {
-                            regionBorder.SetPixel(i, j, Color.Black);
-                            lastColor = c;
-                        }
-                    }
-
-                    //progress bar every 25% with 0% and 100% mapping to 0% and 50% of total progress
-                    if (i % (image.Width / 4) == 0) {
-                        Console.WriteLine("\t" + i * 100 / image.Width / 2 + "%");
-                    }
-                }
-
-                //draw vertical borders for region map
-                for (int i = 0; i < image.Height; i++) {
-                    Color lastColor = regionImage.GetPixel(0, i);
-                    for (int j = 1; j < image.Width; j++) {
-                        Color c = regionImage.GetPixel(j, i);
-                        if (c != lastColor) {
-                            regionBorder.SetPixel(j, i, Color.Black);
-                            lastColor = c;
-                        }
-                    }
-
-                    //progress bar every 25% with 0% and 100% mapping to 50% and 100% of total progress
-                    if (i % (image.Width / 4) == 0) {
-                        Console.WriteLine("\t" + (i * 100 / image.Width / 2 + 50) + "%");
                     }
                 }
 
                 //save region images
                 regionImage.Save(localDir + "/_Output/ColorMap/region_colors.png");
-                regionBorder.Save(localDir + "/_Output/BorderFrame/region_border.png");
                 waterImage.Save(localDir + "/_Output/ColorMap/water_map.png");
 
-
+                drawBorders(localDir + "/_Output/ColorMap/region_colors.png", localDir + "/_Output/BorderFrame/region_border.png", Color.Black);
 
                 return waterCoordList;
 
@@ -1422,93 +1350,40 @@ namespace Vic3MapCSharp
                 impassablePrimeMap.Save(localDir + "/_Output/ColorMap/impassable_prime_map.png");
             }
 
-            void drawTerrain(List<Region> regionList, Image image) {
-                //add terrain definitions
-                parseTerrain(regionList);
+            void drawTerrain(Dictionary<Color, Province> provDict, Image image) {
 
                 //create a new blank image of size image
                 Bitmap terrainMap = new(image.Width, image.Height);
 
-                foreach (Region r in regionList) {
-                    foreach (State s in r.states) {
-                        //for each province in s.provDict
-                        foreach (Province p in s.provDict.Values) {
-                            if (p.isLake || p.isSea) {
-                                Color c = Color.Blue;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "plains") {
-                                Color c = Color.LawnGreen;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "forest") {
-                                Color c = Color.ForestGreen;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "jungle") {
-                                Color c = Color.DarkOliveGreen;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "desert") {
-                                Color c = Color.SandyBrown;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "hills") {
-                                Color c = Color.Red;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "mountain") {
-                                Color c = Color.Black;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "savanna") {
-                                Color c = Color.Orange;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "snow") {
-                                Color c = Color.Snow;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "tundra") {
-                                Color c = Color.MediumOrchid;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else if (p.terrain == "wetland") {
-                                Color c = Color.Brown;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
-                            else {
-                                Color c = Color.LightGray;
-                                foreach ((int, int) coord in p.coordList) {
-                                    terrainMap.SetPixel(coord.Item1, coord.Item2, c);
-                                }
-                            }
+                //dictinary of terrain names and colors
+                Dictionary<string, Color> terrainColor = new() {
+                    { "plains", Color.LawnGreen },
+                    { "forest", Color.ForestGreen },
+                    { "jungle", Color.DarkOliveGreen },
+                    { "desert", Color.SandyBrown },
+                    { "hills", Color.Red },
+                    { "mountain", Color.Black },
+                    { "savanna", Color.Orange },
+                    { "snow", Color.Snow },
+                    { "tundra", Color.MediumOrchid },
+                    { "wetland", Color.Brown },
+                    { "lakes", Color.Blue },
+                    { "ocean", Color.Blue }
+                };
+
+                foreach (Province p in provDict.Values) {
+                    if (terrainColor.ContainsKey(p.terrain)) {
+                        foreach ((int, int) coord in p.coordList) {
+                            terrainMap.SetPixel(coord.Item1, coord.Item2, terrainColor[p.terrain]);
+                        }
+                    }
+                    else {
+                        foreach ((int, int) coord in p.coordList) {
+                            terrainMap.SetPixel(coord.Item1, coord.Item2, Color.LightGray);
                         }
                     }
                 }
-
+                
                 terrainMap.Save(localDir + "/_Output/ColorMap/terrain_map.png");
             }
 
@@ -1793,6 +1668,8 @@ namespace Vic3MapCSharp
                 //save bitmap to _Output/nations.png
                 bitmap.Save(localDir + "/_Output/National/" + fileName + ".png");
 
+                drawBorders(localDir + "/_Output/National/" + fileName + ".png", localDir + "/_Output/BorderFrame/" + fileName + "_border.png", Color.Black);
+
                 StringFormat stringFormat = new() {
                     Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Center
@@ -1901,21 +1778,12 @@ namespace Vic3MapCSharp
                 return ColorFromHSV(v1 / 360, v2 / 100, v3 / 100);
             }
 
-            void parseTerrain(List<Region> regionList) {
-                //province dictionary for matching province name to province object
-                Dictionary<Color, Province> provDict = new();
-
-                //for each region in regionList
+            void parseTerrain(List<Region> regionList, Dictionary<Color, Province> provDict) {
+                //add all provinces in regionList to provDict
                 foreach (Region r in regionList) {
                     foreach (State s in r.states) {
                         foreach (Province p in s.provDict.Values) {
-                            //add province to provDict
-                            try {
-                                provDict.Add(p.color, p);
-                            }
-                            catch {
-
-                            }
+                            provDict.Add(p.color, p);
                         }
                     }
                 }
@@ -1934,20 +1802,19 @@ namespace Vic3MapCSharp
 
                         //match province to provDict on l1[0] to name
                         Color c = ColorTranslator.FromHtml(l1[0].Replace("x", "#"));
-                        if (provDict.ContainsKey(c)) {
-                            //set province.terrain to l1[1]
-                            provDict[c].terrain = l1[1];
-                            provDict[c].internalID = count;
+
+                        //if c does not exist in provDict then add it
+                        if (!provDict.ContainsKey(c)) {
+                            provDict.Add(c, new Province(c));
                         }
-                        else {
-                            //Console.WriteLine("Error: " + c + " not found in provDict");
-                        }
+
+                        //set terrain and internalID
+                        provDict[c].terrain = l1[1];
+                        provDict[c].internalID = count;
                     }
                     count++;
 
                 }
-
-
 
             }
 
@@ -2384,10 +2251,7 @@ namespace Vic3MapCSharp
                 foreach (var p in provCount) {
                     lines.Add(";" + p.Key + ";" + p.Count() + "\n");
                     Console.WriteLine(p.Key + " provinces: " + p.Count());
-
                 }
-
-
 
                 //write to file
                 StreamWriter stwr = new(localDir + "/_Output/Debug/StateProv.csv");
@@ -2398,6 +2262,72 @@ namespace Vic3MapCSharp
                 }
                 stwr.Close();
 
+            }
+            
+            bool drawBorders(string inputImagePath, string outputPath, Color borderColor, bool seaBorder = false, int borderWidth = 1) {
+                try {
+                    //load image
+                    Bitmap image = new(inputImagePath);
+
+                    //get image width and height
+                    int width = image.Width;
+                    int height = image.Height;
+
+                    //create new bitmap
+                    Bitmap newImage = new(width, height);
+
+                    //iterate through each pixel
+                    for (int x = 0; x < width - 1; x++) {
+                        for (int y = 0; y < height - 1; y++) {
+                            //if the pixel to the left is a different color than the current pixel set the that pixel to the border color
+                            if (image.GetPixel(x, y) != image.GetPixel(x + 1, y)) {
+                                //if either of the pixels have an alpha value less than 255 and seaBorder is false skip
+                                if (!seaBorder && (image.GetPixel(x, y).A < 255 || image.GetPixel(x + 1, y).A < 255)) continue;
+                                //find wich direction the border is and draw the border with the correct width and make sure that x and y are not out of bounds when drawing
+                                if (x - borderWidth >= 0) {
+                                    for (int i = 0; i < borderWidth; i++) {
+                                        newImage.SetPixel(x - i, y, borderColor);
+                                    }
+                                }
+                                if (x + borderWidth < width) {
+                                    for (int i = 0; i < borderWidth; i++) {
+                                        newImage.SetPixel(x + i, y, borderColor);
+                                    }
+                                }
+                            }
+                            //similarly below
+                            if (image.GetPixel(x, y) != image.GetPixel(x, y + 1)) {
+                                if(!seaBorder && (image.GetPixel(x, y).A < 255 || image.GetPixel(x, y + 1).A < 255)) continue;
+                                if (y - borderWidth >= 0) {
+                                    for (int i = 0; i < borderWidth; i++) {
+                                        newImage.SetPixel(x, y - i, borderColor);
+                                    }
+                                }
+                                if (y + borderWidth < height) {
+                                    for (int i = 0; i < borderWidth; i++) {
+                                        newImage.SetPixel(x, y + i, borderColor);
+                                    }
+                                }
+                            }
+                        }
+                        //print the % every 20%
+                        if (x % (width / 5) == 0) {
+                            Console.WriteLine("\t"+x / (width / 100) + "%");
+                        }
+                    }
+
+                    //outputPath is a file path to a file,  if the folder does not exist create it
+                    if (!Directory.Exists(Path.GetDirectoryName(outputPath))) {
+                        Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                    }
+                    //save image
+                    newImage.Save(outputPath);
+                    return true;
+                }
+                catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                    return false;
+                }
             }
 
         }

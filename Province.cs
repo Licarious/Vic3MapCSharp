@@ -16,9 +16,14 @@ namespace Vic3MapCSharp
         public bool isLake = false;
         public bool isSea = false;
 
-        public Province(string name, Color color) {
-            this.name = name;
+        public Province(Color color) {
+            this.name = "x" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
             this.color = color;
+        }
+
+        public Province(string name) {
+            this.name = name;
+            this.color = ColorTranslator.FromHtml("#" + name.Replace("x", ""));
         }
 
         public void SetHashSet() {

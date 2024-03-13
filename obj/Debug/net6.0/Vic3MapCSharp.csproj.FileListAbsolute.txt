@@ -13,9 +13,10 @@ C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.AssemblyInfoInputs.cache
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.AssemblyInfo.cs
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.csproj.CoreCompileInputs.cache
-C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.csproj.CopyComplete
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.dll
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\refint\Vic3MapCSharp.dll
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.pdb
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.genruntimeconfig.cache
 C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\ref\Vic3MapCSharp.dll
+C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapCSharp.sourcelink.json
+C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\obj\Debug\net6.0\Vic3MapC.D78D0DFC.Up2Date

@@ -9,3 +9,5 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Vic3MapCSharp
 build_property.ProjectDir = C:\Users\fligh\OneDrive\Desktop\Vic3\Vic3MapCSharp\Vic3MapCSharp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
