@@ -28,6 +28,10 @@ namespace Vic3MapCSharp
             bool doDrawSaves = true;
             //Should Decentralized Nations be drawn on the National Maps
             bool doDrawDecentralized = true;
+            bool doUseROGsCSV = true;
+            bool doDrawCoastalBordersRegions = true;
+            bool doDrawCoastalBordersStates = true;
+            bool doDrawCoastalBordersNational = true;
 
             bool doDrawDebug = true;
 
@@ -52,9 +56,13 @@ namespace Vic3MapCSharp
             List<Region> regionList = new();
             parseRegionFiles(regionList);
             parseTerrain(regionList, provinceDict);
-
+            
             mergeStateRegion(stateList, regionList);
-
+            
+            if (doUseROGsCSV) {
+                parseRGOsCSV(regionList);
+            }
+            
             writeRGOs(regionList);
             if(doDrawDebug)
                 debugStateProv(regionList);
@@ -565,7 +573,7 @@ namespace Vic3MapCSharp
                 //save state images
                 stateImage.Save(localDir + "/_Output/ColorMap/state_colors.png");
 
-                drawBorders(localDir + "/_Output/ColorMap/state_colors.png", localDir + "/_Output/BorderFrame/state_border.png", Color.Black);
+                drawBorders(localDir + "/_Output/ColorMap/state_colors.png", localDir + "/_Output/BorderFrame/state_border.png", Color.Black, doDrawCoastalBordersStates);
 
             }
 
@@ -603,7 +611,7 @@ namespace Vic3MapCSharp
                 regionImage.Save(localDir + "/_Output/ColorMap/region_colors.png");
                 waterImage.Save(localDir + "/_Output/ColorMap/water_map.png");
 
-                drawBorders(localDir + "/_Output/ColorMap/region_colors.png", localDir + "/_Output/BorderFrame/region_border.png", Color.Black);
+                drawBorders(localDir + "/_Output/ColorMap/region_colors.png", localDir + "/_Output/BorderFrame/region_border.png", Color.Black, doDrawCoastalBordersRegions);
 
                 return waterCoordList;
 
@@ -1075,13 +1083,15 @@ namespace Vic3MapCSharp
                         else {
                             y = regionList[i].center.Item2;
                         }
-
+                        /*
                         //if all 3 colors are less than 100, make text white
                         Color textColor = Color.Black;
 
                         if (rgbToYIQ(regionList[i].color) < 90) {
                             textColor = Color.White;
                         }
+                        */
+                        Color textColor = opisiteExtremeColor(regionList[i].color);
 
                         for (int j = 0; j < wName.Count; j++) {
                             g.DrawString(wName[j], font1, new SolidBrush(textColor), new Point(regionList[i].center.Item1, y), stringFormat);
@@ -1202,6 +1212,7 @@ namespace Vic3MapCSharp
                                 y = regionList[i].states[j].center.Item2;
                             }
 
+                            /*
                             //if all 3 colors are less than 100, make text white
                             Color textColor = Color.DarkBlue;
 
@@ -1209,7 +1220,8 @@ namespace Vic3MapCSharp
                             if (rgbToYIQ(regionList[i].states[j].color) < 90) {
                                 textColor = Color.White;
                             }
-
+                            */
+                            Color textColor = opisiteExtremeColor(regionList[i].states[j].color);
 
                             for (int k = 0; k < wName.Count; k++) {
                                 g.DrawString(wName[k], font2, new SolidBrush(textColor), new Point(regionList[i].states[j].center.Item1, y), stringFormat);
@@ -1668,7 +1680,7 @@ namespace Vic3MapCSharp
                 //save bitmap to _Output/nations.png
                 bitmap.Save(localDir + "/_Output/National/" + fileName + ".png");
 
-                drawBorders(localDir + "/_Output/National/" + fileName + ".png", localDir + "/_Output/BorderFrame/" + fileName + "_border.png", Color.Black);
+                drawBorders(localDir + "/_Output/National/" + fileName + ".png", localDir + "/_Output/BorderFrame/" + fileName + "_border.png", Color.Black, doDrawCoastalBordersNational);
 
                 StringFormat stringFormat = new() {
                     Alignment = StringAlignment.Center,
@@ -1686,12 +1698,14 @@ namespace Vic3MapCSharp
                     if (n.type == "decentralized" && !drawDecentralized) {
                         continue;
                     }
-
+                    /*
                     Color textColor = Color.Black;
 
                     if (rgbToYIQ(n.color) < 90) {
                         textColor = Color.White;
                     }
+                    */
+                    Color textColor = opisiteExtremeColor(n.color);
 
                     //get the center of the nation
                     n.GetCenter2();
@@ -2114,17 +2128,11 @@ namespace Vic3MapCSharp
                                 stwr.Write(res.name.Replace("bg_", "") + " ");
                             }
                         }
-
-
-
+                        
                         stwr.Write("\n");
                     }
                 }
-
-
-
                 stwr.Close();
-
             }
 
             void inputCFG() {
@@ -2160,6 +2168,22 @@ namespace Vic3MapCSharp
                     //doDrawDebug
                     if (l1.StartsWith("DrawDebug")) {
                         doDrawDebug = bool.Parse(l1.Split("=")[1].Trim());
+                    }
+                    //doUseROGsCSV
+                    if (l1.StartsWith("UseROGsCSV")) {
+                        doUseROGsCSV = bool.Parse(l1.Split("=")[1].Trim());
+                    }
+                    //doDrawCoastalBordersRegions
+                    if (l1.StartsWith("DrawCoastalBordersRegions")) {
+                        doDrawCoastalBordersRegions = bool.Parse(l1.Split("=")[1].Trim());
+                    }
+                    //doDrawCoastalBordersStates
+                    if (l1.StartsWith("DrawCoastalBordersStates")) {
+                        doDrawCoastalBordersStates = bool.Parse(l1.Split("=")[1].Trim());
+                    }
+                    //doDrawCoastalBordersNational
+                    if (l1.StartsWith("DrawCoastalBordersNations")) {
+                        doDrawCoastalBordersNational = bool.Parse(l1.Split("=")[1].Trim());
                     }
 
                     //Color
@@ -2263,7 +2287,83 @@ namespace Vic3MapCSharp
                 stwr.Close();
 
             }
-            
+
+            void parseRGOsCSV(List<Region> regionList) {
+                //if localDir + "/_Input/TextFiles/RGOs.csv" does not exist return
+                if (!File.Exists(localDir + "/_Input/TextFiles/RGOs.csv")) return;
+
+                //read RGOs.csv 
+                string[] lines = File.ReadAllLines(localDir + "/_Input/TextFiles/RGOs.csv");
+                //format is "Region;State;ResourceA;ResourceB...;Know ResourceN;Discoverable ResourceN;Know ResourceM;Discoverable ResourceM...;Arable Land; ArableResourceA ArableResourceB...;"
+                //found on the first line
+                string[] header = lines[0].Split(';');
+
+                //go through each line in RGOs.csv
+                for (int i = 1; i < lines.Length; i++) {
+                    string[] l = lines[i].Split(';');
+                    //if line is empty skip
+                    if (l.Length == 0) continue;
+
+                    //get region and state
+                    Region r = regionList.Find(x => x.name == "region_" + l[0]);
+                    if (r == null) {
+                        Console.WriteLine("Region not found: " + l[0]);
+                        continue;
+                    }
+                    State s = r.states.Find(x => x.name == "STATE_" + l[1].ToUpper());
+                    if (s == null) {
+                        Console.WriteLine("State not found: " + l[1]);
+                        continue;
+                    }
+
+                    //clear resources in state
+                    s.resources.Clear();
+
+                    //get resources
+                    List<string> resources = new();
+                    for (int j = 2; j < header.Length - 2; j++) {
+                        //if header at j starts with "Know" it is a discovered resource
+                        if (header[j].StartsWith("Known ")) {
+                            Resource rgo = new("bg_" + header[j].Replace("Known ", "")) { 
+                                type = "discoverable",
+                                knownAmount = int.Parse(l[j]),
+                                discoverableAmount = int.Parse(l[j + 1])
+                            };
+                            j++;
+                            if (rgo.knownAmount > 0 || rgo.discoverableAmount > 0) {
+                                s.resources.Add(rgo);
+                            }
+                        }
+                        else {
+                            Resource rgo = new("bg_" + header[j]) {
+                                type = "resource",
+                                knownAmount = int.Parse(l[j])
+                            };
+                            if(rgo.knownAmount>0) {
+                                s.resources.Add(rgo);
+                            }
+                           
+                        }
+                    }
+
+                    //get arable land
+                    s.arableLand = int.Parse(l[^2]);
+
+                    //add arable resources list is the last element split on space
+                    List<string> arableResources = l[^1].Split().ToList();
+                    foreach (string ar in arableResources) {
+                        if (ar.Trim() == "") {
+                            continue;
+                        }
+                        Resource rgo = new("bg_" + ar) {
+                            knownAmount = s.arableLand,
+                            type = "arable"
+                        };
+                        s.resources.Add(rgo);
+                    }
+                }
+            }
+
             bool drawBorders(string inputImagePath, string outputPath, Color borderColor, bool seaBorder = false, int borderWidth = 1) {
                 try {
                     //load image
@@ -2330,6 +2430,25 @@ namespace Vic3MapCSharp
                 }
             }
 
+            Color opisiteExtremeColor(Color c) {
+                //for each rgb value in color find if it is closer to 0 or 255 and set it to the opposite
+                int r = c.R;
+                int g = c.G;
+                int b = c.B;
+
+                if (r > 127) r = 0;
+                else r = 255;
+
+                if (g > 127) g = 0;
+                else g = 255;
+
+                if (b > 127) b = 0;
+                else b = 255;
+
+                return Color.FromArgb(r, g, b);
+            }
         }
+
+        
     }
 }
