@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Globalization;
 
 namespace Vic3MapCSharp
 {
@@ -122,7 +123,7 @@ namespace Vic3MapCSharp
 
                             //get provinces
                             if (line.TrimStart().StartsWith("provinces")) {
-                                string[] l2 = line.Split("=")[1].Split(' ');
+                                string[] l2 = line.Replace("{","").Replace("}", "").Split("=")[1].ToLower().Split();
                                 for (int i = 0; i < l2.Length; i++) {
                                     if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
@@ -152,7 +153,7 @@ namespace Vic3MapCSharp
                             }
                             //get impassable colors
                             if (line.TrimStart().StartsWith("impassable")) {
-                                string[] l2 = line.Split("=")[1].Split(' ');
+                                string[] l2 = line.Split("=")[1].Split();
                                 for (int i = 0; i < l2.Length; i++) {
                                     if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
@@ -167,7 +168,7 @@ namespace Vic3MapCSharp
                             }
                             //get prime_land colors
                             if (line.TrimStart().StartsWith("prime_land")) {
-                                string[] l2 = line.Split("=")[1].Split(' ');
+                                string[] l2 = line.Split("=")[1].Split();
                                 for (int i = 0; i < l2.Length; i++) {
                                     if (l2[i].StartsWith("\"x") || l2[i].StartsWith("x")) {
                                         string n = l2[i].Replace("\"", "").Replace("x", "");
@@ -185,7 +186,7 @@ namespace Vic3MapCSharp
                                 traitsfound = true;
                             }
                             if (traitsfound) {
-                                string[] l2 = line.Split(' ');
+                                string[] l2 = line.Split();
                                 for (int i = 0; i < l2.Length; i++) {
                                     if (l2[i].StartsWith("\"")) {
                                         s.traits.Add(l2[i].Replace("\"", ""));
@@ -255,14 +256,20 @@ namespace Vic3MapCSharp
 
                             //get city color
                             if (line.TrimStart().StartsWith("city") || line.TrimStart().StartsWith("port") || line.TrimStart().StartsWith("farm") || line.TrimStart().StartsWith("mine") || line.TrimStart().StartsWith("wood")) {
-
-                                Color hubC = ColorTranslator.FromHtml("#" + line.Split("=")[1].Replace("\"", "").Replace("x", "").Trim());
-                                //set province with color c hubName to name
-                                if (s.provDict.TryGetValue(hubC, out var p)) {
-                                    p.hubName = line.Split("=")[0].Trim();
-                                    //if s.color.A is 0 set the color to hubcolor
-                                    if (s.color.A == 0) {
-                                        s.color = p.color;
+                                if (line.Contains('x')) {
+                                    try {
+                                        Color hubC = ColorTranslator.FromHtml("#" + line.Split("=")[1].Replace("\"", "").Replace("x", "").Trim());
+                                        //set province with color c hubName to name
+                                        if (s.provDict.TryGetValue(hubC, out var p)) {
+                                            p.hubName = line.Split("=")[0].Trim();
+                                            //if s.color.A is 0 set the color to hubcolor
+                                            if (s.color.A == 0) {
+                                                s.color = p.color;
+                                            }
+                                        }
+                                    }
+                                    catch {
+                                        //Console.WriteLine("Error: can not parse color for hub " + line + " in state " +s.name);
                                     }
                                 }
                             }
@@ -288,6 +295,8 @@ namespace Vic3MapCSharp
                 foreach (string file in files) {
                     if (file.EndsWith(".txt")) {
                         string[] lines = File.ReadAllLines(file);
+                        bool stateStart = false;
+                        int indentation = 0;
                         Region r = new();
                         //Console.WriteLine(file);
                         foreach (string l1 in lines) {
@@ -308,12 +317,7 @@ namespace Vic3MapCSharp
                                 regionList.Add(r);
                             }
                             else if (line.Trim().StartsWith("states")) {
-                                string[] states = line.Split("=")[1].Replace("{", "").Replace("}", "").Split();
-                                for (int i = 0; i < states.Length; i++) {
-                                    if (states[i].StartsWith("STATE_")) {
-                                        r.stateNames.Add(states[i]);
-                                    }
-                                }
+                                stateStart = true;                                
                             }
                             else if (line.Trim().StartsWith("map_color")) {
                                 count++;
@@ -322,8 +326,8 @@ namespace Vic3MapCSharp
                                 List<double> rgbValues = new();
 
                                 foreach (string s in e) {
-                                    //try parse float
-                                    if (double.TryParse(s, out double d)) {
+                                    //try parse float from string with 
+                                    if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out double d)) {
                                         //if d is between 0 and 1.1 then multiply it by 255
                                         if (d > 0 && d < 1.1) {
                                             d *= 255;
@@ -349,6 +353,30 @@ namespace Vic3MapCSharp
                             }
                             else if (line.StartsWith("graphical_culture")) {
                                 r.gfxCulture = line.Split("=")[1].Replace("\"", "").Trim();
+                            }
+                            
+                            if (stateStart) {
+                                string[] states = l1.Split();
+                                for (int i = 0; i < states.Length; i++) {
+                                    if (states[i].StartsWith("STATE_")) {
+                                        r.stateNames.Add(states[i]);
+                                    }
+                                }
+                            }
+
+                            if (line.Contains('{') || line.Contains('}')) {
+                                string[] parts = line.Split();
+                                foreach (string part in parts) {
+                                    if (part.Contains("{")) {
+                                        indentation++;
+                                    }
+                                    if (part.Contains("}")) {
+                                        indentation--;
+                                        if (indentation == 1) {
+                                            stateStart = false;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -547,6 +575,7 @@ namespace Vic3MapCSharp
                 Bitmap stateImage = new(image.Width, image.Height);
                 Console.WriteLine("Drawing State Maps");
                 foreach (Region r in regionList) {
+                    //Console.WriteLine(r.name);
                     foreach (State s in r.states) {
                         //catch if a state has no hubs but is not water to apply a color
                         //if the state color alpha is 0 and atleast 1 province is not a sea or lake then set color to first province color
@@ -559,6 +588,7 @@ namespace Vic3MapCSharp
                             }
                         }
 
+                        //Console.WriteLine("\t" + s.name + " " + s.color + " " + s.provIDList.Count);
 
                         foreach ((int, int) c in s.coordList) {
                             stateImage.SetPixel(c.Item1, c.Item2, s.color);
@@ -1458,10 +1488,10 @@ namespace Vic3MapCSharp
                         if (indent == 1) {
                             if (l1.StartsWith("color")) {
                                 List<double> rgbValues = new();
-                                string[] e = l1.Split('=')[1].Trim().Split(' ');
+                                string[] e = l1.Split('=')[1].Trim().Split();
                                 foreach (string s in e) {
                                     //try to parse s as double
-                                    if (double.TryParse(s, out double d)) {
+                                    if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out double d)) {
                                         //if d is between 0 and 1.01 then multiply it by 255
                                         if (d >= 0 && d <= 1.01) {
                                             d *= 255;
@@ -1502,7 +1532,7 @@ namespace Vic3MapCSharp
                             }
                             //cultures
                             if (l1.StartsWith("cultures")) {
-                                n.cultures = l1.Replace("{", "").Replace("}", "").Split('=')[1].Trim().Split(' ').ToList();
+                                n.cultures = l1.Replace("{", "").Replace("}", "").Split('=')[1].Trim().Split().ToList();
                             }
                             //capital
                             if (l1.StartsWith("capital")) {
@@ -1815,7 +1845,7 @@ namespace Vic3MapCSharp
                         string[] l1 = line.Replace("\"", "").Trim().Split("=");
 
                         //match province to provDict on l1[0] to name
-                        Color c = ColorTranslator.FromHtml(l1[0].Replace("x", "#"));
+                        Color c = ColorTranslator.FromHtml(l1[0].ToLower().Replace("x", "#"));
 
                         //if c does not exist in provDict then add it
                         if (!provDict.ContainsKey(c)) {

@@ -529,3 +529,27 @@ PNS = { # Polynesia
 	cultures = { hawaiian maori melanesian polynesian micronesian yuanzhumin }
 	capital = STATE_HAWAIIAN_ISLANDS
 }
+
+WTI = { # Wati
+	color = { 54 112 16 }
+
+	tier = principality
+
+	country_type = decentralized
+
+	cultures = { aborigine }
+
+	capital = STATE_WESTERN_AUSTRALIA
+}
+
+MRN = { # Mirning
+	color = { 3 113 211 }
+
+	tier = principality
+
+	country_type = decentralized
+
+	cultures = { aborigine }
+
+	capital = STATE_WESTERN_AUSTRALIA
+}

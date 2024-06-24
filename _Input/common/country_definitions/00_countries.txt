@@ -237,8 +237,8 @@ FIN = {
 
 	tier = grand_principality
 	
-	cultures = { finnish }
-	capital = STATE_SOUTHERN_FINLAND
+	cultures = { finnish swedish }
+	capital = STATE_UUSIMAA
 }
 
 NOR = {
@@ -796,15 +796,14 @@ CRI = {
 }
 
 EST = {
-	color = { 179  29  100 }
+	color = { 99  137  153  }
 	
 	country_type = recognized
 
 	tier = principality
 	
 	cultures = { estonian }
-	capital = STATE_ESTONIA
-	is_named_from_capital = yes
+	capital = STATE_TALINN
 }
 
 HUN = {
@@ -826,20 +825,18 @@ LIT = {
 	tier = principality
 	
 	cultures = { lithuanian }	
-	capital = STATE_LITHUANIA
-	is_named_from_capital = yes
+	capital = STATE_KAUNAS
 }
 
 LAT = {
-	color = { 99  137  153 }
+	color = { 109  29  80 }
 	
 	country_type = recognized
 
 	tier = principality
 	
 	cultures = { latvian }	
-	capital = STATE_LATVIA
-	is_named_from_capital = yes
+	capital = STATE_RIGA
 }
 
 POL = {
@@ -850,7 +847,7 @@ POL = {
 	tier = kingdom
 	
 	cultures = { polish }
-	capital = STATE_MAZOVIA
+	capital = STATE_GREATER_POLAND
 }
 
 GAL = {
@@ -899,7 +896,7 @@ TRS = {
 }
 
 UKR = {
-	color = { 212 179 47 }
+	color = { 62 90 240 }
 	
 	country_type = recognized
 
@@ -1125,10 +1122,10 @@ AFG = {
 	
 	country_type = unrecognized
 	
-	tier = principality
+	tier = kingdom
 	
 	cultures = { pashtun tajik }
-	capital = STATE_EASTERN_AFGHANISTAN
+	capital = STATE_KABUL
 }
 
 ARM = {
@@ -1232,7 +1229,7 @@ KOK = {
 	tier = principality
 	
 	cultures = { kirgiz }
-	capital = STATE_KIRGHIZIA
+	capital = STATE_FERGANA
 }
 
 KAZ = {
@@ -1283,13 +1280,13 @@ OMA = {
 }
 
 PER = {
-	color = { 229  170  87 }
+	color = { 60 150 230 }
 	
 	country_type = unrecognized
 	
 	tier = empire
 	
-	cultures = { persian azerbaijani}
+	cultures = { persian }
 	capital = STATE_IRAKAJEMI
 }
 
@@ -1783,6 +1780,8 @@ DAI = {
 	country_type = unrecognized
 	
 	tier = kingdom
+	
+	religion = confucian
 	
 	cultures = { vietnamese }
 	capital = STATE_TONKIN
@@ -2413,10 +2412,10 @@ UBD = {
 	
 	country_type = recognized
 
-	tier = kingdom
+	tier = grand_principality
 	
 	cultures = { latvian estonian lithuanian }
-	capital = STATE_LATVIA
+	capital = STATE_RIGA
 }
 
 BYE = {
@@ -2811,13 +2810,13 @@ HZJ = { # Hazarajat
 
 	cultures = { hazara }
 
-	capital = STATE_WESTERN_AFGHANISTAN
+	capital = STATE_CENTRAL_HIGHLANDS
 }
 
-TRC = { # Turkmenia
+TRC = { # Turkmenistan
 	color = { 165 117 208 }
 	
-	country_type = unrecognized
+	country_type = recognized
 	
 	tier = principality
 
@@ -2832,12 +2831,12 @@ SIB = { # Siberia
 	country_type = unrecognized
 
 	tier = kingdom
-	cultures = { yakut siberian inuit }
+	cultures = { yakut siberian inuit buryat }
 	capital = STATE_TOMSK
 }
 
 YAK = { # Yakutia
-	color = { 171 216 191 }
+	color = { 131 176 131 }
 	
 	country_type = unrecognized
 	
@@ -3170,14 +3169,50 @@ CTF = { # the Council of Three Fires, Niswa-mishkodewinan
 	capital = STATE_MICHIGAN
 }
 
+SLS = { # Salish
+	color = { 50 152 173 }
+
+	country_type = decentralized
+
+	tier = principality
+
+	cultures = { salish }
+
+	capital = STATE_MONTANA
+}
+
+BNN = { # Bannock
+	color = { 129 56 7 }
+
+	country_type = decentralized
+
+	tier = principality
+
+	cultures = { paiute }
+
+	capital = STATE_IDAHO
+}
+
 MSC = { # Muscogee
 	color = { 108 139 208 }
 	
+	country_type = unrecognized
+
+	tier = principality
+
+	cultures = { muskogean }
+
+	capital = STATE_FLORIDA
+}
+
+SML = { # Seminole
+	color = { 146 95 107 }
+
 	country_type = decentralized
 	
 	tier = principality
 	
-	cultures = { caddoan }
+	cultures = { muskogean }
 	
 	capital = STATE_FLORIDA
 }
@@ -3387,23 +3422,22 @@ TNS = {
 	country_type = unrecognized
 	tier = principality
 	cultures = { siberian }
-	capital = STATE_OKHOTSK
+	capital = STATE_UPPER_YENISEYSK
 }
 
 FER = {
- 	color = { 207 25 25 }
+ 	color = { 147 25 25 }
 	country_type = unrecognized
 	tier = principality
 	cultures = { siberian inuit }
-	capital = STATE_OKHOTSK
+	capital = STATE_TRANS_BAIKAL
 }
 
 IUS = {
 	color = { 11 115 39 }
 	country_type = recognized
-	tier = principality
-	cultures = { tatar }
-	religion = sunni
+	tier = kingdom
+	cultures = { tatar bashkir udmurt mari chuvash mordvin }
 	capital = STATE_KAZAN
 }
 
@@ -3412,11 +3446,11 @@ NCA = {
 	country_type = recognized
 	tier = principality
 	cultures = { north_caucasian }
-	capital = STATE_KAZAN
+	capital = STATE_NORTH_CAUCASUS
 }
 
 DON = {
-	color = { 245 221 42 }
+	color = { 37 168 217 }
 	country_type = recognized
 	tier = principality
 	cultures = { russian ukrainian }
@@ -3752,8 +3786,8 @@ CHC = {
 
 	tier = principality
 	
-	cultures = { north_caucasian }
-	capital = STATE_DAGESTAN
+	cultures = { chechen }
+	capital = STATE_NORTH_CAUCASUS
 }
 
 # Assyria
@@ -3770,14 +3804,14 @@ ASS = {
 
 # Kalmykia
 KLM = {
-	color = { 58 65 73 }
+	color = { 238 220 89 }
 	
 	country_type = unrecognized
 
 	tier = principality
 	
 	cultures = { kalmyk }
-	capital = STATE_ASTRAKHAN
+	capital = STATE_KALMYKIA
 }
 
 # Schleswig
@@ -3869,6 +3903,184 @@ PRC = {
 	
 	cultures = { french }
 	capital = STATE_ILE_DE_FRANCE
+}
+
+###Russian Minors
+
+KRL = {
+	color = { 22 63 26 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { karelian }
+	capital = STATE_EAST_KARELIA
+}
+
+TAR = {
+	color = { 31 218 229 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { tatar }
+	capital = STATE_KAZAN
+}
+
+BKR = {
+	color = { 71 219 129 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { bashkir }
+	capital = STATE_UFA
+}
+
+BRY = {
+	color = { 50 50 120 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { buryat }
+	capital = STATE_BURYATIA
+}
+
+KMC = {
+	color = { 25 47 119 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { siberian }
+	capital = STATE_KAMCHATKA
+}
+
+CKC = {
+	color = { 99 236 240 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { siberian }
+	capital = STATE_CHUKOTKA
+}
+
+ALI = {
+	color = { 74 121 198 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { mongol }
+	capital = STATE_ALTAI
+}
+
+URL = {
+	color = { 55 89 88 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { russian }
+	capital = STATE_URAL
+}
+
+KNT = {
+	color = { 156 190 196 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { ugrian }
+	capital = STATE_SURGUT
+}
+
+UDM = {
+	color = { 82 12 12 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { udmurt }
+	capital = STATE_VYATKA
+}
+
+CHV = {
+	color = { 249 125 4 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { chuvash }
+	capital = STATE_CHUVASHIA
+}
+
+MRD = {
+	color = { 222 147 226 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { mordvin }
+	capital = STATE_TAMBOV
+}
+
+MRI = {
+	color = { 139 98 193 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { mari }
+	capital = STATE_CHUVASHIA
+}
+
+TJI = {
+	color = {45 85 45 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { tajik }
+	capital = STATE_TAJIKISTAN
+}
+
+UZB = {
+	color = { 199 199 170 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { uzbek }
+	capital = STATE_FERGANA
+}
+
+KYR = {
+	color = { 161 87 87 }
+	
+	country_type = recognized
+
+	tier = principality
+	
+	cultures = { kirgiz }
+	capital = STATE_KIRGHIZIA
 }
 
 PAU = {
@@ -4106,4 +4318,141 @@ TIS = {
 	
 	cultures = { cherokee iroquoian siouan }
 	capital = STATE_OKLAHOMA
+}
+
+KAB = {
+	color = { 95 95 109 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { pashtun tajik }
+	capital = STATE_KABUL
+}
+
+KAN = {
+	color = { 71 113 193 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { pashtun tajik }
+	capital = STATE_KANDAHAR
+}
+
+HER = {
+	color = { 80 135 113 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { pashtun persian }
+	capital = STATE_HERAT
+}
+
+CHT = {
+	color = { 96 193 182 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { kho }
+	capital = STATE_PASHTUNISTAN
+}
+
+MAI = {
+	color = { 204 210 3 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { uzbek turkmen }
+	capital = STATE_BALKH
+}
+
+KUN = {
+	color = { 153 76 0 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { uzbek tajik }
+	capital = STATE_BALKH
+}
+
+ARB = {
+	color = { 140 102 152 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { mashriqi }
+	capital = STATE_KHUZESTAN
+}
+
+BHW = {
+	color = { 93 148 107 }
+
+	country_type = unrecognized
+
+	tier = principality
+	
+	cultures = { panjabi sindi }
+	religion = sunni
+	capital = STATE_PUNJAB
+}
+
+TRM = { # Turkmenia
+	color = { 156 74 74 }
+
+	country_type = decentralized
+
+	tier = principality
+
+	cultures = { turkmen }
+
+	capital = STATE_TURKMENIA
+}
+
+ABK = { # Abkhazia
+	color = { 92 188 73 }
+
+	country_type = recognized
+
+	tier = principality
+
+	cultures = { north_caucasian }
+
+	capital = STATE_GREATER_CAUCASUS
+}
+
+LUR = { # Luristan
+	color = { 207 213 47 }
+
+	country_type = unrecognized
+
+	tier = principality
+
+	cultures = { luri }
+
+	capital = STATE_LURISTAN
+}
+
+MAZ = { # Mazandaran
+	color = { 217 144 88 }
+
+	country_type = unrecognized
+
+	tier = principality
+
+	cultures = { mazanderani }
+
+	capital = STATE_MAZANDARAN
 }
