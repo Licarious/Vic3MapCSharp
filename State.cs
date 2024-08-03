@@ -16,7 +16,7 @@ namespace Vic3MapCSharp
         public List<Color> provColors = new();
         public Color color = Color.FromArgb(0, 0, 0, 0);
         public List<(int, int)> coordList = new();
-        public (int, int) center = (0, 0);
+        public (int x, int y) center = (0, 0);
         public (int, int) maxRecSize = (0, 0);
         public bool floodFillMaxRec = false;
         public List<string> homeLandList = new();

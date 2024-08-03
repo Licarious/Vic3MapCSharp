@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vic3MapCSharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8caf83908a735b8b747db7785cd86be7323b5d14")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c319add4b6b8af8b959e70c8c760d336a6a5f9f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vic3MapCSharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vic3MapCSharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

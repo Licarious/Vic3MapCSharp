@@ -35,7 +35,6 @@ namespace Vic3MapCSharp
             }
             
             (center, maxRecSize) = MaximumRectangle.Center(coordList, floodFillMaxRec, squareDefault);
-
         }
 
         //tostring

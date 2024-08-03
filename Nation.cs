@@ -22,7 +22,7 @@ namespace Vic3MapCSharp
         //Hash set of coordinates
         public HashSet<(int, int)> coordSet = new();
 
-        public (int, int) center = (0, 0);
+        public (int x, int y) center = (0, 0);
         public (int, int) maxRecSize = (0, 0);
         public bool floodFillMaxRec = false;
 
@@ -44,6 +44,10 @@ namespace Vic3MapCSharp
                     coordList.Add(entry.Value.coordList[i]);
                 }
             }
+
+            if (coordSet.Count == 0) {
+                return;
+                }
 
             (center, maxRecSize) = MaximumRectangle.Center(coordList, floodFillMaxRec, squareDefault);
         }

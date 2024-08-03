@@ -8,8 +8,8 @@ namespace Vic3MapCSharp
         public int internalID = -1;
         public string terrain = "";
         public Color color = Color.FromArgb(0, 0, 0, 0);
-        public List<(int, int)> coordList = new();
-        public HashSet<(int, int)> coordSet = new();
+        public List<(int x, int y)> coordList = new();
+        public HashSet<(int x, int y)> coordSet = new();
         public string hubName = "";
         public bool isImpassible = false;
         public bool isPrimeLand = false;
