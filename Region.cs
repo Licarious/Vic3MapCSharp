@@ -3,43 +3,47 @@
 namespace Vic3MapCSharp
 {
     //class Region stores Name, Color, and States
-    public class Region
+    public class Region : IDrawable
     {
-        public string name = "";
+        public string Name { get; set; } = "";
+        public Color Color { get; set; } = Color.FromArgb(0, 0, 0, 0);
+        public (int x, int y) RectangleCenter { get; set; } = (0, 0);
+        public (int w, int h) MaxRectangleSize { get; set; } = (0, 0);
+        public (int x, int y) SquareCenter { get; set; } = (0, 0);
+        public (int w, int h) MaxSquareSize { get; set; } = (0, 0);
+        public HashSet<(int x, int y)> Coords { get; set; } = new();
+
         public string gfxCulture = "";
-        public Color color = Color.FromArgb(0, 0, 0, 0);
         public List<State> states = new();
-        public List<string> stateNames = new();
-        public (int, int) center = (0, 0);
-        public List<(int, int)> coordList = new();
-        public (int, int) maxRecSize = (0, 0);
-        public bool floodFillMaxRec = true;
-        public Region(string name) {
-            this.name = name;
+        public Region(string name)
+        {
+            this.Name = name;
         }
         public Region() { }
 
-        public void GetCenter2(bool squareDefault = false) {
-            //all coords from each state in region to coordlist
-            if (coordList.Count == 0) {
-                for (int i = 0; i < states.Count; i++) {
-                    for (int j = 0; j < states[i].coordList.Count; j++) {
-                        coordList.Add(states[i].coordList[j]);
+        public void GetCenter(bool floodFill = false)
+        {
+            if(Coords.Count == 0)
+            {
+                foreach (State state in states){
+                    if(state.Coords.Count == 0) {
+                        state.SetCoords();
                     }
+                    Coords.UnionWith(state.Coords);
                 }
             }
 
             //check if coordList has elements
-            if (coordList.Count == 0) {
-                return;
-            }
-            
-            (center, maxRecSize) = MaximumRectangle.Center(coordList, floodFillMaxRec, squareDefault);
+            if (Coords.Count == 0) return;
+
+            (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false);
+            (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true);
         }
 
         //tostring
-        public override string ToString() {
-            return name + ": " + states.Count;
+        public override string ToString()
+        {
+            return Name + ": " + states.Count;
         }
     }
 }

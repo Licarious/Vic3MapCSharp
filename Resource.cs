@@ -12,13 +12,16 @@ namespace Vic3MapCSharp
         public Color color = Color.HotPink;
         public Color textColor = Color.DarkBlue;
 
-        public Resource(string name) {
+        public Resource(string name)
+        {
             this.name = name;
         }
-        public Resource() {
+        public Resource()
+        {
         }
         //toString method
-        public override string ToString() {
+        public override string ToString()
+        {
             return name + ": " + knownAmount + "/" + discoverableAmount;
         }
     }

@@ -8,10 +8,19 @@
     ".NETCoreApp,Version=v6.0": {
       "Vic3MapCSharp/1.0.0": {
         "dependencies": {
+          "CsvHelper": "33.0.1",
           "System.Drawing.Common": "6.0.0"
         },
         "runtime": {
           "Vic3MapCSharp.dll": {}
+        }
+      },
+      "CsvHelper/33.0.1": {
+        "runtime": {
+          "lib/net6.0/CsvHelper.dll": {
+            "assemblyVersion": "33.0.0.0",
+            "fileVersion": "33.0.1.24"
+          }
         }
       },
       "Microsoft.Win32.SystemEvents/6.0.0": {
@@ -62,6 +71,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "CsvHelper/33.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fev4lynklAU2A9GVMLtwarkwaanjSYB4wUqO2nOJX5hnzObORzUqVLe+bDYCUyIIRQM4o5Bsq3CcyJR89iMmEQ==",
+      "path": "csvhelper/33.0.1",
+      "hashPath": "csvhelper.33.0.1.nupkg.sha512"
     },
     "Microsoft.Win32.SystemEvents/6.0.0": {
       "type": "package",

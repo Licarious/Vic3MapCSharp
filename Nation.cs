@@ -7,54 +7,50 @@ using System.Threading.Tasks;
 
 namespace Vic3MapCSharp
 {
-    public class Nation
+    public class Nation : IDrawable
     {
-        public string name = "";
-        public int interalID = -1;
-        public Color color = Color.FromArgb(0, 0, 0, 0);
-        public Dictionary<Color, Province> provDict = new();
-        public List<String> cultures = new();
+        public string Name { get; set; } = "";
+        public Color Color { get; set; } = Color.FromArgb(0, 0, 0, 0);
+        public (int x, int y) RectangleCenter { get; set; } = (0, 0);
+        public (int w, int h) MaxRectangleSize { get; set; } = (0, 0);
+        public (int x, int y) SquareCenter { get; set; } = (0, 0);
+        public (int w, int h) MaxSquareSize { get; set; } = (0, 0);
+        public HashSet<(int x, int y)> Coords { get; set; } = new();
+
+        public int internalID = -1;
+        public Dictionary<Color, Province> provinces = new();
+        public List<string> cultures = new();
         public string type = "";
         public string tier = "";
         public State? capital = null;
         public List<State> claimList = new();
 
-        //Hash set of coordinates
-        public HashSet<(int, int)> coordSet = new();
-
-        public (int x, int y) center = (0, 0);
-        public (int, int) maxRecSize = (0, 0);
-        public bool floodFillMaxRec = false;
-
-        public Nation(string tag) {
-            this.name = tag;
+        public Nation(string tag)
+        {
+            Name = tag;
         }
 
-        public Nation() {
+        public Nation()
+        {
         }
-        public void GetCenter2(bool squareDefault = false) {
-            //check if coordList has elements
-            if (provDict.Count == 0) {
-                return;
-            }
-            //add all coords from each province in nation to coordlist
-            List<(int, int)> coordList = new();
-            foreach (KeyValuePair<Color, Province> entry in provDict) {
-                for (int i = 0; i < entry.Value.coordList.Count; i++) {
-                    coordList.Add(entry.Value.coordList[i]);
+        public void GetCenter(bool floodFill = false)
+        {
+            if(Coords.Count == 0) {
+                foreach(Province province in provinces.Values)
+                {
+                    Coords.UnionWith(province.Coords);
                 }
             }
+            if (Coords.Count == 0) return;
 
-            if (coordSet.Count == 0) {
-                return;
-                }
-
-            (center, maxRecSize) = MaximumRectangle.Center(coordList, floodFillMaxRec, squareDefault);
+            (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false);
+            (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true);
         }
 
-        public override string ToString() {
-            //returns name, internalID, provDict.Count
-            return name + "\t ID: " + interalID + "\t Provs:" + provDict.Count;
+        public override string ToString()
+        {
+            //returns name, internalID, provinces.Count
+            return Name + "\t ID: " + internalID + "\t Provs:" + provinces.Count;
 
         }
     }
