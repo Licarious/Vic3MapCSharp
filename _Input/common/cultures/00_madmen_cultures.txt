@@ -1,0 +1,6144 @@
+﻿####North West/Aes Udiya####
+## Dravidian ##
+karatalan={  #malayalam
+	color= hsv{ 0.08 0.56 0.66 }
+	religion = chaos
+	traits = { aes_udiya_descent madmen_heritage }
+	male_common_first_names={
+		Ayilyam
+		Balarama
+		Cheraman
+		Chithira
+		Dharma
+		Marthanda
+		Moolam
+		Raja
+		Saamoothiri
+		Sakthan
+		Sri
+		Swathi
+		Thirunal
+	}
+	female_common_first_names = {
+		Aparna
+		Fathima
+		Firoza
+		Sudhamani
+	}	
+	noble_last_names = {
+		Ittyanath 
+		Perumal
+		Rama_Varma
+		Thampuran
+	}
+	common_last_names={
+		Kesavadas
+	}
+	ethnicities = {
+		1 = indian
+	}
+	graphics = south_asian
+}
+telankavan={  #telegu
+	color= hsv{ 0.58 0.55 0.59 }
+	religion = chaos
+	traits = { aes_udiya_descent madmen_heritage }
+	male_common_first_names={
+		Alluri
+		Durgabai
+		Kandukuri
+		Keneganti
+		Narasimha
+		Pingali
+		Potti
+		Sarojini
+		Tanguturi
+		Uyyalawada
+		Vasireddy
+		Veerapandiya
+		Venkatadri
+	}
+	female_common_first_names = {
+		Anjali
+		Lakshmi
+	}	
+	noble_last_names = {
+		Nayak
+		Salarjung
+	}
+	common_last_names={
+		Deshmukh
+		Hanumathu
+		Kattabomman
+		Naidu
+		Nayudu
+		Sitaramaraju
+		Sriramulu
+		Veeresalingam
+	}
+	ethnicities = {
+		1 = indian
+	}
+	graphics = south_asian
+}
+sirlandan={  #kannada
+	color= hsv{ 0.72 0.51 0.66 }
+	religion = chaos
+	traits = { aes_udiya_descent madmen_heritage }
+	male_common_first_names={
+		Abbakka
+		Aliya
+		Amoghavarasha
+		Basaveshwara
+		Bijjala
+		Chennamma
+		Guvida
+		Harihara
+		Kempe
+		Krishnadeva
+		Krisnaraja
+		Mayuravarma
+		Pulakesi
+		Rani
+		Sagolli
+		Tailapa
+		Veera
+		Vikramaditya
+		Vishnuvardhana
+	}
+	female_common_first_names = {
+		Chindodi
+		Manjula
+		Saraswati 
+	}	
+	noble_last_names = {
+		Hegde
+		Narayan
+		Rama_Raya
+	}
+	common_last_names={
+		Ballala
+		Bibi
+		Gowda
+		Nayaka
+		Rani
+		Raya
+		Rayanna
+		Wodeyar
+	}
+	ethnicities = {
+		1 = indian
+	}
+	graphics = south_asian
+}
+
+####West/Koudam####
+## Dravidian/Hindustani ##
+kenalan={  #rajput
+	color= hsv{ 0.24 0.16 0.90 }
+	religion = chaos
+	traits = { koudam_descent madmen_heritage }
+	male_common_first_names={
+		Bhagwant
+		Bhai
+		Durga
+		Fateh
+		Harsha
+		Hayat
+		Hussain
+		Jawapala
+		Malik
+		Mirza_Raja
+		Rai
+		Rao
+		Sardar
+		Sawai
+		Umar
+		Veer
+	}
+	female_common_first_names = {
+		Gayatri
+		Indira
+		Kishore
+		Maji
+		Marudhar
+	}	
+	noble_last_names = {
+		Gujar
+		Jethwa
+		Kunwar
+		Raksel
+	}
+	common_last_names={
+		Bachittar_Singh
+		Bhatti
+		Qaim
+		Shekha
+		Singh
+		Tiwana
+		ur_Rahman
+	}
+	ethnicities = {
+		1 = indian
+	}
+	graphics = south_asian
+}
+rradesi={  #bihari
+	color= hsv{ 0.91 0.28 0.70 }
+	religion = chaos
+	traits = { koudam_descent madmen_heritage }
+	male_common_first_names={
+		Ashoka
+		Ashtravakra
+		Asvaghosa
+		Bandishankar
+		Chanakya
+		Maharshi
+		Mahavira
+		Samudragupta
+		Shivshankar
+		Udayanacharaya
+		Vachaspati
+		Vatsyayana
+	}
+	female_common_first_names = {
+		Bhawana
+		Ganga
+		Nidhi
+		Rohini
+	}	
+	noble_last_names = {
+		Singh
+	}
+	common_last_names={
+		Devi
+		Gupta
+		Janak
+		Jarasandh
+		Mishra
+		Ram
+		Valmiki
+	}
+	ethnicities = {
+		1 = asian
+	}
+	graphics = south_asian
+}
+maharan={  #marathi
+	color= hsv{ 0.91 0.28 0.70 }
+	religion = chaos
+	traits = { koudam_descent madmen_heritage }
+	male_common_first_names={
+		Bajirao
+		Balaji
+		Madhava
+		Narayan
+		Pratapsinha
+		Raghunath
+		Rajaram
+		Sawai
+		Shahuji
+		Shambhaji
+		Shivaji
+		Venkatji
+	}
+	female_common_first_names = {
+		Ahilyabai 
+		Anandibai
+		Gangabai
+		Gopikabai
+		Radhabai
+		Rani
+		Soyarabai
+		Umabai
+	}	
+	noble_last_names = {
+		Baji_Rao
+		Bhat
+		Bhave
+		Bhonsle
+		Gaekwad
+		Holkar
+		Mehere
+		Newalkar
+		Nirban
+		Patwardhan
+		Pawar
+		Scindia
+	}
+	common_last_names={
+		Appa_Sahib
+		Ballal
+		Bhandari
+		Bowa_Sahib
+		Gujar
+		Kalash
+		Mohite
+		Narayan
+		Phadnis
+		Rao
+	}
+	ethnicities = {
+		1 = indian
+	}
+	graphics = south_asian
+}
+tamiladi={  #tamil
+	color= hsv{ 0.94 0.57 0.70 }
+	religion = chaos
+	traits = { koudam_descent madmen_heritage }
+	male_common_first_names={
+		Champakaraman
+		Chidambaram
+		Dheeran
+		Rajagopalachari
+		Ramaswami
+		Ramayyan
+		Ramiengar
+		Sathyamurthy
+		Seshadri
+		Seshayya
+		Shanmukham
+		Shungrasoobyer
+		Subramania
+		Vanchinathan
+	}
+	female_common_first_names = {
+		Nageswari
+		Rajini
+		Rani
+		Rasamanohari
+		Thangamma
+	}	
+	noble_last_names = {
+		Bahadur
+		Rao
+		Sethupathi
+		Tondaiman
+	}
+	common_last_names={
+		Dalawa
+		Krishnamachari
+		Mudaliar
+		Rajapopalachari
+		Sastri
+	}
+	ethnicities = {
+		1 = indian
+	}
+	graphics = south_asian
+}
+
+####North/Beratadhol####
+## Indonesia ##
+juavani={  #javan
+	color= hsv{ 0.92 0.49 0.60 }
+	religion = chaos
+	traits = { beratadhol_descent madmen_heritage }
+	male_common_first_names={
+		Abul Abdurrahman Ahmad Amir Anom Arifin
+		Bambang
+		Cirebon
+		Haji Hasyim
+		Karijosoedarmo
+		Muhieddin Marpuah
+		Ngabdurohman
+		Panembahan
+		Safiuddin Sarip Slamet Solikin Soegija Soeharto Soekarno
+		Zainul
+	}
+	female_common_first_names = {
+		Megawati
+		Siti Soimah Sunarti Soepiah
+		Tatiek
+		Yayuk
+	}	
+	noble_last_names = {
+		Cakraningrat
+		Djajadiningrat Djojohadikusumo
+		Hamengkubuwono
+		Notomidjojo
+		Pakualaman
+		Soerjowinoto Sastrowardoyo
+	}
+	common_last_names={
+		Akbaruddin Alaeddin
+		Djalaluddin
+		Emiruddin
+		Khairuddin
+		Mufakhir Muttakin
+		Natadiningrat Nurus
+		Salihin Sepuh
+		Tajul
+	}
+	male_regal_first_names = {
+		Antasena
+		Duksina Dorodjatun
+		Gathot_Menol
+		Ibnu_Jarot
+		Kuseini 
+		Malikis_Solikin Mustojo Murtejo
+		Sapardan Sugandi Sundoro Surojo Sujana Sujadi Subadya Sayyidin_Malikul_Kusna
+	}
+	ethnicities = {
+		1 = asian
+	}
+	graphics = south_asian
+}
+bavno={  #bornean
+	color={ 224 224 224 }
+	religion = chaos
+	traits = { beratadhol_descent madmen_heritage }
+	male_common_first_names = {
+		Abdullah
+		Al-Mukammal
+		Ali
+		Aziz
+		Idris
+		Isandar
+		Ismail
+		Jaafar
+		Jalil
+		Muabidin
+		Riayat
+		Safiuddin
+		Shahabuddin
+		Tuanku
+		Yusuf
+	}
+	female_common_first_names = {
+		Adibah
+		Aishah
+		Faridah
+		Fatimah
+		Maimunah 
+		Nur_Maznah
+		Rafidah
+		Zaharah
+		Zaleha
+	}	
+	noble_last_names = {
+		Bendahara
+		bin_Nik
+		Jamalullail
+	}
+	common_last_names = {
+		Aadzam
+		Bendahara
+		Muadzam
+		Murshidul
+		Raja_Ahmad
+		Raja_Inu
+		Riayat_Shah
+		al-Khairat
+		al-Marhum
+	}
+	ethnicities = {
+		1 = asian
+	}
+	graphics = south_asian
+}
+sumalindian={  #sumatran
+	color={ 146 115 115 }
+	religion = chaos
+	traits = { beratadhol_descent madmen_heritage }
+	male_common_first_names = {
+		Abdullah
+		Al-Mukammal
+		Ali
+		Aziz
+		Idris
+		Isandar
+		Ismail
+		Jaafar
+		Jalil
+		Muabidin
+		Riayat
+		Safiuddin
+		Shahabuddin
+		Tuanku
+		Yusuf
+	}
+	female_common_first_names = {
+		Adibah
+		Aishah
+		Faridah
+		Fatimah
+		Maimunah 
+		Nur_Maznah
+		Rafidah
+		Zaharah
+		Zaleha
+	}	
+	noble_last_names = {
+		Bendahara
+		bin_Nik
+		Jamalullail
+	}
+	common_last_names = {
+		Aadzam
+		Bendahara
+		Muadzam
+		Murshidul
+		Raja_Ahmad
+		Raja_Inu
+		Riayat_Shah
+		al-Khairat
+		al-Marhum
+	}
+	ethnicities = {
+		1 = asian
+	}
+	graphics = south_asian
+}
+brunethi={  #dayak
+	color= hsv{ 0.30 0.23 0.70 }
+	religion = chaos
+	traits = { beratadhol_descent madmen_heritage }
+	male_common_first_names={
+		Daud
+		Haimie
+		Juhah
+		Kanang
+		Oevaang
+		Pandelela
+		Sugianto
+		Suhaimi
+		Tawi
+		Tjilik
+	}
+	female_common_first_names = {
+		Atiqah
+		Fatin
+		Sari
+		Sharena
+	}	
+	noble_last_names = {
+		al_Qadri
+		Bahau
+		Bukitan
+		Kayan
+		Kelabit Lawangan
+		Murut
+		Penan
+		Punan
+		Tidung
+		Ukit
+	}
+	common_last_names={
+		Bada
+		Barieng
+		Daukom
+		Kitingan
+		Koroh
+		Langkau
+		Ningkan
+		Nyaring
+		Oeray
+		Ongkili
+		Rinong
+		Riwut
+		Sabran
+		Sli
+		Sulau
+		Tie
+	}
+	ethnicities = {
+		1 = asian
+	}
+	graphics = south_asian
+}
+####North-east/Heatsulam####
+## Pacific Islanders ##
+paluan={  #melanesian
+	color= hsv{ 0.85 0.47 0.73 }
+	religion = chaos
+	traits = { heatsulam_descent madmen_heritage }
+	male_common_first_names={
+		Epenisa
+		Eroni
+		Kanendjo
+		Kaoua
+		Lubati
+		Raivalita
+		Ralulu
+		Rasolo
+		Samuel
+		Seru
+		Taltai
+		Tamavunisa
+		Ti-Abel
+		Ti-Quatchium
+		Ti-Toorou
+		Yavala
+	}
+	female_common_first_names = {
+		Alanieta
+		Manjula
+		Noelene
+		Salote
+		Sarojini
+		Tauta
+	}	
+	noble_last_names = {
+		Dovi
+		Sukuna
+		Uluviti
+	}
+	common_last_names={
+		Banuve
+		Cakobau
+		Cokanauto
+		Hortense
+		Lakeba
+		Loganimoce
+		Qaraniqio
+		Tupou
+		Tyuienon
+		Vendegou
+	}
+	ethnicities = {
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+milukun={  #moluccan
+	color= hsv{ 0.29 0.22 0.51 }
+	religion = chaos
+	traits = { heatsulam_descent madmen_heritage }
+	male_common_first_names={
+		Denny
+		Dominggus
+		Edinho
+		Ellyas
+		Ignacio
+		Jordao
+		Jos
+		Levi
+		Michael
+		Sonny
+	}
+	female_common_first_names = {
+		Bellaetrix 
+		Fatimah
+	}	
+	noble_last_names = {
+		Kolano
+		Sjah
+	}
+	common_last_names={
+		Bouma
+		Hafiedz
+		Leiwakabessy
+		Lilipaly
+		Mainaky
+		Palyama
+		Pattinama
+		Pelmelay
+		Weisapy
+	}
+	ethnicities = {
+		1 = asian
+	}
+	graphics = south_asian
+}
+phylanthan={  #filipino
+	color= hsv{ 0.18 0.56 0.86 }
+	religion = chaos
+	traits = { heatsulam_descent madmen_heritage }
+	male_common_first_names={
+		Andres
+		Antonio
+		Apolinario
+		Arcadio
+		Artemio
+		Deodato
+		Emilio
+		Hermano
+		Jacinto
+		Jose
+		Ladislao
+		Leon_3
+		Manuel
+		Marcelo
+		Mariano
+		Santiago
+		Simeon_2
+		Teodoro
+		Valentine
+	}
+	female_common_first_names = {
+		Brijida
+		Carmen
+		Catalina
+		Leona
+		Librada
+		Teodora
+		Trinidad
+	}	
+	noble_last_names = {
+		Aguainaldo
+		Bonifacio
+		Burgos
+		Mangubat
+	}
+	common_last_names={
+		Arellano
+		Basa
+		del_Pilar
+		Diwa
+		Diaz_2
+		Dizon
+		Jacinto
+		Mabini
+		Mangali
+		Nakpil
+		Nocon
+		Plata
+		Rizal
+	}
+	ethnicities = {
+		1 = south_east_asian
+	}
+	graphics = south_asian
+}
+####Outdjan####
+## Aborigne ##
+outdjan={  # Aboriginal only
+	color= hsv{ 0.08 0.28 0.61 }
+	religion = chaos
+	traits = { outdjan_descent madmen_heritage }
+	male_common_first_names={
+		Bennelong
+		Billibellary
+		Calyute
+		Derrimut
+		Ellemarra
+		Jandamarra
+		Loongkoonan
+		Mokare
+		Morndi
+		Midgegooroo
+		Nemarluk
+		Pemulwy
+		Tollamareena
+		Tjyllyungoo
+		Umbarra
+		Wylie
+		Yagan
+		Yellagonga
+	}
+	female_common_first_names = {
+		Mindup
+		Naata
+		Yamup
+	}	
+	noble_last_names = {
+		Agwamin
+		Ayabakan
+		Badjiri
+		Bigambul
+		Bunuba
+		Dhiraila
+		Giabal Gulngay
+		Injinoo
+		Jarowair
+		Kooma
+		Kutjal
+		Quandamooka
+		Rakaya
+		Tepiti
+		Totj
+	}
+	common_last_names={
+		Bunurong
+		Lanne
+		Mullagh
+		Noongar
+		Nannup
+		Nungurray
+		Windich
+		Wonga
+		Wangkatha
+	}
+	ethnicities = {
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+####Central/Fersterakh####
+## Australia/Aborigne ##
+avelairen={  # Aboriginal/Australian
+	color= hsv{ 0.61 0.50 0.68 }
+	religion = chaos
+	traits = { fersterakh_descent madmen_heritage }
+	male_common_first_names={
+		Bennelong
+		Billibellary
+		Calyute
+		Derrimut
+		Ellemarra
+		Jandamarra
+		Loongkoonan
+		Mokare
+		Morndi
+		Midgegooroo
+		Nemarluk
+		Pemulwy
+		Tollamareena
+		Tjyllyungoo
+		Umbarra
+		Wylie
+		Yagan
+		Yellagonga
+		
+		Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Mindup
+		Naata
+		Yamup
+		
+		Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Agwamin
+		Ayabakan
+		Badjiri
+		Bigambul
+		Bunuba
+		Dhiraila
+		Giabal Gulngay
+		Injinoo
+		Jarowair
+		Kooma
+		Kutjal
+		Quandamooka
+		Rakaya
+		Tepiti
+		Totj
+		
+		Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Bunurong
+		Lanne
+		Mullagh
+		Noongar
+		Nannup
+		Nungurray
+		Windich
+		Wonga
+		Wangkatha
+		
+		Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		1 = polynesian
+		1 = caucasian
+	}
+	graphics = european
+}
+vactoran={  # Aboriginal/Australian
+	color= hsv{ 0.61 0.50 0.68 }
+	religion = chaos
+	traits = { fersterakh_descent madmen_heritage }
+	male_common_first_names={
+		Bennelong
+		Billibellary
+		Calyute
+		Derrimut
+		Ellemarra
+		Jandamarra
+		Loongkoonan
+		Mokare
+		Morndi
+		Midgegooroo
+		Nemarluk
+		Pemulwy
+		Tollamareena
+		Tjyllyungoo
+		Umbarra
+		Wylie
+		Yagan
+		Yellagonga
+		
+		Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Mindup
+		Naata
+		Yamup
+		
+		Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Agwamin
+		Ayabakan
+		Badjiri
+		Bigambul
+		Bunuba
+		Dhiraila
+		Giabal Gulngay
+		Injinoo
+		Jarowair
+		Kooma
+		Kutjal
+		Quandamooka
+		Rakaya
+		Tepiti
+		Totj
+		
+		Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Bunurong
+		Lanne
+		Mullagh
+		Noongar
+		Nannup
+		Nungurray
+		Windich
+		Wonga
+		Wangkatha
+		
+		Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		1 = polynesian
+		1 = caucasian
+	}
+	graphics = european
+}
+darbaaka={  #Australian
+	color= hsv{ 0.61 0.50 0.68 }
+	religion = chaos
+	traits = { fersterakh_descent madmen_heritage }
+	male_common_first_names={
+		Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		1 = caucasian
+	}
+	graphics = european
+}
+####South/Djanzeidhol####
+## Australia ##
+
+horbat={  #Australian
+	color= hsv{ 0.61 0.50 0.68 }
+	religion = chaos
+	traits = { djanzeidhol_descent madmen_heritage }
+	male_common_first_names={
+		Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		1 = caucasian
+	}
+	graphics = european
+}
+sydwale={  #Australian
+	color= hsv{ 0.61 0.50 0.68 }
+	religion = chaos
+	traits = { djanzeidhol_descent madmen_heritage }
+	male_common_first_names={
+		Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		1 = caucasian
+	}
+	graphics = european
+}
+cambera={  #Australian
+	color= hsv{ 0.61 0.50 0.68 }
+	religion = chaos
+	traits = { djanzeidhol_descent madmen_heritage }
+	male_common_first_names={
+		Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		1 = caucasian
+	}
+	graphics = european
+}
+####East/Safardhaki####
+## new Zeland/Polynesia ##
+isopolyna={  #polynesian
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = chaos
+	traits = { safardhakdi_descent madmen_heritage }
+	male_common_first_names={
+		Finau
+		Havaiki
+		Iosefo
+		Lika
+		Longotahi
+		Malietoa
+		Taufa_ahau
+		Taupe
+		Tavita
+		Te_Taulu
+		Tupou
+		Ulukalala
+		Vaopuka
+		William
+	}
+	female_common_first_names = {
+		Auli'i
+		Elizabeth
+		Kina'u
+		Kaliko
+		Kamamalu
+		Kamaikui
+		Kekelaokalani
+		Mary
+		Pane
+		Pauahi
+		Pomare
+	}	
+	noble_last_names = {
+		Keliimaikai
+		Kalakaua
+		Kamehameha
+		Kawananakoa
+		Keoua
+		Pomare
+	}
+	common_last_names={
+		Feletoa
+		Ielemia
+		Ma_ufanga
+		Maeakafa
+		Moengangongo
+		Te_Fuli
+		Tuabayi
+	}
+	ethnicities = {
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+nulakbor={ #The Nullarbor  #NZ/Maori
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = chaos
+	traits = { safardhakdi_descent madmen_heritage }
+	male_common_first_names={
+		Auha
+		Koroki
+		Mahuta
+		Matutaera
+		Potatau
+		Rangi-Kahu
+		Tawhiao
+		Te_Ata-i
+		Te_Rata
+		Tukaroto
+		Pokaia
+		
+		Lian
+		Olivar
+		Jaken
+		Jamon
+		Noal
+		Willan
+		Masen
+		Lukan
+		Benjamal
+		Hunten
+		Elijor
+		Ethin
+		Jacor
+		Danil
+		Thoman
+		Joshin
+		Coopar
+		Samon
+		Jackon
+		Maxin
+	}
+	female_common_first_names = {
+		Hariata
+		Kahupeka
+		Parengaope
+		Ruawehea
+		Tarore
+		Tiahuia
+		Te_Tahuna
+		Ta_Puea
+		Te_Marama
+		Te_Kona
+		Tuhikura
+		Whakaawi
+		
+		Charlina
+		Olivara
+		Amelina
+		Miana
+		Isalyn
+		Avela
+		Harpa
+		Sophira
+		Emila
+		Gracina
+		Rubyna
+		Ellara
+		Lilith
+		Chloene
+		Zohanna
+		Lucyna
+		Mianna
+		Madisyn
+		Scarletta
+		Hannara
+	}	
+	noble_last_names = {
+		Herangi
+		Heke
+		Hongi
+		Te_Wherowhero
+		Whaanga
+		
+		Smithe
+		Williarns
+		Bron
+		Taylon
+		Wilason
+		Jonis
+		Johnsen
+		Whitan
+		Davor
+		Marton
+		Andiron
+		Thomason
+		Clarik
+		Robartis
+		Walken
+		Writen
+		Kin
+		Mitchelar
+		Carten
+		Scotar
+	}
+	common_last_names={
+		Ataarangikaahu
+		Kenena
+		Ngapora
+		Raouparah
+		Wherowhero
+		
+		Smithe
+		Williarns
+		Bron
+		Taylon
+		Wilason
+		Jonis
+		Johnsen
+		Whitan
+		Davor
+		Marton
+		Andiron
+		Thomason
+		Clarik
+		Robartis
+		Walken
+		Writen
+		Kin
+		Mitchelar
+		Carten
+		Scotar
+	}
+	ethnicities = {
+		1 = caucasian
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+ateara={  #NZ/Maori
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = chaos
+	traits = { safardhakdi_descent madmen_heritage }
+	male_common_first_names={
+		Auha
+		Koroki
+		Mahuta
+		Matutaera
+		Potatau
+		Rangi-Kahu
+		Tawhiao
+		Te_Ata-i
+		Te_Rata
+		Tukaroto
+		Pokaia
+		
+		Lian
+		Olivar
+		Jaken
+		Jamon
+		Noal
+		Willan
+		Masen
+		Lukan
+		Benjamal
+		Hunten
+		Elijor
+		Ethin
+		Jacor
+		Danil
+		Thoman
+		Joshin
+		Coopar
+		Samon
+		Jackon
+		Maxin
+	}
+	female_common_first_names = {
+		Hariata
+		Kahupeka
+		Parengaope
+		Ruawehea
+		Tarore
+		Tiahuia
+		Te_Tahuna
+		Ta_Puea
+		Te_Marama
+		Te_Kona
+		Tuhikura
+		Whakaawi
+		
+		Charlina
+		Olivara
+		Amelina
+		Miana
+		Isalyn
+		Avela
+		Harpa
+		Sophira
+		Emila
+		Gracina
+		Rubyna
+		Ellara
+		Lilith
+		Chloene
+		Zohanna
+		Lucyna
+		Mianna
+		Madisyn
+		Scarletta
+		Hannara
+	}	
+	noble_last_names = {
+		Herangi
+		Heke
+		Hongi
+		Te_Wherowhero
+		Whaanga
+		
+		Smithe
+		Williarns
+		Bron
+		Taylon
+		Wilason
+		Jonis
+		Johnsen
+		Whitan
+		Davor
+		Marton
+		Andiron
+		Thomason
+		Clarik
+		Robartis
+		Walken
+		Writen
+		Kin
+		Mitchelar
+		Carten
+		Scotar
+	}
+	common_last_names={
+		Ataarangikaahu
+		Kenena
+		Ngapora
+		Raouparah
+		Wherowhero
+		
+		Smithe
+		Williarns
+		Bron
+		Taylon
+		Wilason
+		Jonis
+		Johnsen
+		Whitan
+		Davor
+		Marton
+		Andiron
+		Thomason
+		Clarik
+		Robartis
+		Walken
+		Writen
+		Kin
+		Mitchelar
+		Carten
+		Scotar
+	}
+	ethnicities = {
+		1 = caucasian
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+eyrthanda={  #Maori
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = chaos
+	traits = { safardhakdi_descent madmen_heritage }
+	male_common_first_names={
+		Auha
+		Koroki
+		Mahuta
+		Matutaera
+		Potatau
+		Rangi-Kahu
+		Tawhiao
+		Te_Ata-i
+		Te_Rata
+		Tukaroto
+		Pokaia
+
+	}
+	female_common_first_names = {
+		Hariata
+		Kahupeka
+		Parengaope
+		Ruawehea
+		Tarore
+		Tiahuia
+		Te_Tahuna
+		Ta_Puea
+		Te_Marama
+		Te_Kona
+		Tuhikura
+		Whakaawi
+
+	}	
+	noble_last_names = {
+		Herangi
+		Heke
+		Hongi
+		Te_Wherowhero
+		Whaanga
+
+	}
+	common_last_names={
+		Ataarangikaahu
+		Kenena
+		Ngapora
+		Raouparah
+		Wherowhero
+
+	}
+	ethnicities = {
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+waipounamu={  #Maori
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = chaos
+	traits = { safardhakdi_descent madmen_heritage }
+	male_common_first_names={
+		Auha
+		Koroki
+		Mahuta
+		Matutaera
+		Potatau
+		Rangi-Kahu
+		Tawhiao
+		Te_Ata-i
+		Te_Rata
+		Tukaroto
+		Pokaia
+
+	}
+	female_common_first_names = {
+		Hariata
+		Kahupeka
+		Parengaope
+		Ruawehea
+		Tarore
+		Tiahuia
+		Te_Tahuna
+		Ta_Puea
+		Te_Marama
+		Te_Kona
+		Tuhikura
+		Whakaawi
+
+	}	
+	noble_last_names = {
+		Herangi
+		Heke
+		Hongi
+		Te_Wherowhero
+		Whaanga
+
+	}
+	common_last_names={
+		Ataarangikaahu
+		Kenena
+		Ngapora
+		Raouparah
+		Wherowhero
+
+	}
+	ethnicities = {
+		1 = polynesian
+	}
+	graphics = decentralised_americas
+}
+####Colonial Madmen cultures####
+valandoran={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage tar_valoner_group westlands_heritage }
+	male_common_first_names={
+		#Few canon names
+		Garon
+		Chin
+		Naorman
+		Maynard
+		
+		#Borrow names from Cairhien/Andor
+		Jurad Heran Adim Aemin Kenley Kevrim Milla Adan Paet Tod Rad Had Gren Montem Ban Jac Saml 
+		Susa Wit Dael Azi Dav Rand Tam Alwyn Berowyn Marin Rulan Karind Naean Arin Dawlin Willim Avin Con 
+		Eward Jaim Paetram Perrin Jared Pel Corin Jon Get Azril Doral Tad Torwyn Flann Jerinvar Kev Bartim Lir 
+		Bayrd Perwyn Berg Deepe Aeric Bromas Brune Gareth Cenn Almen Calder Caralin Aemlyn Culhan Carlin Mat 
+		Athan Ren Chet Ciel Jennet Pelivar Comar Paitr Althyn Benly Calle Dag Darl Ewal Evard Marek Bandry Samel 
+		Galad Dar Oren Davies Jaem Melfane Denezel Deoan Takima Dilham Lamgwin Bar Elam Jonneth Elber Marce 
+		Elegar Falton Herid Tham Ackley Finndal Fitch Damer Jeral Grayor Colly Basel Branlet Howal Jur Charlz Arendor 
+		Hahn Barim Daved Afrim Thad Samwil Henre Hatch Henren Jakob Raimun Eben Inlow Jak Jan Kelwin Jer Jerasid 
+		Jowdry Karam Hyam Kindlin Barel Dannil Emry Natley Tell Win Alsbet Haral Renald Macharan Kenly Croi Karldin 
+		Perival Jeorad Jailin Brannin Teven Aedmun Owyn Thom Fedwin Alpert Mutch Naeff Aranvor  Galad Talmanes Olver 
+		Taringail Dobraine Lorstrum Andil Dalthanes Daricain Arinvar Ashin Barmellin Latian Beldair Aldrin Caredwain Boreane
+		Doressin Matraine Corevin Ander Aril Cuale Daelvin Dafid Meresin Aldecain Barthanes Carewin Dalresin Laman Moressin 
+		Larrald  Denharad  Doile Doirellin  Doirmanes Ilain Dormin Eddar   Stevan Aldred Ries Hamarashle Harvell Ivon Jori  
+		Temaile Lidan Lussin Lyncon Madresin
+	}
+	female_common_first_names = {
+		#Few canon names
+		Carlya
+		Mada
+		Megda
+		Saal
+		
+		#Borrow names from Cairhien/Andor
+		Elin Elaiva Morgase Maighdin Ellorien Jancy Marris Berin Termylle Telaisien Elwinn Dyelin Talana Tabiya Aeldene 
+		Kairen Mili Anthelle Joni Sela Elenia Sara Rosse Hanselle Arathelle Daerilla Silvane Fridwyn Rana Salia Elza Ester 
+		Sephanie Abelle Maigan Negara Morrigan Morear Soffi Modrellein Talene Miren Melasune Melare Mayv Nelein Elvaine 
+		Elise Souran Mari Arymilla Maragaine Maralenda Tigraine Mordrellen Mavra Lyndelle Evanellein Lucilde Laila Maddy 
+		Kati Janny Rowan Kely Reene Bera Milam Catalyn Evelle Gwil Else Gadren Sergase Marillin Gilda Edelle Eazil Janya 
+		Ewin Dagdara Millis Seonid Tiedra Melavaire Betse Colavaere Dairaine Reale Belevaere Camaille Desala Tal Nagora 
+		Catrelle Holleen Cerilla Maglin Meneril Kasi Fellsy Ella Berowin Lirene Cera
+	}
+	noble_last_names = {
+		#No canon names
+		
+		#Borrow names from Cairhien/Andor 
+		Aesnan Delovinde Dhulaine Daganred Damodred Annallin Osiellin Hamarashle Maravin 
+		Moseneillin Colmcille Chuliandred Riatin Saighan Taborwin Accan Adan Allwine Ambrey Andscale Anford
+		Ankerin Anshar Arawn Armaghn Avarhin Barshaw Baryn Belman Bhadar Branstrom Bryne Bunt Byir Caeren 
+		Calder Candraed Canford Canler Carand Casalain Cinchonine Cobb Coelan Colford Conel Cordwyn Cornwell 
+		Craeb Damodred Dawlish Deraighdin Dorn Eltring Farshaw Fel Felmley Fendry Ferran Finchey Finndal Flinn Florry 
+		Forney Frende Gemalphin Gilbearn Gill Gilyard Gode Grady Grinwell Guybon Haevin Hake Halle Hanlon Hansard 
+		Haren Harfor Hark Harkin Harnder Haslin Hernvil Holdwin Hopwil Huldin Janevor Kandel Kinch Layden Lorn Macer 
+		Makin Manfor Mantear Manyard Maran Maravaile Marne Martan Matherin Merrilin Minly Morr Mull Nem Norham 
+		Norry Northan Norwelyn Pelden Pendar Penfell Pensenor Pomfrey Raned Redfor Redhill Renshar Ros Saems Sarand 
+		Shagrin Sharplyn Silvin Skane Skellit Stang Stonebridge Strang Talkend Tallanvor Taravin Tasil Thornhill Tiglar 
+		Traehand Traemane Trakand Vanin Vordarian Walfor Warrel Zeffar
+	}	
+	common_last_names={
+		#Few canon names
+		Burlow
+		Ellisor
+		Mashinta
+		
+		#Borrow names from Cairhien/Andor
+		Accan Adan Allwine Ambrey Andscale Anford Ankerin Anshar Arawn Armaghn Avarhin Barshaw Baryn 
+		Belman Bhadar Branstrom Bryne Bunt Byir Caeren Calder Candraed Canford Canler Carand Casalain 
+		Cinchonine Cobb Coelan Colford Conel Cordwyn Cornwell Craeb Damodred Dawlish Deraighdin Dorn 
+		Eltring Farshaw Fel Felmley Fendry Ferran Finchey Finndal Flinn Florry Forney Frende Gemalphin Gilbearn 
+		Gill Gilyard Gode Grady Grinwell Guybon Haevin Hake Halle Hanlon Hansard Haren Harfor Hark Harkin Harnder 
+		Haslin Hernvil Holdwin Hopwil Huldin Janevor Kandel Kinch Layden Lorn Macer Makin Manfor Mantear Manyard 
+		Maran Maravaile Marne Martan Matherin Merrilin Minly Morr Mull Nem Norham Norry Northan Norwelyn Pelden 
+		Pendar Penfell Pensenor Pomfrey Raned Redfor Redhill Renshar Ros Saems Sarand Shagrin Sharplyn Silvin Skane 
+		Skellit Stang Stonebridge Strang Talkend Tallanvor Taravin Tasil Thornhill Tiglar Traehand Traemane Trakand Vanin 
+		Vordarian Walfor Warrel Zeffar Damodred Delovinde Ceandevin Taborwin Aesnan Aldorwin Torelvin Alievin Alwain 
+		Annallin Arienwin Basar Caldevwin Caminelle Carivin Chalwin Chuliandred Coidevwin Colmcille Corl Norley Daganred 
+		Darengil Demasiellin Dhulaine Doinal Doirellin Doraisin Dormaile Gedarien Gomaisen Gorthanes Hamarashle Kinderode 
+		Mandevwin Madwen Malevin Maravin Marendevin Marodred Mecandes Methin Mosenain Moseneillin Nethin Nevanche 
+		Nolaisen Ondin Osiellin Riatin Rikshan Rockshaw Saighan Sandair Silvin Someinellin Tarsin Tavolin Tol Tovere Traighan
+	}
+	graphics = european
+	ethnicities = {
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+serenaran={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage borderlander westlands_heritage }
+	male_common_first_names={
+		Adrin
+		Aghan
+		Vilnar
+		Davram
+		Maedin
+		Taeric
+		Muad
+		Enkazin
+		Eran
+		Garumand
+		Gilber
+		Avar
+		Hachari
+		Hamad
+		Jidar
+		Jonasim
+		Hadnan
+		Kashgar
+		Kirkun
+		Venr
+		Lurts
+		Lyonford
+		Malain
+		Matoun
+		Annharid
+		Fen
+		Musar
+		Haster
+		Nikiol
+		Rakim
+		Kalyan	
+		Rissen
+		Ruthan		
+		Mazrim
+		Tarran	
+		Vram
+		Triben
+		Tumad
+		Vogeler
+		Devore	
+		Antol
+		Baldhere
+		Brys
+		Bulen
+		Caniedrin
+		Rahien
+		Diryk
+		Shevan
+		Ismic
+		Jargen
+		Kralle
+		Landalin
+		Lomas
+		Varan
+		Kaisel
+		Niach
+		Paetram
+		Keemlin
+		Malenarin
+		Eurian
+		Alin
+		Mahiro	
+		Jarel
+		Georg
+		Tian
+		Mikio
+		Bartu
+		Chaena
+		Changu
+		Masema
+		Hurin
+		Ianor
+		Agelmar
+		Joao
+		Kajin
+		Kuehn
+		Masuto
+		Merekel
+		Nangu
+		Blaeric
+		Nengar
+		Nidao
+		Uno
+		Qi
+		Ragan
+		Rinnin
+		Ronan
+		Ingtar
+		Tema
+		Teva
+		Thulin
+		Easar
+		Kayen
+		Jahar
+		Welyn
+		Kendral
+		Leonin
+		Hirare
+		Paitar
+		Kyril
+		Ishigari
+		Yakobin
+		Weilin
+		Andere
+		Bulen
+		Jain
+		Cowin
+		Geral
+		Gorenellin
+		Shevar
+		Jophil
+		Nazar
+		Managan
+		al'Akir
+		al'Lan
+		Lain
+		Maric
+		Bukama
+		Ryne
+		Washim
+	}
+	female_common_first_names = {
+		Zavion
+		Asne
+		Varilin
+		Yoeli
+		Teodora
+		Teryane
+		Sigril
+		Keraille
+		Rylen
+		Beldeine
+		Pritalle
+		Natasia
+		Merya
+		Maenadrin
+		Shivena
+		Tenobia
+		Razina
+		Janira
+		Toveine
+		Einone
+		Adelorna
+		Sheriam
+		Velina
+		Belairah
+		Deira
+		Alida
+		Zarya
+		Faile
+		Yurith
+		Ells
+		Zarine
+		Yabeth
+		Evin
+		Pevara
+		Eldase
+		Ailene
+		Surasa
+		Carlinya
+		Shimoku
+		Serailla
+		Avene
+		Nedare
+		Tsutama
+		Posavina
+		Edarna
+		Ethenielle
+		Areina
+		Gwil
+		Kamile
+		Nazelle
+		Malind
+		Lira
+		Jarene
+		Valera
+		Elis
+		Esne
+		Silene
+		Einone
+		Ines
+		Nesune
+		Falion
+		Racelle
+		Anya
+		Aiko
+		Lelaine
+		Rianna
+		Anasai
+		Alesune
+		Kumira
+		Suana
+		Elansu
+		Melia
+		Amalisa
+		Berenicia
+		Delana
+		Bennae
+		Nisura
+		Berana
+		Merean
+		Beldemaine
+		Ellaine
+		Meidani
+		Sumeko
+		Reiko
+		Lisandre
+		Mair
+		Merym
+		Alanna
+		Kiruna
+		Menuki
+		Amico
+		Ayako
+		Nubei
+		Janine
+		Ramesa
+		Caseille
+		Setsuko
+		Masuri
+		Mahira
+		Samitsu
+		Kwamesa
+		Berisha
+		Sarainya
+		Yuan
+		Nynaeve
+		Edeyn
+		Iselle
+		Nacelle
+		Breyan
+		el'Leanna
+		Elnore
+	}	
+	noble_last_names = {
+		Bashere
+		Kazadi
+		Torkumen
+		Dianatkhah
+		Ramsin
+		Gahaur
+		Rashad
+		Demain
+		Marcasiev
+		Noramaga
+		Okatomo
+		Rai
+		Soukovni
+		Jagad
+		Shinowa
+		Tihomar
+		Togita
+		Yokata
+		Nachiman
+		Alshinn
+		Narishma
+		Mosvani
+		Nagoyin
+		Pavlara
+		Shianri
+		Svetanya
+		Arrel
+		Gemallen
+		Jamelle
+		Mandragoran		
+		Aldragoran
+	}
+	common_last_names={
+		Aldragoran
+		Alkaese
+		Bashere
+		Azeri
+		Barada
+		Bastine
+		Bayanar
+		Behar
+		Chavana
+		Cheade
+		Gazal
+		Hachami
+		Hazzan
+		Kadere
+		Kayenzi
+		Kazadi
+		Kosaan
+		Saldaea
+		Torkumen
+		Matoun
+		Mizar
+		Nalmat
+		Nerbaijan
+		Dianatkhah
+		Nyram
+		Ramsin
+		Rashad
+		Surtovni
+		Taim
+		Ahzkan
+		Zanaire
+		Zarbayan
+		Zeramene
+		Boriden
+		Akashi
+		Andomeran
+		Arovni
+		Bhoda
+		Bihara
+		Noramaga
+		Demain
+		Dorelmin
+		Gadarin
+		Gorovni
+		Marcasiev
+		Nachenin
+		Nermasiv
+		Noallin
+		Noregovna
+		Okatomo
+		Rai
+		Rath
+		Romavni
+		Romera
+		Sahera
+		Satarov
+		Seroku
+		Shukosa
+		Sorevin
+		Soukovni
+		Takashi
+		Tazanovni
+		Tolvina
+		Tuval
+		Vadere
+		Vinchova
+		Cosaru
+		Chulin
+		Dagar
+		Dhoran
+		Dragand
+		Morsad
+		Mosalaine
+		Nalsad
+		Negina
+		Nomesta
+		Shemon
+		Marise'idin
+		Eschede
+		Kajima
+		Karistovan
+		Kerevon
+		Norsoni
+		Peldovni
+		Raskovni
+		Sokawa
+		Tamagowa
+		Taramasu
+		Terakuni
+		Terasian
+		Vostovan
+		Nachiman
+		Alshinn
+		Narishma
+		Mosvani
+		Nagoyin
+		Pavlara
+		Shianri
+		Svetanya
+		al'Meara
+		Charin
+		Kayama
+		Kurenin
+		Marenellin
+		Venamar
+		Arrel
+		Gemallen
+		Jamelle
+		Aldragoran
+	}
+	graphics = south_asian
+	ethnicities = {
+		4 = arab
+		4 = central_asian
+		4 = asian
+		4 = south_east_asian	
+		4 = slavic
+		
+		1 = indian
+		1 = polynesian
+	}
+}
+mandemen={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage coremanda_descent westlands_heritage }
+	male_common_first_names={		
+		Jurad
+		Heran
+		Adim
+		Aemin
+		Kenley
+		Kevrim
+		Milla
+		Adan
+		Paet
+		Tod
+		Rad
+		Had
+		Gren
+		Montem
+		Ban
+		Jac
+		Saml
+		Susa
+		Wit
+		Dael
+		Azi
+		Dav
+		Rand
+		Tam
+		Alwyn
+		Berowyn
+		Marin
+		Rulan
+		Karind
+		Naean
+		Arin
+		Dawlin
+		Willim
+		Avin
+		Con
+		Eward
+		Jaim
+		Paetram
+		Perrin
+		Jared
+		Pel
+		Corin
+		Jon
+		Get
+		Azril
+		Doral
+		Tad
+		Torwyn
+		Flann
+		Jerinvar
+		Kev
+		Bartim
+		Lir
+		Bayrd
+		Perwyn
+		Berg
+		Deepe
+		Aeric
+		Bromas
+		Brune
+		Gareth
+		Cenn
+		Almen
+		Calder
+		Caralin
+		Aemlyn
+		Culhan
+		Carlin
+		Mat
+		Athan
+		Ren
+		Chet
+		Ciel
+		Jennet
+		Pelivar
+		Comar
+		Paitr
+		Althyn
+		Benly
+		Calle
+		Dag
+		Darl
+		Ewal
+		Evard
+		Marek
+		Bandry
+		Samel
+		Galad
+		Dar
+		Oren
+		Davies
+		Jaem
+		Melfane
+		Denezel
+		Deoan
+		Takima
+		Dilham
+		Lamgwin
+		Bar
+		Elam
+		Jonneth
+		Elber
+		Marce
+		Elegar
+		Falton
+		Herid
+		Tham
+		Ackley
+		Finndal
+		Fitch
+		Damer
+		Jeral
+		Grayor
+		Colly
+		Basel
+		Branlet
+		Howal
+		Jur
+		Charlz
+		Arendor
+		Hahn
+		Barim
+		Daved
+		Afrim
+		Thad
+		Samwil
+		Henre
+		Hatch
+		Henren
+		Jakob
+		Raimun
+		Eben
+		Inlow
+		Jak
+		Jan
+		Kelwin
+		Jer
+		Jerasid
+		Jowdry
+		Karam
+		Hyam
+		Kindlin
+		Barel
+		Dannil
+		Emry
+		Natley
+		Tell
+		Win
+		Alsbet
+		Haral
+		Renald
+		Macharan
+		Kenly
+		Croi
+		Karldin
+		Perival
+		Jeorad
+		Jailin
+		Brannin
+		Teven
+		Aedmun
+		Owyn
+		Thom
+		Fedwin
+		Alpert
+		Mutch
+		Naeff
+		Aranvor
+		Neain
+		Admer
+		Halwin
+		Conail
+		Luan
+		Tuck
+		Pappil
+		Naris
+		Aubrem
+		Rahvin
+		Ramey			
+		Merean
+		Renel	
+		Rittle		
+		Wilbin		
+		Jarid		
+		Jar	
+		Snelle
+		Snert
+		Reed
+		Robb	
+		Strom	
+		Eram
+		Martyn
+		Tando		
+		Quillin	
+		Theodohr	
+		Liam
+		Varkel	
+		Leof
+		Nat
+		Kevlyn
+		Laerid		
+		Gawyn	
+		Trost
+		Chel
+		Brandel
+		Kert		
+		Wat
+		Willin
+	}
+	female_common_first_names = {
+		Elin
+		Elaiva
+		Morgase
+		Maighdin
+		Ellorien
+		Jancy
+		Marris
+		Berin
+		Termylle
+		Telaisien
+		Elwinn
+		Dyelin
+		Talana
+		Tabiya
+		Aeldene
+		Kairen
+		Mili
+		Anthelle
+		Joni
+		Sela
+		Elenia
+		Sara
+		Rosse
+		Hanselle
+		Arathelle
+		Daerilla
+		Silvane
+		Fridwyn
+		Rana
+		Salia
+		Elza
+		Ester
+		Sephanie
+		Abelle
+		Maigan
+		Negara
+		Morrigan
+		Morear
+		Soffi
+		Modrellein
+		Talene
+		Miren
+		Melasune
+		Melare
+		Mayv
+		Nelein
+		Elvaine
+		Elise
+		Souran
+		Mari
+		Arymilla
+		Maragaine
+		Maralenda
+		Tigraine
+		Mordrellen
+		Mavra
+		Lyndelle
+		Evanellein
+		Lucilde
+		Laila
+		Maddy
+		Kati
+		Janny
+		Rowan
+		Kely
+		Reene
+		Bera
+		Milam
+		Catalyn
+		Evelle
+		Gwil
+		Else
+		Gadren
+		Sergase
+		Marillin
+		Gilda
+		Edelle
+		Eazil
+		Janya
+		Ewin
+		Dagdara
+		Millis
+		Elle
+		Elsie
+		Lini
+		Eri
+		Essande
+		Buel
+		Dolera
+		Mirlene
+		Melli
+		Hari
+		Daise
+		Jori
+		Cilia
+		Lusonia
+		Deni
+		Coline
+		Cinda
+		Clare
+		Jennet
+		Natti
+		Ishara
+		Abell
+		Bodewhin
+		Eldrin
+		Danine
+		Darea
+		Adine
+		Taril
+		Cara
+		Miedelle
+		Nasin
+		Sylvase
+		Adrinne
+		Arilinde
+		Aedelle
+		Hilde
+		Jondyn
+		Bari
+		Larine
+		Milli
+		Neysa
+		Sari
+		Malena
+		Lara
+		Joslyn
+		Magde
+		Deselle
+		Rhea
+		Adora
+		Astara
+		Shiaine
+		Arlene
+		Ara
+		Alysa
+		Merana
+		Alesinde
+		Allin
+		Brandelwyn
+		Egwene
+		Loise
+		Alene
+		Joiya
+		Kari
+		Elisa
+		Astelle
+		Elnore
+		Nynaeve
+		Jerilin
+		Nela
+		Marisa
+		Carlys
+		Elayne
+		Min	
+	}  
+	common_last_names={
+		Accan
+		Adan
+		Allwine
+		Ambrey
+		Andscale
+		Anford
+		Ankerin
+		Anshar
+		Arawn
+		Armaghn
+		Avarhin
+		Barshaw
+		Baryn
+		Belman
+		Bhadar
+		Branstrom
+		Bryne
+		Bunt
+		Byir
+		Caeren
+		Calder
+		Candraed
+		Canford
+		Canler
+		Carand
+		Casalain
+		Cinchonine
+		Cobb
+		Coelan
+		Colford
+		Conel
+		Cordwyn
+		Cornwell
+		Craeb
+		Damodred
+		Dawlish
+		Deraighdin
+		Dorn
+		Eltring
+		Farshaw
+		Fel
+		Felmley
+		Fendry
+		Ferran
+		Finchey
+		Finndal
+		Flinn
+		Florry
+		Forney
+		Frende
+		Gemalphin
+		Gilbearn
+		Gill
+		Gilyard
+		Gode
+		Grady
+		Grinwell
+		Guybon
+		Haevin
+		Hake
+		Halle
+		Hanlon
+		Hansard
+		Haren
+		Harfor
+		Hark
+		Harkin
+		Harnder
+		Haslin
+		Hernvil
+		Holdwin
+		Hopwil
+		Huldin
+		Janevor
+		Kandel
+		Kinch
+		Layden
+		Lorn
+		Macer
+		Makin
+		Manfor
+		Mantear
+		Manyard
+		Maran
+		Maravaile
+		Marne
+		Martan
+		Matherin
+		Merrilin
+		Minly
+		Morr
+		Mull
+		Nem
+		Norham
+		Norry
+		Northan
+		Norwelyn
+		Pelden
+		Pendar
+		Penfell
+		Pensenor
+		Pomfrey
+		Raned
+		Redfor
+		Redhill
+		Renshar
+		Ros
+		Saems
+		Sarand
+		Shagrin
+		Sharplyn
+		Silvin
+		Skane
+		Skellit
+		Stang
+		Stonebridge
+		Strang
+		Talkend
+		Tallanvor
+		Taravin
+		Tasil
+		Thornhill
+		Tiglar
+		Traehand
+		Traemane
+		Trakand
+		Vanin
+		Vordarian
+		Walfor
+		Warrel
+		Zeffar
+
+	}
+	
+	male_noble_first_names= {
+		# populate with names here
+	}
+	female_noble_first_names = {
+		# populate with names here
+	}	
+	noble_last_names = {
+		Trakand
+		Taravin
+		Mantear
+		Haevin
+		Northan
+		Gilyard
+		Baryn
+		Anshar
+		Caeren
+		Pendar
+		Norwelyn
+		Renshar
+		Coelan
+		Carand
+		Marne
+		Arawn
+		Sarand
+		Traemane
+		Candraed
+	}
+	
+	male_regal_first_names = {
+		# populate with names here
+	}
+	female_regal_first_names = {
+		# populate with names here
+	}
+	regal_last_names = {
+		# populate with names here
+	}	
+	graphics = european
+	ethnicities = {
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+madrathi={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage manetheren_descent westlands_heritage }
+	male_common_first_names={
+		Bili
+		Aemin
+		Kenley
+		Kevrim
+		Adan
+		Paet
+		Tod
+		Wil
+		Hu
+		Lem
+		Rad
+		Had
+		Gren
+		Montem
+		Ban
+		Jac
+		Saml
+		Wit
+		Dael
+		Azi
+		Dav
+		Rand
+		Tam
+		Alwyn
+		Con		
+		Eward
+		Jaim
+		Paetram
+		Perrin
+		Jared
+		Pel
+		Corin
+		Jon	
+		Get		
+		Tad
+		Flann
+		Jerinvar
+		Kev
+		Aeric
+		Cenn
+		Calder			
+		Mat
+		Matrim
+		Athan
+		Ren		
+		Althyn
+		Benly		
+		Dag
+		Darl
+		Ewal	
+		Marek
+		Bandry
+		Samel
+		Oren
+		Deoan
+		Bar
+		Buel
+		Elam
+		Jonneth						
+		Falton		
+		Grayor		
+		Jer
+		Jerasid
+		Emry	
+		Natley
+		Tell
+		Win
+		Alsbet
+		Haral
+		Kenly
+		Tuck
+		Reed
+		Robb	
+		Berin
+		Varkel	
+		Leof
+		Nat
+		Thad
+		Kevlyn
+		Trost
+		Kert
+		Sharmad		
+		#check gender: 
+		
+		Teven Neain Dannil Adine Colly Marce Ealsin Jondyn Doral Larine Marin Elnore 
+		
+		Adrin
+		Aghan
+		Vilnar
+		Davram
+		Maedin
+		Taeric
+		Muad
+		Enkazin
+		Eran
+		Garumand
+		Gilber
+		Avar
+		Hachari
+		Hamad
+		Jidar
+		Jonasim
+		Hadnan
+		Kashgar
+		Kirkun
+		Venr
+		Lurts
+		Lyonford
+		Malain
+		Matoun
+		Annharid
+		Fen
+		Musar
+		Haster
+		Nikiol
+		Rakim
+		Kalyan	
+		Rissen
+		Ruthan		
+		Mazrim
+		Tarran	
+		Vram
+		Triben
+		Tumad
+		Vogeler
+		Devore
+	}
+	female_common_first_names = {
+		Marisa Jancy Elwinn Soffi Elise Mavra Maddy Laila Rowan Gwil Edelle Ewin Elle Hari Calle Jori 
+		Daise Cilia Natti Bodewhin Abell Eldrin Carlin Darea Hilde Malena Sari Neysa Milli Lara Magde Joslyn
+		Deselle Adora Rhea Loise Egwene Brandelwyn Berowyn Alene Joiya
+		Kari Susa Elisa Astelle Nynaeve Nela Jerilin Milla
+		Zavion
+		Asne
+		Varilin
+		Yoeli
+		Teodora
+		Teryane
+		Sigril
+		Keraille
+		Rylen
+		Beldeine
+		Pritalle
+		Natasia
+		Merya
+		Maenadrin
+		Shivena
+		Tenobia
+		Razina
+		Janira
+		Toveine
+		Einone
+		Adelorna
+		Sheriam
+		Velina
+		Belairah
+		Deira
+		Alida
+		Zarya
+		Faile
+		Yurith
+		Ells
+		Zarine
+	}	
+	noble_last_names = {
+		al'Caar
+		al'Dai
+		al'Seen
+		al'Thor
+		al'Vere
+		Aybara
+		Ayellin
+		Barran
+		Barstere
+		Cauthon
+		Congar
+		Coplin
+		Dowtry
+		Lewin
+		Marwin
+		Thane
+		Torfinn
+		
+		Taravin
+		Mantear
+		Haevin
+		Northan
+		Gilyard
+		Baryn
+		Anshar
+		Caeren
+		Pendar
+		Norwelyn
+		Renshar
+		Coelan
+		Carand
+		Marne
+		Arawn
+		Sarand
+		Traemane
+		Candraed
+	}
+	common_last_names={
+		Adarra
+		Ahan
+		al'Azar
+		al'Caar
+		al'Dai
+		al'Donel
+		al'Lora
+		al'Mar
+		al'Meara
+		al'San
+		al'Seen
+		al'Taron
+		al'Thone
+		al'Thor
+		al'Van
+		al'Vere
+		Avin
+		Aybara
+		Aydaer
+		Ayellan
+		Ayellin
+		Aylar
+		Ayliah
+		Barran
+		Barstere
+		Botteger
+		Buie
+		Calder
+		Candwin
+		Cauthon
+		Chandin
+		Cole
+		Congar
+		Conly
+		Coplin
+		Cormer
+		Crawe
+		Dautry
+		Dawtry
+		Dearn
+		Dowtry
+		Eldin
+		Finngar
+		Frenn
+		Gaelin
+		Garren
+		Hurn
+		al'Hune
+		Lewin
+		Luhhan
+		Maerin
+		Mallen
+		Marwin
+		Moraton
+		Padwhin
+		Soalen
+		Solter
+		Taron
+		Thane
+		Tius
+		Torfinn
+		Torr
+		Wagoner
+		Zeffar
+		
+		Accan
+		Adan
+		Allwine
+		Ambrey
+		Andscale
+		Anford
+		Ankerin
+		Anshar
+		Arawn
+		Armaghn
+		Avarhin
+		Barshaw
+		Baryn
+		Belman
+		Bhadar
+		Branstrom
+		Bryne
+		Bunt
+		Byir
+		Caeren
+		Calder
+		Candraed
+		Canford
+		Canler
+		Carand
+		Casalain
+		Cinchonine
+		Cobb
+		Coelan
+		Colford
+		Conel
+		Cordwyn
+		Cornwell
+		Craeb
+		Damodred
+		Dawlish
+		Deraighdin
+		Dorn
+		Eltring
+		Farshaw
+		Fel
+		Felmley
+		Fendry
+		Ferran
+		Finchey
+		Finndal
+		Flinn
+		Florry
+		Forney
+		Frende
+		Gemalphin
+		Gilbearn
+		Gill
+		Gilyard
+		Gode
+		Grady
+		Grinwell
+		Guybon
+		Haevin
+		Hake
+		Halle
+		Hanlon
+		Hansard
+		Haren
+		Harfor
+		Hark
+		Harkin
+		Harnder
+		Haslin
+		Hernvil
+		Holdwin
+		Hopwil
+		Huldin
+		Janevor
+		Kandel
+		Kinch
+		Layden
+		Lorn
+		Macer
+		Makin
+		Manfor
+		Mantear
+		Manyard
+		Maran
+		Maravaile
+		Marne
+		Martan
+		Matherin
+		Merrilin
+		Minly
+		Morr
+		Mull
+		Nem
+		Norham
+		Norry
+		Northan
+		Norwelyn
+		Pelden
+		Pendar
+		Penfell
+		Pensenor
+		Pomfrey
+		Raned
+		Redfor
+		Redhill
+		Renshar
+		Ros
+		Saems
+		Sarand
+		Shagrin
+		Sharplyn
+		Silvin
+		Skane
+		Skellit
+		Stang
+		Stonebridge
+		Strang
+		Talkend
+		Tallanvor
+		Taravin
+		Tasil
+		Thornhill
+		Tiglar
+		Traehand
+		Traemane
+		Trakand
+		Vanin
+		Vordarian
+		Walfor
+		Warrel
+		Zeffar
+	}
+	graphics = european
+	ethnicities = {
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+elmadari={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage aelgar_descent westlands_heritage }
+	#Mix of tarabon and Amadicia
+	male_common_first_names={
+		Aeman
+		Ailron
+		Aldin
+		Alfara
+		Alvon
+		Jorin
+		Sebban
+		Jaichim
+		Evan
+		Jaril
+		Jharen
+		Therin
+		Abdel
+		Sharbon
+		Noy
+		Akoure	
+		Alstaing
+		Boral
+		Andric
+		Balthaz
+		Benish
+		Borman
+		Dain
+		Geofram
+		Brys
+		Tervail
+		Farede
+		Bernaile
+		Androl
+		Elbreth
+		Tornay
+		Atuan
+		Jaq
+		Haren
+		Varil
+		Ispan
+		Tammuz
+		Tamrin
+		Peral	
+	}
+	female_common_first_names = {
+		Vanora
+		Theril
+		Sim
+		Avi
+		Seve
+		Santal
+		Ronde
+		Luci
+		Eldrith
+		Rina
+		Alviarin
+		Evon
+		Dealda
+		Silviana
+		Amellia
+		Marande
+		Alainia
+		Altalin
+		Aravine
+		Laurain
+		Marewin
+		Teran
+		Alise
+		Selindrin
+		Rendra
+		Tazenia
+		Aludra
+		Sarene
+		Moghedien
+		Aeldrine
+		Aledrin
+		Amathera
+		Annoura
+		Famelle
+		Liandrin
+		Merise
+		Cerindra
+		Ludice
+		Innina
+		Deladrin
+		Cetalia
+		Andaya
+		Faeldrin
+		Lemore
+		Tesan
+		Amira
+		Beonin
+		Leilwin
+		Calindin
+		Collaris
+		Laigin
+		Asseil
+	}	
+	noble_last_names = {
+		Algoran
+		Lukan
+		Ramoth
+		Senhold
+		Amadia
+		Bornhald	
+		Genhal
+		Lounault
+		Maseed
+		Nerenhald
+	}
+	common_last_names={
+		Senhold
+		Lukan
+		Algoran
+		Arene
+		Arene
+		Balwer
+		Brehon
+		Carnel
+		Carridin
+		Freidhen
+		Hafden
+		Jhondar
+		Lugay
+		Macura
+		Omerna
+		Ramoth
+		Shendar
+		Torvald
+		Carridin
+		Vayet
+		Amadia
+		Arnault
+		Bornhald
+		Daneen
+		Darenhold
+		Delarme
+		Dura
+		Forae
+		Gelbarn
+		Genhald
+		Guirale
+		Haindehl
+		Harella
+		Hedare
+		Juarde
+		Lanasiet
+		Larisen
+		Larisett
+		Genhal
+		Lounalt
+		Lounault
+		Malenry
+		Marinye
+		Maseed
+		Moselle
+		Nemdahl
+		Nendenhald
+		Nensen
+		Nerenhald
+		Shefar
+		Tenjile
+		Torval
+	}
+	graphics = south_asian
+	ethnicities = {
+		4 = arab
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+eharmara={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage eharon_descent westlands_heritage }
+	male_common_first_names={
+		Andris
+		Azereos
+		Bili
+		Coke
+		Jeorg
+		Argirin
+		Bayle
+		Nuhel
+		Ballin
+		Keb
+		Garfin
+		Pavil
+		Haerm
+		Gregorin
+		Eliris
+		Spiron
+		Ershin
+		Marac
+		Eagan
+		Gorin
+		Mattin
+		Tormon	
+
+		#Share with Altara
+		Jonan
+		Jasfer
+		Leral
+		Ross
+		Arnin
+		Bren
+		Camrin
+		Cowlin
+		Mycal
+		Cully
+		Darvale
+		Denal
+		Lydel
+		Toke
+		Habiger
+		Haesel
+		Heilin
+		Hurd
+		Jen
+		Leich
+		Madic
+		Malalin
+		Masic
+		Beslan
+		Nad
+		Nevin
+		Surlivan
+		Speral
+		Calwyn
+		Maddin
+		Vane
+		Nathin
+	}
+	female_common_first_names = {
+		Ronaille
+		Ester
+		Morvrin
+		Jeordwyn
+		Nieda
+		Aisha
+		Valinde
+		Berylla
+		Nicoli
+		Demetre
+		Moria
+		Hattori
+		Medanor
+		Emara
+		Kiril
+		Magla
+		Erian
+		Teslyn
+		Kari
+		
+		#Share with Altara
+		Vadere
+		Anarina
+		Tamarla
+		Sarena
+		Shanelle
+		Darnella
+		Riselle
+		Naiselle
+		Nariene
+		Nelsa
+		Agni
+		Tylin
+		Matilde
+		Maylin
+		Loya
+		Jera
+		Kathana
+		Keatlin
+		Kostelle
+		Laren
+		Ibrella
+		Tarna
+		Gainor
+		Elynde
+		Enid
+		Deryl
+		Deirdru
+		Davindra
+		Cedora
+		Corvila
+		Carin
+		Cairen
+		Caira
+		Ashelin
+		Saerin
+		Baris
+		Myrelle
+		Rahema
+		Marah
+		Alis
+		Frielle
+		Aethelaine
+		Adela
+	}	
+	noble_last_names = {
+		Drapaneos
+		Elamri
+		Mancuri
+		Merseneos
+		Narettin
+		Netari
+		Panar
+		Semaris
+		Stepaneos
+	}
+	common_last_names={
+		Baradon
+		Boroleos
+		Damentanis
+		Darelos
+		Daronos
+		Domon
+		Drapaneos
+		Dromand
+		Rendalle
+		Eramandos
+		Freehan
+		Gatano
+		Geraneos
+		Karentanis
+		Lushenos
+		Rhomin
+		Marcolin
+		Ballin
+		Narettin
+		Naron
+		Nathenos
+		Netari
+		Norvin
+		Padros
+		Raveneos
+		Rogad
+		Semaris
+		Sidoro
+		Balgar
+		Stepashin
+		Thakanos
+		Vevanios
+		Rendalle
+		Lushenos
+		Rhomin
+		Ballin
+		Norvin
+		Balgar
+		
+		#Share with Altara
+		Adley
+		Anan
+		Arnon
+		Asnobar
+		Berengari
+		Crossin
+		Elonid
+		Fearnim
+		Feir
+		Furlan
+		Mitsobar
+		Neres
+		Sarat
+		Shoran
+		Sutoma
+		Todande
+		Vendare
+	}
+	graphics = european
+	ethnicities = {
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+kafendiran={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage safer_descent westlands_heritage }
+	male_common_first_names={
+		Fenton
+		Hobbs
+		Tobias
+		Gideon
+		Poul
+		Bretton
+		Lorwyn
+		Palvear
+		
+		#Borrow some from Domani and Taraboner
+		Abar
+		Alin
+		Alsalam
+		Bastine
+		Ramsid
+		Ankaer
+		Yilvas
+		Hafeen
+		Balat
+		Barettal
+		Basram
+		Callswell
+		Connel
+		Creedin
+		Cutaris
+		Donjel
+		Durhem
+		Durnham
+		Finsas
+		Helmke
+		Iralin
+		Rodel
+		Jorgin
+		Kappre
+		Kerb
+		Mezar
+		Lehynen
+		Machir
+		Azil
+		Melarned
+		Mord
+		Arlen
+		Alstaing
+		Boral
+		Andric
+		Balthaz
+		Benish
+		Borman
+		Dain
+		Geofram
+		Brys
+		Tervail
+		Farede
+		Bernaile
+		Androl
+		Elbreth
+		Tornay
+		Atuan
+	}
+	female_common_first_names = {
+		Kara
+		Bryna
+		Cecilia
+		Annabelle
+		Issa
+		Tamana
+		
+		#Borrow some from Domani and Taraboner
+		Asra
+		Vasha
+		Tuva
+		Thurasa
+		Isebaille
+		Larelle
+		Namine
+		Leane
+		Rossin
+		Sanaiye
+		Karale
+		Resara
+		Osana
+		Chisaine
+		Ferane
+		Namene
+		Aeldra
+		Melore
+		Lusara
+		Lidrin
+		Loral
+		Alise
+		Selindrin
+		Rendra
+		Tazenia
+		Aludra
+		Sarene
+		Moghedien
+		Aeldrine
+		Aledrin
+		Amathera
+		Annoura
+		Famelle
+		Liandrin
+		Merise
+		Cerindra
+		Ludice
+		Innina
+		Deladrin
+		Cetalia
+		Andaya
+		Faeldrin
+		Lemore
+		Tesan
+		Amira
+		Beonin
+		Leilwin
+	}	
+	noble_last_names = {
+		Kilvar
+		Defane
+		Lisbet
+		Arens
+		DaVoren
+		Faun
+		Jens
+		Almadar
+		Ituralde
+		Lazari
+		Nawaz
+		Ramshalan
+	}
+	common_last_names={
+		Defane
+		Lisbet
+		Arens
+		DaVoren
+		Faun
+		Jens
+		
+		#Borrow some from Domani and Taraboner
+		Kurin
+		Lazari
+		Mareed
+		Najaf
+		Nalaam
+		Nawaz
+		Neheran
+		Nishur
+		Nurbaya
+		Ramshalan
+		Asaheen
+		Sanghir
+		Shaeren
+		Sharif
+		Tarsi
+		Tasil
+		Tobanyi
+		Zeffar
+		Zigane
+		Amadia
+		Arnault
+		Bornhald
+		Daneen
+		Darenhold
+		Delarme
+		Dura
+		Forae
+		Gelbarn
+		Genhald
+		Guirale
+		Haindehl
+		Harella
+		Hedare
+		Juarde
+		Lanasiet
+		Larisen
+		Larisett
+		Genhal
+		Lounalt
+		Lounault
+		Malenry
+	}
+	graphics = south_asian
+	ethnicities = {
+		4 = arab
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+ivomari={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage ivo_culture_group westlands_heritage }
+	#Mix of Andor and Saldaea
+	male_common_first_names={
+		Balwen
+		##
+		
+		##
+		Hatch
+		Henren
+		Jakob
+		Raimun
+		Eben
+		Inlow
+		Jak
+		Jan
+		Kelwin
+		Jer
+		Jerasid
+		Jowdry
+		Karam
+		Hyam
+		Kindlin
+		Barel
+		Dannil
+		Emry
+		Natley
+		Tell
+		Win
+		Alsbet
+		Haral
+		Renald
+		Macharan
+		Kenly
+		Croi
+		Karldin
+		Perival
+		Jeorad
+		Jailin
+		Brannin
+		Teven
+		Aedmun
+		Owyn
+		Thom
+		Fedwin
+		Alpert
+		Mutch
+		Naeff
+		Aranvor
+		Neain
+		Admer
+		Halwin
+		Conail
+		Luan
+		Tuck
+		Pappil
+		Naris
+		Aubrem
+		Rahvin
+		Ramey			
+		Merean
+		Renel	
+		Rittle		
+		Wilbin		
+		Jarid		
+		Jar	
+		Snelle
+		Snert
+		Reed
+		Robb	
+		Strom	
+		Eram
+		Martyn
+		Tando		
+		Quillin	
+		Theodohr	
+		Liam
+		Varkel	
+		Leof
+		Nat
+		Kevlyn
+		Laerid		
+		Gawyn	
+		Trost
+		Chel
+		Brandel
+		Kert		
+		Wat
+		Willin
+		
+		Adrin
+		Aghan
+		Vilnar
+		Davram
+		Maedin
+		Taeric
+		Muad
+		Enkazin
+		Eran
+		Garumand
+		Gilber
+		Avar
+		Hachari
+		Hamad
+		Jidar
+		Jonasim
+		Hadnan
+		Kashgar
+		Kirkun
+		Venr
+		Lurts
+		Lyonford
+		Malain
+		Matoun
+		Annharid
+		Fen
+		Musar
+		Haster
+		Nikiol
+		Rakim
+		Kalyan	
+		Rissen
+		Ruthan		
+		Mazrim
+		Tarran	
+		Vram
+		Triben
+		Tumad
+		Vogeler
+		Devore
+	}
+	female_common_first_names = {
+		#
+		Doreille
+		
+		##
+		Termylle
+		Telaisien
+		Elwinn
+		Dyelin
+		Talana
+		Tabiya
+		Aeldene
+		Kairen
+		Mili
+		Anthelle
+		Joni
+		Sela
+		Elenia
+		Sara
+		Rosse
+		Hanselle
+		Arathelle
+		Daerilla
+		Silvane
+		Fridwyn
+		Rana
+		Salia
+		Elza
+		Ester
+		Sephanie
+		Abelle
+		Maigan
+		Negara
+		Morrigan
+		Morear
+		Soffi
+		Modrellein
+		Talene
+		Miren
+		Melasune
+		Melare
+		Mayv
+		Nelein
+		Elvaine
+		Elise
+		Souran
+		Mari
+		Arymilla
+		Maragaine
+		Maralenda
+		Tigraine
+		Mordrellen
+		Mavra
+		Lyndelle
+		Evanellein
+		Lucilde
+		Laila
+		
+		Zavion
+		Asne
+		Varilin
+		Yoeli
+		Teodora
+		Teryane
+		Sigril
+		Keraille
+		Rylen
+		Beldeine
+		Pritalle
+		Natasia
+		Merya
+		Maenadrin
+		Shivena
+		Tenobia
+		Razina
+		Janira
+		Toveine
+		Einone
+		Adelorna
+		Sheriam
+		Velina
+		Belairah
+		Deira
+		Alida
+		Zarya
+		Faile
+		Yurith
+		Ells
+		Zarine
+	}	
+	noble_last_names = {
+		Mayel
+		Torghin
+		
+		Taravin
+		Mantear
+		Haevin
+		Northan
+		Gilyard
+		Baryn
+		Anshar
+		Caeren
+		Pendar
+		Norwelyn
+		Renshar
+		Coelan
+		Carand
+		Marne
+		Arawn
+		Sarand
+		Traemane
+		Candraed
+		
+		Kazadi
+		Torkumen
+		Dianatkhah
+		Ramsin
+		Gahaur
+		Rashad
+	}
+	common_last_names={
+		Accan
+		Adan
+		Allwine
+		Ambrey
+		Andscale
+		Anford
+		Ankerin
+		Anshar
+		Arawn
+		Armaghn
+		Avarhin
+		Barshaw
+		Baryn
+		Belman
+		Bhadar
+		Branstrom
+		Bryne
+		Bunt
+		Byir
+		Caeren
+		Calder
+		Candraed
+		Canford
+		Canler
+		Carand
+		Casalain
+		Cinchonine
+		Cobb
+		Coelan
+		Colford
+		Conel
+		Cordwyn
+		Cornwell
+		Craeb
+		Damodred
+		Dawlish
+		Deraighdin
+		Dorn
+		Eltring
+		Farshaw
+		Fel
+		Felmley
+		Fendry
+		Ferran
+		Finchey
+		Finndal
+		Flinn
+		Florry
+		Forney
+		Frende
+		Gemalphin
+		Gilbearn
+		Gill
+		Gilyard
+		Gode
+		Grady
+		Grinwell
+		Guybon
+		Haevin
+		Hake
+		Halle
+		Hanlon
+		Hansard
+		Haren
+		Harfor
+		Hark
+		Harkin
+		Harnder
+		Haslin
+		Hernvil
+		Holdwin
+		Hopwil
+		Huldin
+		Janevor
+		Kandel
+		Kinch
+		Layden
+		Lorn
+		Macer
+		Makin
+		Manfor
+		Mantear
+		Manyard
+		Maran
+		Maravaile
+		Marne
+		Martan
+		Matherin
+		Merrilin
+		Minly
+		Morr
+		Mull
+		Nem
+		Norham
+		Norry
+		Northan
+		Norwelyn
+		Pelden
+		Pendar
+		Penfell
+		Pensenor
+		Pomfrey
+		Raned
+		Redfor
+		Redhill
+		Renshar
+		Ros
+		Saems
+		Sarand
+		Shagrin
+		Sharplyn
+		Silvin
+		Skane
+		Skellit
+		Stang
+		Stonebridge
+		Strang
+		Talkend
+		Tallanvor
+		Taravin
+		Tasil
+		Thornhill
+		Tiglar
+		Traehand
+		Traemane
+		Trakand
+		Vanin
+		Vordarian
+		Walfor
+		Warrel
+		Zeffar
+		
+		Azeri
+		Barada
+		Bastine
+		Bayanar
+		Behar
+		Chavana
+		Cheade
+		Gazal
+		Hachami
+		Hazzan
+		Kadere
+		Kayenzi
+		Kazadi
+		Kosaan
+		Saldaea
+		Torkumen
+		Matoun
+		Mizar
+		Nalmat
+		Nerbaijan
+		Dianatkhah
+		Nyram
+		Ramsin
+		Rashad
+		Surtovni
+		Taim
+		Ahzkan
+		Zanaire
+		Zarbayan
+		Zeramene
+		Boriden
+	}
+	graphics = european
+	ethnicities = {
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}	
+marvenien={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = karaethon
+	traits = { madmen_heritage almoren_descent westlands_heritage }
+	male_common_first_names={
+		Galad
+		Talmanes
+		Olver
+		Taringail
+		Dobraine
+		Lorstrum
+		Andil
+		Dalthanes
+		Daricain
+		Arinvar
+		Ashin
+		Barmellin
+		Latian
+		Beldair
+		Aldrin
+		Caredwain
+		Boreane
+		Doressin
+		Matraine
+		Corevin
+		Ander
+		Aril
+		Cuale
+		Daelvin
+		Dafid
+		Meresin
+		Aldecain
+		Barthanes
+		Carewin
+		Dalresin
+		Laman
+		Moressin
+		Larrald			
+		Denharad	
+		Doile
+		Doirellin	
+		Doirmanes
+		Ilain
+		Dormin
+		Eddar		
+		Stevan
+		Aldred
+		Ries
+		Hamarashle
+		Harvell
+		Ivon
+		Jori	
+		Temaile
+		Lidan
+		Lussin
+		Lyncon
+		Madresin
+		Barin	
+		Arel
+		Manal
+		Semaradrid
+		Corgaide
+		Maringil		
+		Mavabwin
+		Barris
+		Elspeth	
+		Eldrid
+		Metwyn	
+		Daigian	
+		Nerim	
+		Barmanes	
+		Daerid
+		Amondrid		
+		Pevin	
+		Ailil
+		Galldrian
+		Toram
+		Torven
+		Bavin
+		Bertome		
+		Asan				
+		Breane
+		Idrien
+		Tavan
+		Elricain		
+		Nerion	
+	}
+	female_common_first_names = {
+		Seonid
+		Tiedra
+		Melavaire
+		Betse
+		Colavaere
+		Dairaine
+		Reale
+		Belevaere
+		Camaille
+		Desala
+		Tal
+		Nagora
+		Catrelle
+		Holleen
+		Cerilla
+		Maglin
+		Meneril
+		Kasi
+		Fellsy
+		Ella
+		Berowin
+		Lirene
+		Cera
+		Arilyn
+		Dena
+		Nelavaire
+		Selande
+		Innloine
+		Caraline
+		Anvaere
+		Nirelle
+		Alaine
+		Kirstian
+		Catrine
+		Ceri
+		Sheraine
+		Bassane
+		Gulaeve
+		Lyrelle
+		Alvistere
+		Doesine
+		Doniella
+		Alhandrin
+		Lacile
+		Merilille
+		Moiraine
+	}	
+	noble_last_names = {
+		Aesnan
+		Delovinde
+		Dhulaine
+		Daganred
+		Damodred
+		Annallin
+		Osiellin
+		Hamarashle
+		Maravin
+		Moseneillin
+		Colmcille
+		Chuliandred
+		Riatin
+		Saighan
+		Taborwin
+	}
+	common_last_names={
+		Damodred
+		Delovinde
+		Ceandevin
+		Taborwin
+		Aesnan
+		Aldorwin
+		Torelvin
+		Alievin
+		Alwain
+		Annallin
+		Arienwin
+		Basar
+		Caldevwin
+		Caminelle
+		Carivin
+		Chalwin
+		Chuliandred
+		Coidevwin
+		Colmcille
+		Corl
+		Norley
+		Daganred
+		Darengil
+		Demasiellin
+		Dhulaine
+		Doinal
+		Doirellin
+		Doraisin
+		Dormaile
+		Gedarien
+		Gomaisen
+		Gorthanes
+		Hamarashle
+		Kinderode
+		Mandevwin
+		Madwen
+		Malevin
+		Maravin
+		Marendevin
+		Marodred
+		Mecandes
+		Methin
+		Mosenain
+		Moseneillin
+		Nethin
+		Nevanche
+		Nolaisen
+		Ondin
+		Osiellin
+		Riatin
+		Rikshan
+		Rockshaw
+		Saighan
+		Sandair
+		Silvin
+		Someinellin
+		Tarsin
+		Tavolin
+		Tol
+		Tovere
+		Traighan
+	}
+	graphics = european
+	ethnicities = {
+		4 = caucasian
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+chanukari={  
+	color= hsv{ 0.73 0.49 0.65 }
+	religion = essanik
+	traits = { madmen_heritage seanchan_heritage }
+	obsessions = {
+		coffee
+	}
+	male_common_first_names={
+		Turak
+		Anghar
+		Gueye
+		Assid
+		Barrin
+		Caban
+		Matrim
+		Cerandin
+		Charral
+		Ciar
+		Daruo
+		Deain
+		Druu
+		Zaired
+		Blasic
+		Flern
+		Lunal
+		Gerisch
+		Gokhan
+		Gregana
+		Guisin
+		Gurat
+		Handoin
+		Huan
+		Jadranka
+		Jalindin
+		Jame
+		Jinjin
+		Furyk
+		Karm
+		Gamel
+		Ma'combe
+		Macu
+		Jalid
+		Malian
+		Mantual
+		Mehtan
+		Mika
+		Kennar
+		Bakayar
+		Almurat
+		Morsa
+		Murdoc
+		Murel
+		Musenge
+		Musicar
+		Nadoc
+		Mikhel
+		Nerith
+		Faverde
+		Shanan
+		Amenar
+		Sulaan	
+		Egeanin		
+		Tauan
+		Tehan
+		Timak
+		Tiras	
+		Turan
+		Varek
+		Efraim
+		Yulan
+		Abaldar
+		Yuril		
+	}
+	female_common_first_names = {
+		Bethamin
+		Seta
+		Zakai
+		Tumva
+		Tanera
+		Talha
+		Taisa
+		Radhanan
+		Algwyn
+		Mulaen
+		Miri
+		Suroth
+		Melitene
+		Varuota
+		Sabelle
+		Quintara
+		Athaem
+		Kore
+		Suroth
+		Tylee
+		Courtani
+		Kaisea
+		Morsa
+		Aurana
+		Chimal
+		Tuon
+		Ravashi
+		Riselle
+		Egeanin
+		Surela
+		Surine
+		Surya
+		Tabi
+		Semirhage
+		Sera
+		Seri
+		Serrah
+		Serrisa
+		Aurana
+		Chimal
+		Tuon
+		Halvate
+		Ravashi
+		Rosala
+		Savara
+		Selucia
+		Marli
+		Norie
+		Nata
+		Neferi
+		Nenci
+		Marille
+		Marthera
+		Malai
+		Malahavana
+		Ronde
+		Tylee
+		Krisa
+		Lanelle
+		Lidya
+		Kalia
+		Kaisea
+		Lisaine
+		Jillari
+		Jini
+		Ianelle
+		Iona
+		Hartha
+		Gille
+		Gelen
+		Ryma
+		Eliya
+		Renna
+		Essonde
+		Falendre
+		Courtani
+		Dali
+		Dani
+		Chianmai
+		Chisen
+		Chulein
+		Catrona
+		Arrata
+		Alivia
+		Alwhin
+		Ajimbura
+	}	
+	noble_last_names = {
+		Aladon
+		Khirgan
+		Cauthon
+		Meldarath
+		Mitsobar
+		Mondwin
+		Nothish
+		Paendrag
+		Shumada
+		Tamarath
+		Yamada
+	}
+	common_last_names={
+		Aladon
+		Arabah
+		Bakuun
+		Cauthon
+		Elbar
+		Emain
+		Faloun
+		Galfrey
+		Galgan
+		Jarath
+		Karede
+		Khirgan
+		Loune
+		Macura
+		Magonine
+		Meldarath
+		Miraj
+		Mishima
+		Mondwin
+		Mor
+		Najirah
+		Noichin
+		Nothish
+		Shumada
+		Tamarath
+		Yamada
+		Yulan
+		Zarbey
+		Zeami
+	}
+	
+	male_noble_first_names= {
+		Luthair
+		Artur
+		Turak	
+		Knotai	
+		Gokhan
+		Handoin	
+		Faverde
+		Halvate
+		Amenar	
+		Efraim
+	}
+	female_noble_first_names = {
+		Fortuona
+		Radhanan
+		Varuota
+		Sabelle
+		Quintara
+		Athaem
+		Kore
+		Suroth
+		Tylee
+		Courtani
+		Kaisea
+		Morsa
+		Aurana
+		Chimal
+		Tuon
+		Ravashi
+		Riselle
+		Egeanin
+	}	
+	graphics = south_asian
+	ethnicities = {
+		4 = caucasian
+		1 = african
+		1 = south_american
+		1 = south_east_asian
+		1 = asian		
+		1 = indian
+		1 = polynesian
+	}
+}
+mandaran={
+	color= rgb{ 190 80 48 }
+	religion = wyld
+	traits = { madmen_heritage sharan_heritage }
+	male_common_first_names={
+		#Canon
+		Mintel
+		Shaofan
+		
+		#Chinese inspired
+		Xunron
+		Yanlin
+		Gingua
+		Linlei
+		Caowu
+		Huogan
+		Zhong
+		Liyan
+		Chen
+		Futan
+		Xuzan
+		Yatin
+		Shizhi
+		Renda
+		Konhan
+		Linjin
+		Genchen
+		Tianqin
+		Zan
+		Zoumin
+		Lugan
+		Qankun
+		Denga
+		Wangsu
+		Cayin
+		Tianyu
+		Fengyat
+		Fangli
+		Konya
+		Tanxian
+		Ding
+		Zougua
+		Xiaxin
+		Lonfan
+		Shilan
+		Fenlei
+		Xinshu
+		Zahui
+		Linkun
+	}
+	female_common_first_names = {
+		#Canon
+		Chiape
+		Galbrait
+		Shendla
+		
+		#Chinese inspired
+		Fuyazu
+		Laoya
+		Hanxue
+		Maluo
+		Sulim
+		Cuxia
+		Yanga
+		Hujia
+		Lanzexi
+		Qinshu
+		Fuxue
+		Fenga
+		Zhuyi
+		Tianxian
+		Zhoupi
+		Zhanhai
+		Xianshu
+		Chende
+		Wenjua
+		Konzhe
+		Leixia
+		Liawu
+		Guanyu
+		Dujia
+		Lifu
+		Xuya
+		Yanfe
+		Lonxu
+		Chenya
+		Jinhi
+		Konhu
+		Majia
+		Zhanhe
+		Xionshu
+		Gengni
+		Zhua
+		Wupi
+		Guona
+		Zoumy
+	}	
+	noble_last_names = {
+		#Rwanda surnames
+		Uwimana
+		Ingabire
+		Habimana
+		Jean
+		Hakizimana
+		Nsengiyumva
+		Mugisha
+		Uwamahoro
+		Nshimiyimana
+		Bizimana
+		Nkurunziza
+		Rukundo
+		Mugabo
+		Kalisa
+		Uwera
+		Nsabimana
+		Muhire
+		Umutoni
+		Kwizera
+		Ndagijimana
+		Mbabazi
+		Karangwa
+		Kayitesi
+		Munyaneza
+		Kamanzi
+		Tuyisenge
+		Sibomana
+		Uwineza
+		Umuhoza
+		Ishimwe
+		Gasana
+		Hategekimana
+		Uwase
+		Niyonzima
+		Mutabazi
+		Emmanuel
+		Niyitegeka
+		Tuyishime
+		Nizeyimana
+		Nkusi
+		Nsengimana
+		Ndayambaje
+		Manzi
+		Augustin
+		Umutesi
+		Uwizeye
+		Ntakirutimana
+		Twahirwa
+		Umulisa
+		Rutayisire
+		Mutesi
+		Musabyimana
+		Niyibizi
+		Mukeshimana
+		Dusabe
+		Kabera
+		Uwizeyimana
+		Habineza
+		Celestin
+		Niyonsaba
+		Murekatete
+		Murenzi
+		Ndayisaba
+		Niyigena
+		Nzeyimana
+		Shyaka
+		Ndayishimiye
+		Kayiranga
+		Butera
+		Ngarambe
+		Muvunyi
+		Habyarimana
+		Ngabo
+		Gatera
+		Munezero
+		Uwitonze
+		Kubwimana
+		Dieudonne
+		Byiringiro
+		Ngabonziza
+		Gatete
+		Muhoza
+		Mugabe
+		Mushimiyimana
+		Musoni
+		Janvier
+		Harerimana
+		Bosco
+		Havugimana
+		Mahoro
+		Muhirwa
+		Twagirayezu
+		Uwimbabazi
+		Niyonsenga
+		Umugwaneza
+		Mugiraneza
+		Hitimana
+		Mutoni
+		Rurangwa
+		Uwamariya
+
+	}
+	common_last_names={
+		#Rwanda surnames
+		Uwimana
+		Ingabire
+		Habimana
+		Jean
+		Hakizimana
+		Nsengiyumva
+		Mugisha
+		Uwamahoro
+		Nshimiyimana
+		Bizimana
+		Nkurunziza
+		Rukundo
+		Mugabo
+		Kalisa
+		Uwera
+		Nsabimana
+		Muhire
+		Umutoni
+		Kwizera
+		Ndagijimana
+		Mbabazi
+		Karangwa
+		Kayitesi
+		Munyaneza
+		Kamanzi
+		Tuyisenge
+		Sibomana
+		Uwineza
+		Umuhoza
+		Ishimwe
+		Gasana
+		Hategekimana
+		Uwase
+		Niyonzima
+		Mutabazi
+		Emmanuel
+		Niyitegeka
+		Tuyishime
+		Nizeyimana
+		Nkusi
+		Nsengimana
+		Ndayambaje
+		Manzi
+		Augustin
+		Umutesi
+		Uwizeye
+		Ntakirutimana
+		Twahirwa
+		Umulisa
+		Rutayisire
+		Mutesi
+		Musabyimana
+		Niyibizi
+		Mukeshimana
+		Dusabe
+		Kabera
+		Uwizeyimana
+		Habineza
+		Celestin
+		Niyonsaba
+		Murekatete
+		Murenzi
+		Ndayisaba
+		Niyigena
+		Nzeyimana
+		Shyaka
+		Ndayishimiye
+		Kayiranga
+		Butera
+		Ngarambe
+		Muvunyi
+		Habyarimana
+		Ngabo
+		Gatera
+		Munezero
+		Uwitonze
+		Kubwimana
+		Dieudonne
+		Byiringiro
+		Ngabonziza
+		Gatete
+		Muhoza
+		Mugabe
+		Mushimiyimana
+		Musoni
+		Janvier
+		Harerimana
+		Bosco
+		Havugimana
+		Mahoro
+		Muhirwa
+		Twagirayezu
+		Uwimbabazi
+		Niyonsenga
+		Umugwaneza
+		Mugiraneza
+		Hitimana
+		Mutoni
+		Rurangwa
+		Uwamariya
+
+	}
+	graphics = african
+	ethnicities = {
+		4 = african
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+djanzei={
+	color= hsv{ 0.92 0.49 0.60 }
+	religion = jendai
+	traits = { madmen_heritage sea_folk_islands_group sea_folk_heritage }
+	male_common_first_names={
+		Amel
+		Baroc
+		Barit
+		Uren
+		Mishael
+		Moad
+		Raab
+		Toram
+	}
+	female_common_first_names = {
+		Zemaille
+		Azzara
+		Renaile
+		Taval
+		Dorele
+		Ehvon
+		Dorile
+		Faeral
+		Caire
+		Tebreille
+		Talaan
+		Jadein
+		Jorin
+		Coine
+		Metarra
+		Kurin
+		Lacine
+		Lincora
+		Mareil
+		Naime
+		Niolle
+		Nyein
+		Zaida
+		Pelanna
+		Rainyn
+		Nesta
+		Rysael
+		Shielyn
+		Nestelle
+		Cemeille
+		Derah
+		Senine
+		Chanelle
+		Serile
+		Milis
+		Aiden
+		Shalon
+		Harine
+		Malin
+		Turane
+		Wallein
+		Zushi
+	}	
+	noble_last_names = {
+		din_Monaga
+		din_Karak
+		din_Calon
+		din_Chanai
+		din_Eiran
+		din_Rao
+		din_Gelyn
+		din_Jubai
+		din_Junalle
+		din_Calin
+		din_Omen
+		din_Nopara
+		din_Malzar
+		din_Lembar
+		din_Parede
+		din_Burun
+		din_Reas
+		din_Yulan
+		din_Sabura
+		din_Sakura
+		din_Selaan
+		din_Ryal
+		din_Seran
+		din_Shalada
+		din_Togara
+		din_Toral
+		din_Onill
+	}
+	common_last_names={
+		din_Monaga
+		din_Karak
+		din_Calon
+		din_Chanai
+		din_Eiran
+		din_Rao
+		din_Gelyn
+		din_Jubai
+		din_Junalle
+		din_Calin
+		din_Omen
+		din_Nopara
+		din_Malzar
+		din_Lembar
+		din_Parede
+		din_Burun
+		din_Reas
+		din_Yulan
+		din_Sabura
+		din_Sakura
+		din_Selaan
+		din_Ryal
+		din_Seran
+		din_Shalada
+		din_Togara
+		din_Toral
+		din_Onill
+		Amassa
+		Chavana
+		Kalede
+		Shimura
+	}
+	graphics = african
+	ethnicities = {
+		4 = african
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+jandalari={
+	color= hsv{ 0.35 0.58 0.54 }
+	religion = rhuidean
+	traits = { madmen_heritage aiel_culture_group dashain_heritage }
+	
+	male_common_first_names={
+		Adan
+		Aeron
+		Rand
+		Alalved
+		Alarch
+		Alijha
+		Amaryn
+		Bael
+		Baelder
+		Baerin
+		Bain
+		Briain
+		Bruan
+		Cairdin
+		Caldin
+		Camar
+		Chaelin
+		Charendin
+		Charlin
+		Charn
+		Chiarid
+		Chion
+		Comran
+		Coram
+		Corman
+		Couladin
+		Coumin
+		Dailin
+		Darin
+		Darvin
+		Dedric
+		Dermon
+		Dhearic
+		Doilan
+		Erim
+		Feran
+		Garan
+		Garlvan
+		Gaul
+		Gearan
+		Gharadin
+		Hamal
+		Han
+		Hehyal
+		Heirn
+		Indirian
+		Isan
+		Janduin
+		Jaren
+		Jenric
+		Jeordam
+		Jheran
+		Jhoradin
+		Jorshem
+		Juranai
+		Juric
+		Kinhuin
+		Kymer
+		Laerad
+		Lewin
+		Luca
+		Ludin
+		Maeric
+		Mandein
+		Mandelain
+		Manderic
+		Mandhuin
+		Mangin
+		Maric
+		Marind
+		Meciar
+		Mendan
+		Metalan
+		Muradin
+		Nadric
+		Nichil
+		Norlesh
+		Rhodric
+		Rhuarc
+		Roidan
+		Rolan
+		Ronam
+		Rowahn
+		Saeric
+		Sarien
+		Seirin
+		Shedren
+		Soro
+		Suladric
+		Sulwin
+		Tadvishm
+		Takai
+		Tamaav
+		Taric
+		Tavalad
+		Timolan
+		Trask
+		Turol
+		Urien
+		Willim
+	}
+	female_common_first_names = {
+		Viendre
+		Tuandha
+		Tion
+		Therava
+		Tialin
+		Tarra
+		Tava
+		Tamela
+		Suraile
+		Surandha
+		Surial
+		Sulin
+		Sotarin
+		Somma
+		Sorelle
+		Sorilea
+		Shyanda
+		Siedre
+		Somara
+		Someryn
+		Sendara
+		Seralin
+		Sevanna
+		Shaen
+		Shanni
+		Seana
+		Sefela
+		Sarinde
+		Sealdre
+		Sarendhra
+		Sammana
+		Sanduin
+		Saralin
+		Ronja
+		Riallin
+		Rodera
+		Rhea
+		Rhiale
+		Rhian
+		Nosinda
+		Oncala
+		Padra
+		Niella
+		Norlea
+		Nevarin
+		Niagen
+		Nakomi
+		Nalla
+		Nandera
+		Narendhra
+		Narisse
+		Nerilea
+		Nerrine
+		Nesair
+		Naeise
+		Nadere
+		Morena
+		Mori
+		Morin
+		Micara
+		Modarra
+		Monaelle
+		Mora
+		Mordaine
+		Mera
+		Megana
+		Meira
+		Meise
+		Melaine
+		Melindhra
+		Marinna
+		Marline
+		Marthea
+		Masalin
+		Tigraine
+		Maira
+		Malidra
+		Malindare
+		Malindhe
+		Maigran
+		Liah
+		Lian
+		Losaine
+		Luaine
+		Leyn
+		Lamelle
+		Leeh
+		Leiran
+		Lerian
+		Ladalin
+		Kirin
+		Katerin
+		Kainea
+		Kanara
+		Jonai
+		Joinde
+		Jolien
+		Jesain
+		Jendhilin
+		Janina
+		Janwin
+		Jalani
+		Jair
+		Ifeyina
+		Heidia
+		Hayde
+		Harilin
+		Feraighin
+		Esole
+		Estair
+		Estalaine
+		Evasni
+		Elienda
+		Elwin
+		Emerys
+		Enaila
+		Domeille
+		Dorailla
+		Dorindha
+		Dosera
+		Dyrele
+		Edarra
+		Efalin
+		Elenar
+		Desora
+		Dhael
+		Desaine
+		Delora
+		Daviena
+		Dagendra
+		Cowinde
+		Cosain
+		Corana
+		Corehuin
+		Corelna
+		Colinda
+		Colline
+		Chuonde
+		Coedelin
+		Chenda
+		Chiad
+		Careen
+		Carelle
+		Galina
+		Cassin
+		Carahuin
+		Bair
+		Beira
+		Belinde
+		Bendhuin
+		Beralna
+		Amys
+		Andhilin
+		Aviellin
+		Aviendha
+		Alnora
+		Alsera
+		Alarys
+		Agirin
+		Adelin
+	}	
+	noble_last_names = {
+		al'Thor
+		
+		Cosaida
+		Jarra
+		White_Mountain
+		Jaern_Rift
+		Bent_Peak
+		Shelan
+		High_Plain
+		Jhirad
+		Mosaada
+		Red_Salt
+		Red_Water
+		Stones_River
+		Cold_Peak
+		Smoke_Water
+		Spine_Ridge
+		Black_Cliffs
+		Black_Water
+		Salt_Flat
+		Musara
+		Two_Spires
+		Black_Rock
+		Haido
+		Imran
+		Domai
+		Green_Salts
+		Jonine
+		Jumai
+		Morai
+		Moshaine
+		White_Cliff
+		Neder
+		Bitter_Water
+		Bloody_Water
+		Chumai
+		Four_Holes
+		Four_Stones
+		Iron_Mountain
+		Jagged_Spire
+		Jindo
+		Miadi
+		Nine_Valleys
+		Jenda
+		Serai
+		Shorara
+		Bent_Valley
+		Bent_Valley
+		Cold_Rocks
+		Colrada
+		Comarda
+		Hot_Springs
+		Mainde_Cut
+		Red_Springs
+		Shende
+		Shiagi
+		Smoke_Springs
+		Sulara
+		Chane_Rocks
+		Broken_Cliff
+	}
+	common_last_names={
+		Cosaida
+		Jarra
+		White_Mountain
+		Jaern_Rift
+		Bent_Peak
+		Shelan
+		High_Plain
+		Jhirad
+		Mosaada
+		Red_Salt
+		Red_Water
+		Stones_River
+		Cold_Peak
+		Smoke_Water
+		Spine_Ridge
+		Black_Cliffs
+		Black_Water
+		Salt_Flat
+		Musara
+		Two_Spires
+		Black_Rock
+		Haido
+		Imran
+		Domai
+		Green_Salts
+		Jonine
+		Jumai
+		Morai
+		Moshaine
+		White_Cliff
+		Neder
+		Bitter_Water
+		Bloody_Water
+		Chumai
+		Four_Holes
+		Four_Stones
+		Iron_Mountain
+		Jagged_Spire
+		Jindo
+		Miadi
+		Nine_Valleys
+		Jenda
+		Serai
+		Shorara
+		Bent_Valley
+		Bent_Valley
+		Cold_Rocks
+		Colrada
+		Comarda
+		Hot_Springs
+		Mainde_Cut
+		Red_Springs
+		Shende
+		Shiagi
+		Smoke_Springs
+		Sulara
+		Chane_Rocks
+		Broken_Cliff
+	}
+	graphics = arabic
+	ethnicities = {
+		4 = aiel
+		1 = indian
+		1 = asian
+		1 = polynesian
+		1 = south_east_asian
+	}
+}
+
+madlander={  #Generic culture to combine on foreign continents
+	color= hsv{ 0.58 0.26 0.46 }
+	religion = chaos
+	traits = { madmen_heritage }
+	male_common_first_names={
+		Ayilyam
+		Balarama
+		Cheraman
+		Chithira
+		Dharma
+		Marthanda
+		Moolam
+		Raja
+		Saamoothiri
+		Sakthan
+		Sri
+		Swathi
+		Thirunal
+				Alluri
+		Durgabai
+		Kandukuri
+		Keneganti
+		Narasimha
+		Pingali
+		Potti
+		Sarojini
+		Tanguturi
+		Uyyalawada
+		Vasireddy
+		Veerapandiya
+		Venkatadri
+				Bajirao
+		Balaji
+		Madhava
+		Narayan
+		Pratapsinha
+		Raghunath
+		Rajaram
+		Sawai
+		Shahuji
+		Shambhaji
+		Shivaji
+		Venkatji
+				Abul Abdurrahman Ahmad Amir Anom Arifin
+		Bambang
+		Cirebon
+		Haji Hasyim
+		Karijosoedarmo
+		Muhieddin Marpuah
+		Ngabdurohman
+		Panembahan
+		Safiuddin Sarip Slamet Solikin Soegija Soeharto Soekarno
+		Zainul
+				Epenisa
+		Eroni
+		Kanendjo
+		Kaoua
+		Lubati
+		Raivalita
+		Ralulu
+		Rasolo
+		Samuel
+		Seru
+		Taltai
+		Tamavunisa
+		Ti-Abel
+		Ti-Quatchium
+		Ti-Toorou
+		Yavala
+				Bennelong
+		Billibellary
+		Calyute
+		Derrimut
+		Ellemarra
+		Jandamarra
+		Loongkoonan
+		Mokare
+		Morndi
+		Midgegooroo
+		Nemarluk
+		Pemulwy
+		Tollamareena
+		Tjyllyungoo
+		Umbarra
+		Wylie
+		Yagan
+		Yellagonga
+				Adran
+		Alth
+		Artor
+		Rob
+		Bran
+		Brus
+		Chales
+		Edan
+		Edin
+		Frede
+		Gor
+		Gui
+		Halam
+		Henar
+		Jamis
+		Jon
+		Loran
+		Luan
+		Ry
+		Ronal
+		Scot
+		Shan
+		Staford
+		Stuat
+		Tomas
+		Wilam
+	}
+	female_common_first_names = {
+		Aparna
+		Fathima
+		Firoza
+		Sudhamani
+				Anjali
+		Lakshmi
+				Ahilyabai 
+		Anandibai
+		Gangabai
+		Gopikabai
+		Radhabai
+		Rani
+		Soyarabai
+		Umabai
+				Megawati
+		Siti Soimah Sunarti Soepiah
+		Tatiek
+		Yayuk
+				Alanieta
+		Manjula
+		Noelene
+		Salote
+		Sarojini
+		Tauta
+				Mindup
+		Naata
+		Yamup
+				Adra
+		Agna
+		Alexin
+		Ani
+		Barra
+		Berda
+		Bridgena
+		Carina
+		Cathine
+		Charotte
+		Claris
+		Cordia
+		Eda
+		Elisath
+		Elia
+		Elen
+		Emi
+		Ema
+		Euphia
+		Francia
+		Georgina
+		Geraline
+		Gracia
+		Harria
+		Henrieta
+		Janit
+		Mar
+		Matia
+		Maybane
+		Sere
+		Theodosa
+		Zra
+		Zilah
+	}	
+	noble_last_names = {
+		Ittyanath 
+		Perumal
+		Rama_Varma
+		Thampuran
+				Nayak
+		Salarjung
+				Baji_Rao
+		Bhat
+		Bhave
+		Bhonsle
+		Gaekwad
+		Holkar
+		Mehere
+		Newalkar
+		Nirban
+		Patwardhan
+		Pawar
+		Scindia
+				Cakraningrat
+		Djajadiningrat Djojohadikusumo
+		Hamengkubuwono
+		Notomidjojo
+		Pakualaman
+		Soerjowinoto Sastrowardoyo
+				Dovi
+		Sukuna
+		Uluviti
+				Agwamin
+		Ayabakan
+		Badjiri
+		Bigambul
+		Bunuba
+		Dhiraila
+		Giabal Gulngay
+		Injinoo
+		Jarowair
+		Kooma
+		Kutjal
+		Quandamooka
+		Rakaya
+		Tepiti
+		Totj
+				Angar
+		Armstron
+		Burgan
+		Clarok
+		Doner
+		Drakeman
+		Duton
+		MCLar
+		Morphet
+		Mortok
+		Onslo
+		Playfor
+		Roberson
+		Streat
+		Waker
+		McCallan
+	}
+	common_last_names={
+		Kesavadas
+				Deshmukh
+		Hanumathu
+		Kattabomman
+		Naidu
+		Nayudu
+		Sitaramaraju
+		Sriramulu
+		Veeresalingam
+				Appa_Sahib
+		Ballal
+		Bhandari
+		Bowa_Sahib
+		Gujar
+		Kalash
+		Mohite
+		Narayan
+		Phadnis
+		Rao
+				Akbaruddin Alaeddin
+		Djalaluddin
+		Emiruddin
+		Khairuddin
+		Mufakhir Muttakin
+		Natadiningrat Nurus
+		Salihin Sepuh
+		Tajul
+				Banuve
+		Cakobau
+		Cokanauto
+		Hortense
+		Lakeba
+		Loganimoce
+		Qaraniqio
+		Tupou
+		Tyuienon
+		Vendegou
+				Bunurong
+		Lanne
+		Mullagh
+		Noongar
+		Nannup
+		Nungurray
+		Windich
+		Wonga
+		Wangkatha
+				Andersin
+		Bairin
+		Cathcar
+		Cobcrof
+		Cok
+		Cowhag
+		Davor
+		Denmar
+		Duggar
+		Fishar
+		Forlong
+		Forstir
+		Garlin
+		Gooseberi
+		Hatc
+		Hiscok
+		Hop
+		Hovson
+		Isac
+		Jeffcot
+		Knowlis
+		Mackenz
+		Mitchel
+		Northcot
+		Piddingt
+		Stewar
+		Tennysin
+		Thesingr
+		Underwod
+		Warr
+		Yeamans
+	}
+	ethnicities = {
+		3 = indian
+		3 = asian
+		3 = caucasian
+		2 = polynesian
+		2 = south_east_asian
+	}
+	graphics = south_asian
+}

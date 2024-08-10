@@ -8,13 +8,24 @@ namespace Vic3MapCSharp
     public class Parser
     {
         private static readonly Random rand = new();
+        private static readonly string[] hubTypes = { "city", "port", "farm", "mine", "wood" };
 
         public static Dictionary<string, State> ParseStateFiles(Dictionary<Color, Province> provDict, string localDir) {
             Dictionary<string, State> stateDict = new();
 
+            Console.WriteLine($"provinces count {provDict.Count}");
+
             // Read all files in localDir/_Input/state_regions
             string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "map_data", "state_regions"), "*.txt");
             int count = 0;
+            HashSet<Color> alreadyAddedColors = new();
+            int provesDuplicatesAcrossStates = 0;
+            int provDuplicatesWithinState = 0;
+
+            HashSet<State> statesWithDuplicateProvincesWithin = new();
+            HashSet<(State, State)> statesWithDuplicateProvincesBetween = new();
+
+            HashSet<Color> colorsAlreadyUsedForStates = new();
 
             foreach (string file in files) {
                 // Read file
@@ -24,16 +35,17 @@ namespace Vic3MapCSharp
                 bool cappedResourceFound = false;
                 bool discoverableResourceFound = false;
                 bool traitsFound = false;
+                bool provincesFound = false;
 
                 foreach (string line in lines) {
                     string cl = CleanLine(line);
 
                     // Get STATE_NAME
-                    if (cl.StartsWith("STATE_")) {
+                    if (cl.StartsWith("STATE_", StringComparison.OrdinalIgnoreCase)) {
                         s = new State(cl.Split()[0]);
 
-                        // In case people are overriding states in later files
-                        // Check if state with the same name already exists in states and if so, delete it
+                        // In case people are overriding States in later files
+                        // Check if state with the same name already exists in States and if so, delete it
                         if (stateDict.ContainsKey(s.Name)) {
                             stateDict.Remove(s.Name);
                         }
@@ -42,25 +54,56 @@ namespace Vic3MapCSharp
                     }
                     // Get stateID
                     if (cl.StartsWith("id")) {
-                        s.stateID = int.Parse(cl.Split()[2]);
+                        s.StateID = int.Parse(cl.Split()[2]);
                     }
                     if (cl.StartsWith("subsistence_building")) {
-                        s.subsistenceBuilding = cl.Split("=")[1].Replace("\"", "").Trim();
+                        s.SubsistenceBuilding = cl.Split("=")[1].Replace("\"", "").Trim();
                     }
 
-                    // Get provinces
+                    // Get Provinces
                     if (cl.TrimStart().StartsWith("provinces")) {
-                        string[] l2 = cl.Replace("{", "").Replace("}", "").Split("=")[1].ToLower().Split();
-                        foreach (string provinceCode in l2) {
-                            if (provinceCode.StartsWith("\"x") || provinceCode.StartsWith("x")) {
-                                string colorValue = provinceCode.Replace("\"", "").Replace("x", "");
-                                Color color = ColorTranslator.FromHtml("#" + colorValue);
-                                if (provDict.TryGetValue(color, out var province)) {
-                                    s.provDict[color] = province;
+                        provincesFound = true;
+                    }
+
+                    if (provincesFound) {
+                        foreach (var prov in cl.Replace("\"", "").Split().Where(p => p.StartsWith("x", StringComparison.OrdinalIgnoreCase))) {
+                            Color c = ColorTranslator.FromHtml(prov.Trim().Replace("x", "#", StringComparison.OrdinalIgnoreCase));
+                            /*
+                            if (alreadyAddedColors.Contains(c)) {
+                                Console.WriteLine($"Error: duplicate province color {c} in state {s.Name}");
+                                continue;
+                            }
+                            */
+                            if (provDict.TryGetValue(c, out var province)) {
+                                if(s.Provinces.ContainsKey(c)) {
+                                    statesWithDuplicateProvincesWithin.Add(s);
                                 }
+
+                                if (!s.Provinces.TryAdd(c, province)) {
+                                    Console.WriteLine($"Error: duplicate province color {c} in state {s.Name} line {cl}");
+                                }
+                                //alreadyAddedColors.Add(c);
                             }
                         }
+
+                        //if any other states has the same provinces, then remove them from the other states
+                        var statesToUpdate = stateDict.Values.Where(state => state.Name != s.Name).ToList();
+
+                        //if this province dictionary overlaps with any other state's province dictionary, then remove the overlapping provinces from the other state
+                        Parallel.ForEach(statesToUpdate, state =>
+                        {
+                            var overlappingProvinces = state.Provinces.Keys.Intersect(s.Provinces.Keys).ToList();
+                            if (overlappingProvinces.Any()) {
+                                Interlocked.Add(ref provesDuplicatesAcrossStates, overlappingProvinces.Count);
+                                foreach (var prov in overlappingProvinces) {
+                                    if (state.Provinces.Remove(prov)) statesWithDuplicateProvincesBetween.Add((s, state));
+                                }
+                            }
+                        });
+
+
                     }
+                    
                     // Get impassable colors
                     if (cl.TrimStart().StartsWith("impassable")) {
                         var colorCodes = cl.Split('=')[1].Split()
@@ -69,9 +112,9 @@ namespace Vic3MapCSharp
 
                         foreach (var colorValue in colorCodes) {
                             Color color = ColorTranslator.FromHtml("#" + colorValue);
-                            // Set province with color to isImpassible
+                            // Set province with color to IsImpassible
                             if (provDict.TryGetValue(color, out var province)) {
-                                province.isImpassible = true;
+                                province.IsImpassible = true;
                             }
                         }
                     }
@@ -85,32 +128,32 @@ namespace Vic3MapCSharp
                             Color color = ColorTranslator.FromHtml("#" + colorValue);
                             // Set province with color to prime land
                             if (provDict.TryGetValue(color, out var province)) {
-                                province.isPrimeLand = true;
+                                province.IsPrimeLand = true;
                             }
                         }
                     }
-
+                    
                     // Get traits
                     if (cl.Trim().StartsWith("traits")) {
                         traitsFound = true;
                     }
                     if (traitsFound) {
                         foreach (var trait in cl.Split().Where(t => t.StartsWith("\""))) {
-                            s.traits.Add(trait.Replace("\"", ""));
+                            s.Traits.Add(trait.Replace("\"", ""));
                         }
                     }
 
                     // Get arable_land
                     if (cl.TrimStart().StartsWith("arable_land")) {
-                        s.arableLand = int.Parse(cl.Split("=")[1].Trim());
+                        s.ArableLand = int.Parse(cl.Split("=")[1].Trim());
                         count++;
                     }
                     // Get arable_resources
                     if (cl.TrimStart().StartsWith("arable_resources")) {
                         foreach (var res in cl.Split("=")[1].Replace("\"", "").Split().Where(r => r.StartsWith("bg_"))) {
-                            s.resources[res] = new Resource(res) {
-                                knownAmount = s.arableLand,
-                                type = "agriculture"
+                            s.Resources[res] = new Resource(res) {
+                                KnownAmount = s.ArableLand,
+                                Type = "agriculture"
                             };
                         }
                     }
@@ -120,9 +163,9 @@ namespace Vic3MapCSharp
                     }
                     if (cappedResourceFound && cl.TrimStart().StartsWith("bg_")) {
                         var l2 = cl.Replace("\"", "").Split("=");
-                        s.resources[l2[0].Trim()] = new Resource(l2[0].Trim()) {
-                            knownAmount = int.Parse(l2[1].Trim()),
-                            type = "resource"
+                        s.Resources[l2[0].Trim()] = new Resource(l2[0].Trim()) {
+                            KnownAmount = int.Parse(l2[1].Trim()),
+                            Type = "resource"
                         };
                     }
                     // Get discoverable resources
@@ -133,46 +176,87 @@ namespace Vic3MapCSharp
                         var l2 = cl.Split("=");
                         if (cl.TrimStart().StartsWith("type")) {
                             dr = new Resource(l2[1].Trim().Replace("\"", "")) {
-                                type = "discoverable"
+                                Type = "discoverable"
                             };
-                            s.resources[dr.name] = dr;
+                            s.Resources[dr.Name] = dr;
                         }
                         else if (cl.TrimStart().StartsWith("undiscovered_amount")) {
-                            dr.discoverableAmount = int.Parse(l2[1].Trim());
+                            dr.DiscoverableAmount = int.Parse(l2[1].Trim());
                         }
                         else if (cl.TrimStart().StartsWith("amount") || cl.TrimStart().StartsWith("discovered_amount")) {
-                            dr.knownAmount = int.Parse(l2[1].Trim());
+                            dr.KnownAmount = int.Parse(l2[1].Trim());
                         }
                     }
                     // Get naval id
                     if (cl.TrimStart().StartsWith("naval_exit_id")) {
-                        s.navalID = int.Parse(cl.Split("=")[1].Trim());
+                        s.NavalID = int.Parse(cl.Split("=")[1].Trim());
                     }
 
-                    // Get city color
-                    if (cl.TrimStart().StartsWith("city") || cl.TrimStart().StartsWith("port") || cl.TrimStart().StartsWith("farm") || cl.TrimStart().StartsWith("mine") || cl.TrimStart().StartsWith("wood")) {
-                        if (cl.Contains('x')) {
-                            try {
-                                Color hubC = ColorTranslator.FromHtml("#" + cl.Split("=")[1].Replace("\"", "").Replace("x", "").Trim());
-                                // Set province with color hubName to name
-                                if (provDict.TryGetValue(hubC, out var p)) {
-                                    p.hubName = cl.Split("=")[0].Trim();
-                                    if (s.Color.A == 0) s.Color = p.Color;
+                    if (hubTypes.Any(type => cl.TrimStart().StartsWith(type)) && cl.Contains('x')) {
+                        try {
+                            string[] parts = cl.Split('=');
+                            Color hubC = ColorTranslator.FromHtml(parts[1].Replace("\"", "").Replace("x", "#").Trim());
+                            if (provDict.TryGetValue(hubC, out var p)) {
+                                p.HubName = parts[0].Trim();
+                                if(s.Color.A == 0 && !colorsAlreadyUsedForStates.Contains(hubC)) {
+                                    s.Color = Color.FromArgb(255, hubC);
                                 }
                             }
-                            catch {
-                                // Console.WriteLine("Error: can not parse color for hub " + cl + " in state " +state.name);
-                            }
+                        }
+                        catch {
+                            Console.WriteLine($"Error: cannot parse color for hub {cl} in state {s.Name}");
                         }
                     }
                     // Reset cappedResourceFound and discoverableResourceFound
-                    if (cl.Trim().StartsWith("}")) {
+                    if (cl.Contains('}')) {
                         cappedResourceFound = false;
                         discoverableResourceFound = false;
                         traitsFound = false;
+                        provincesFound = false;
                     }
                 }
             }
+
+            //write statesWithDuplicateProvincesWithin and statesWithDuplicateProvincesBetween to file
+            if (statesWithDuplicateProvincesWithin.Any()) {
+                File.WriteAllLines(Path.Combine(localDir, "_Output", "statesWithDuplicateProvincesWithin.txt"), statesWithDuplicateProvincesWithin.Select(s => s.Name));
+            }
+            if (statesWithDuplicateProvincesBetween.Any()) {
+                File.WriteAllLines(Path.Combine(localDir, "_Output", "statesWithDuplicateProvincesBetween.txt"), statesWithDuplicateProvincesBetween.Select(s => s.Item1.Name + " | " + s.Item2.Name));
+            }
+
+            var statesWithTransparentColor = stateDict.Values.Where(state => state.Color.A == 0).ToList();
+
+            foreach (var state in statesWithTransparentColor) {
+                var availableColor = state.Provinces.Values
+                    .Select(p => p.Color)
+                    .FirstOrDefault(color => !colorsAlreadyUsedForStates.Contains(color));
+
+                if (availableColor != default) {
+                    state.Color = availableColor;
+                    lock (colorsAlreadyUsedForStates) {
+                        colorsAlreadyUsedForStates.Add(availableColor);
+                    }
+                }
+                else {
+                    // Set the default color to the hash value of the state's name with an alpha value of 255
+                    int hash = state.Name.GetHashCode();
+                    Color defaultColor = Color.FromArgb(255, (hash & 0xFF0000) >> 16, (hash & 0x00FF00) >> 8, hash & 0x0000FF);
+                    state.Color = defaultColor;
+                    lock (colorsAlreadyUsedForStates) {
+                        colorsAlreadyUsedForStates.Add(defaultColor);
+                    }
+                }
+            }
+
+            var statesToUpdate2 = stateDict.Values.Where(state => state.Provinces.Values.All(p => p.IsSea || p.IsLake)).ToList();
+
+            Parallel.ForEach(statesToUpdate2, state =>
+            {
+                state.Color = Color.FromArgb(0, state.Color);
+            });
+
+            
 
             Console.WriteLine("States: " + count + " | " + stateDict.Count);
             return stateDict;
@@ -215,16 +299,15 @@ namespace Vic3MapCSharp
                         r.Color = LineToColor(cl);
                     }
                     else if (cl.StartsWith("graphical_culture")) {
-                        r.gfxCulture = cl.Split('=')[1].Replace("\"", "").Trim();
+                        r.GfxCulture = cl.Split('=')[1].Replace("\"", "").Trim();
                     }
 
                     if (stateStart) {
-                        string[] states = cl.Split();
-                        foreach (string state in states) {
-                            if (state.StartsWith("STATE_") && stateDict.TryGetValue(state, out var stateObj)) {
-                                r.states.Add(stateObj);
-                            }
-                        }
+                        var states = cl.Split()
+                           .Where(state => state.StartsWith("STATE_") && stateDict.TryGetValue(state, out var stateObj))
+                           .Select(state => stateDict[state]);
+
+                        r.States.AddRange(states);
                     }
 
                     if (cl.Contains('{') || cl.Contains('}')) {
@@ -264,8 +347,8 @@ namespace Vic3MapCSharp
                         provDict[color] = new Province(color);
                     }
 
-                    provDict[color].terrain = l1[1];
-                    provDict[color].internalID = count;
+                    provDict[color].Terrain = l1[1];
+                    provDict[color].ID = count;
                 }
                 count++;
             }
@@ -289,13 +372,14 @@ namespace Vic3MapCSharp
                     string[] parts = CleanLine(line).Split();
                     foreach (string part in parts) {
                         if (part.StartsWith("x")) {
-                            Color color = ColorTranslator.FromHtml("#" + part.Replace("x", "").Trim());
+                            Color color = ColorTranslator.FromHtml(part.Replace("x", "#").Trim());
                             if (colorToProvDic.TryGetValue(color, out var province)) {
                                 if (seaStart) {
-                                    province.isSea = true;
+                                    province.IsSea = true;
+                                    
                                 }
                                 else if (lakeStart) {
-                                    province.isLake = true;
+                                    province.IsLake = true;
                                 }
                             }
                         }
@@ -316,7 +400,7 @@ namespace Vic3MapCSharp
         public static void ParseProvMap(Dictionary<Color, Province> provinceDict, string localDir) {
             Stopwatch sw = new();
             sw.Start();
-            using Bitmap image = new(localDir + "/_Input/map_data/provinces.png");
+            using Bitmap image = new(localDir + "/_Input/map_data/Provinces.png");
 
             Console.WriteLine("Parsing Map");
 
@@ -365,7 +449,7 @@ namespace Vic3MapCSharp
                 throw new ArgumentNullException(nameof(provinces));
             }
 
-            Dictionary<string, Nation> nationDict = new();
+            Dictionary<string, Nation> nations = new();
             string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "country_definitions"), "*.txt");
 
             //read all lines in each file
@@ -380,16 +464,16 @@ namespace Vic3MapCSharp
 
                     if (indent == 0 && cl.Contains('=')) {
                         n = new Nation(cl.Split('=')[0].Trim());
-                        nationDict.TryAdd(n.Name, n);
+                        nations.TryAdd(n.Name, n);
                     }
                     if (indent == 1) {
                         if (cl.StartsWith("color")) n.Color = LineToColor(cl);
-                        else if (cl.StartsWith("country_type")) n.type = cl.Split('=')[1].Trim();
-                        else if (cl.StartsWith("tier")) n.tier = cl.Split('=')[1].Trim();
-                        else if (cl.StartsWith("cultures")) n.cultures = cl.Replace("{", "").Replace("}", "").Split('=')[1].Trim().Split().ToList();
-                        if (cl.StartsWith("capital")) {
+                        else if (cl.StartsWith("country_type")) n.Type = cl.Split('=')[1].Trim();
+                        else if (cl.StartsWith("Tier")) n.Tier = cl.Split('=')[1].Trim();
+                        else if (cl.StartsWith("Cultures")) n.Cultures = cl.Replace("{", "").Replace("}", "").Split('=')[1].Trim().Split().ToList();
+                        if (cl.StartsWith("Capital")) {
                             string capital = cl.Split('=')[1].Trim();
-                            n.capital = states.ContainsKey(capital) ? states[capital] : null;
+                            n.Capital = states.ContainsKey(capital) ? states[capital] : null;
                         }
                     }
 
@@ -403,7 +487,7 @@ namespace Vic3MapCSharp
                 }
             }
 
-            files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "history", "states"), "*.txt");
+            files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "history", "States"), "*.txt");
 
             if (files.Length == 0) {
                 Console.WriteLine("No country definitions found");
@@ -431,29 +515,29 @@ namespace Vic3MapCSharp
                             s = states[stateName];
                         }
                     }
-                    if(s is null) continue;
+                    if (s is null) continue;
                     else if (indent >= 2) {
-                        if (cl.StartsWith("add_homeland")) s.homeLandList.Add(cl.Split('=')[1].Replace("cu:","").Trim());
+                        if (cl.StartsWith("add_homeland")) s.HomeLandList.Add(cl.Split('=')[1].Replace("cu:", "").Trim());
                         else if (cl.StartsWith("create_state")) {
                             createStateFound = true;
                             stateIndent = indent;
                         }
                         else if (cl.StartsWith("add_claim")) {
-                            string stateTag = cl.Split('=')[1].Trim();
-                            if (nationDict.ContainsKey(stateTag)) nationDict[stateTag].claimList.Add(s);
+                            string stateTag = cl.Split('=')[1].Replace("c:","").Trim();
+                            if (nations.ContainsKey(stateTag)) nations[stateTag].ClaimList.Add(s);
                         }
                     }
 
                     if (createStateFound) {
                         if (cl.StartsWith("country")) {
-                            string tag = cl.Replace("C:", "c:").Split("c:")[1].Trim();
-                            if (nationDict.ContainsKey(tag)) n = nationDict[tag];
+                            string tag = cl.Replace("C:", "c:").Replace("c:","").Split('=')[1].Trim();
+                            if (nations.ContainsKey(tag)) n = nations[tag];
                         }
                         else if (cl.StartsWith("owned_provinces")) {
                             stateProvsFound = true;
                             stateProvsIndent = indent;
                         }
-                        else if (cl.StartsWith("state_type")) n.type = cl.Split('=')[1].Trim();
+                        else if (cl.StartsWith("state_type")) n.Type = cl.Split('=')[1].Trim();
                     }
 
                     if (stateProvsFound) {
@@ -467,11 +551,11 @@ namespace Vic3MapCSharp
                             string colorCode = p.Trim();
                             try {
                                 // Replace 'x' with '#' to form a valid HTML color code
-                                
+
                                 Color c = ColorTranslator.FromHtml(colorCode);
                                 if (provinces.ContainsKey(c)) {
-                                    
-                                    n.provinces.TryAdd(c, provinces[c]);
+
+                                    n.Provinces.TryAdd(c, provinces[c]);
                                     //Console.WriteLine("Added province " + colorCode + " to state " + s.Name);
                                 }
                                 //Console.WriteLine("Added province " + colorCode + " to state " + s.Name);
@@ -495,12 +579,12 @@ namespace Vic3MapCSharp
                     }
                 }
             }
-            return nationDict;
+            return nations;
         }
 
         public static Dictionary<string, Culture> ParseCultureFiles(Dictionary<string, State> states, string localDir) {
             Dictionary<string, Culture> cultures = new();
-            string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "cultures"), "*.txt");
+            string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "Cultures"), "*.txt");
 
             foreach (string file in files) {
                 string[] lines = File.ReadAllLines(file);
@@ -513,10 +597,12 @@ namespace Vic3MapCSharp
 
                     if (indent == 0 && cl.Contains('=')) {
                         c = new Culture(cl.Split('=')[0].Trim());
-                        cultures.Add(c.Name, c);
+                        if (!cultures.ContainsKey(c.Name)) {
+                            cultures.Add(c.Name, c);
+                        }
 
                         foreach (var state in states.Values) {
-                            if (state.homeLandList.Contains(c.Name)) c.states.Add(state);
+                            if (state.HomeLandList.Contains(c.Name)) c.states.Add(state);
                         }
                     }
 
@@ -536,12 +622,12 @@ namespace Vic3MapCSharp
                         }
 
                         foreach (string part in parts) {
-                            if(part.Contains('}')) break;
+                            if (part.Contains('}')) break;
                             c.traits.Add(part.Replace("\"", ""));
                         }
                     }
 
-                    if (cl.Contains('{') || cl.Contains('}')){
+                    if (cl.Contains('{') || cl.Contains('}')) {
                         string[] parts = cl.Split();
                         foreach (string part in parts) {
                             if (part.Contains('{')) indent++;
@@ -578,45 +664,45 @@ namespace Vic3MapCSharp
                 }
 
                 string stateName = "STATE_" + fields[1].ToUpper();
-                State state = region.states.Find(s => s.Name == stateName);
+                State state = region.States.Find(s => s.Name == stateName);
                 if (state == null) {
                     Console.WriteLine("State not found: " + fields[1]);
                     continue;
                 }
 
-                state.resources.Clear();
+                state.Resources.Clear();
                 for (int j = 2; j < header.Length - 2; j++) {
                     if (header[j].StartsWith("Known ")) {
                         Resource resource = new("bg_" + header[j].Replace("Known ", "")) {
-                            type = "discoverable",
-                            knownAmount = int.Parse(fields[j]),
-                            discoverableAmount = int.Parse(fields[j + 1])
+                            Type = "discoverable",
+                            KnownAmount = int.Parse(fields[j]),
+                            DiscoverableAmount = int.Parse(fields[j + 1])
                         };
                         j++;
-                        if (resource.knownAmount > 0 || resource.discoverableAmount > 0) {
-                            state.resources.Add(resource.name, resource);
+                        if (resource.KnownAmount > 0 || resource.DiscoverableAmount > 0) {
+                            state.Resources.Add(resource.Name, resource);
                         }
                     }
                     else {
                         Resource resource = new("bg_" + header[j]) {
-                            type = "resource",
-                            knownAmount = int.Parse(fields[j])
+                            Type = "resource",
+                            KnownAmount = int.Parse(fields[j])
                         };
-                        if (resource.knownAmount > 0) {
-                            state.resources.Add(resource.name, resource);
+                        if (resource.KnownAmount > 0) {
+                            state.Resources.Add(resource.Name, resource);
                         }
                     }
                 }
 
-                state.arableLand = int.Parse(fields[^2]);
+                state.ArableLand = int.Parse(fields[^2]);
                 List<string> arableResources = fields[^1].Split().ToList();
                 foreach (string ar in arableResources) {
                     if (!string.IsNullOrWhiteSpace(ar)) {
                         Resource resource = new("bg_" + ar) {
-                            knownAmount = state.arableLand,
-                            type = "arable"
+                            KnownAmount = state.ArableLand,
+                            Type = "arable"
                         };
-                        state.resources.Add(resource.name, resource);
+                        state.Resources.Add(resource.Name, resource);
                     }
                 }
             }
@@ -673,12 +759,18 @@ namespace Vic3MapCSharp
                                            .Select(s => int.TryParse(s, out int i) ? Math.Clamp(i, 0, 255) : 128)
                                            .ToList();
 
-                    while (color.Count < 6) {
+                    while (color.Count < 3) {
                         color.Add(128);
                     }
 
                     Color hColor = Color.FromArgb(color[0], color[1], color[2]);
-                    Color tColor = Color.FromArgb(color[3], color[4], color[5]);
+                    Color tColor;
+                    if (color.Count < 6) {
+                        tColor = Drawer.OppositeExtremeColor(hColor);
+                    }
+                    else {
+                        tColor = Color.FromArgb(color[3], color[4], color[5]);
+                    }
 
                     rgoColors.Add((buildingSubstring, hColor, tColor));
                 }
@@ -763,27 +855,27 @@ namespace Vic3MapCSharp
             if (nations is null) {
                 throw new ArgumentNullException(nameof(nations));
             }
-            //province dictionary for matching province internalID to province object
+            //province dictionary for matching province ID to province object
             Dictionary<int, Province> provDict = new();
 
             foreach (var region in regions.Values) {
-                foreach (var state in region.states) {
-                    foreach (var province in state.provDict.Values) {
-                        if (province.internalID == -1) {
-                            Console.WriteLine($"Error: {province.Name} has no internalID");
+                foreach (var state in region.States) {
+                    foreach (var province in state.Provinces.Values) {
+                        if (province.ID == -1) {
+                            Console.WriteLine($"Error: {province.Name} has no ID");
                             continue;
                         }
-                        provDict[province.internalID] = province;
+                        provDict[province.ID] = province;
                     }
                 }
             }
 
-            //sort on internalID
+            //sort on ID
             provDict = provDict.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
 
-            //reset all provinces in nations
+            //reset all Provinces in nations
             foreach (Nation nat in nations.Values) {
-                nat.provinces = new Dictionary<Color, Province>();
+                nat.Provinces = new Dictionary<Color, Province>();
                 nat.MaxRectangleSize = (0, 0);
                 nat.RectangleCenter = (0, 0);
             }
@@ -817,12 +909,12 @@ namespace Vic3MapCSharp
                         if (tag.Length < 8) {
                             if (nations.ContainsKey(tag) && !civilWarFound) {
                                 n = nations[tag];
-                                n.internalID = potentialID;
+                                n.ID = potentialID;
                             }
                             else if (civilWarFound) {
                                 try {
                                     n = new Nation(tag + "_cw") {
-                                        internalID = potentialID,
+                                        ID = potentialID,
                                         Color = ColorFromHSV360(rand.Next(0, 360), 100, 100)
                                     };
                                     nations.Add(tag + "_cw", n);
@@ -854,16 +946,16 @@ namespace Vic3MapCSharp
                     }
                     else if (cl.StartsWith("country=") && int.TryParse(cl.Split("=")[1].Trim(), out potentialID)) {
                         try {
-                            n = nations.Values.First(x => x.internalID == potentialID);
+                            n = nations.Values.First(x => x.ID == potentialID);
                         }
                         catch {
                             // Handle potentialID not found in nations error
                         }
                     }
                 }
-                if (indentation > 1 && !foundSeaNodes && cl.StartsWith("provinces=")) {
+                if (indentation > 1 && !foundSeaNodes && cl.StartsWith("Provinces=")) {
                     try {
-                        n = nations.Values.First(x => x.internalID == potentialID);
+                        n = nations.Values.First(x => x.ID == potentialID);
 
                         string[] l2 = cl.Split("=")[1].Replace("{", "").Replace("}", "").Trim().Split();
                         var idList = l2.Select(s => int.TryParse(s, out int id) ? id : (int?)null)
@@ -874,10 +966,10 @@ namespace Vic3MapCSharp
                         for (int i = 0; i < idList.Count; i += 2) {
                             for (int j = idList[i]; j <= idList[i] + idList[i + 1]; j++) {
                                 if (provDict.ContainsKey(j)) {
-                                    n.provinces[provDict[j].Color] = provDict[j];
+                                    n.Provinces[provDict[j].Color] = provDict[j];
                                 }
                                 else {
-                                    // Handle j not found in provinces error
+                                    // Handle j not found in Provinces error
                                 }
                             }
                         }
@@ -960,7 +1052,10 @@ namespace Vic3MapCSharp
                     default: r = g = b = v3; break;
                 }
             }
-            return Color.FromArgb((int)(r * 255), (int)(g * 255), (int)(b * 255));
+            r = Math.Max(0, Math.Min(255, r * 255));
+            g = Math.Max(0, Math.Min(255, g * 255));
+            b = Math.Max(0, Math.Min(255, b * 255));
+            return Color.FromArgb((int)r, (int)g, (int)b);
         }
 
         public static Color ColorFromHSV360(double v1, double v2, double v3) {

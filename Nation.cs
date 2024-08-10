@@ -17,42 +17,44 @@ namespace Vic3MapCSharp
         public (int w, int h) MaxSquareSize { get; set; } = (0, 0);
         public HashSet<(int x, int y)> Coords { get; set; } = new();
 
-        public int internalID = -1;
-        public Dictionary<Color, Province> provinces = new();
-        public List<string> cultures = new();
-        public string type = "";
-        public string tier = "";
-        public State? capital = null;
-        public List<State> claimList = new();
+        public int ID { get; set; } = -1;
+        public Dictionary<Color, Province> Provinces { get; set; } = new();
+        public List<string> Cultures { get; set; } = new();
+        public string Type { get; set; } = "";
+        public string Tier { get; set; } = "";
+        public State? Capital { get; set; } = null;
+        public List<State> ClaimList { get; set; } = new();
 
-        public Nation(string tag)
-        {
-            Name = tag;
+        public Nation(string tag) => Name = tag;
+        public Nation() { }
+
+        public Nation(Nation other) {
+            Name = other.Name;
+            Color = other.Color;
+            Coords = new HashSet<(int x, int y)>(other.ClaimList.SelectMany(state => state.Coords));
+            GetCenter();
         }
 
-        public Nation()
-        {
-        }
-        public void GetCenter(bool floodFill = false)
-        {
-            if(Coords.Count == 0) {
-                foreach(Province province in provinces.Values)
-                {
+        public void GetCenter(bool floodFill = false) {
+            if (Coords.Count == 0) {
+                foreach (var province in Provinces.Values) {
                     Coords.UnionWith(province.Coords);
                 }
             }
+
             if (Coords.Count == 0) return;
 
-            (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false);
-            (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true);
+            var coordList = Coords.ToList();
+            var tasks = new[]
+            {
+            Task.Run(() => (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(coordList, floodFill, false)),
+            Task.Run(() => (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(coordList, floodFill, true))
+        };
+
+            Task.WaitAll(tasks);
         }
 
-        public override string ToString()
-        {
-            //returns name, internalID, provinces.Count
-            return Name + "\t ID: " + internalID + "\t Provs:" + provinces.Count;
-
-        }
+        public override string ToString() => $"{Name}\t ID: {ID}\t Provs: {Provinces.Count}";
     }
 
 }

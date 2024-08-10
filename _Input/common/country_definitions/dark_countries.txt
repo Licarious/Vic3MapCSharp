@@ -1,0 +1,138 @@
+﻿##Countries ordered lower down are higher AI priority for liberate country
+
+SHW = { #The Shadow
+	color = "black"
+	
+	#country_type = recognized
+	country_type = decentralized
+
+	tier = hegemony
+	valid_as_home_country_for_separatists = { always = no }
+	
+	religion = darkfriend
+	cultures = { athaan_shadar  }
+	capital = STATE_THAKAN'DAR
+}
+
+#Trolloc Bands
+AFF = { #Ahf'frait
+	color = { 87 87 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_UPPER_SALDAEA
+}
+ALG = { #Al'ghol
+	color = { 164 148 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_DHOOM_MARCH
+}
+BNS = { #Bhan'sheen
+	color = { 83 28 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_NORTH_KANDOR
+}
+DAV = { #Dha'vol
+	color = { 174 22 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_NORTH_ARAFEL
+}
+DIM = { #Dhai'mon
+	color = { 25 25 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_SALMARNA
+}
+DJN = { #Dhjin'nen
+	color = { 71 41 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_THAKAN'DAR
+}
+GRG = { #Ghar'ghael
+	color = { 123 95 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_SPINE_RIDGE
+}
+GHM = { #Gho'hlem
+	color = { 136 58 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_SAIDINMAFAL
+}
+GBN = { #Ghob'hlin
+	color = { 57 85 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_SILVER_PLAINS
+}
+GML = { #Graem'lan
+	color = { 19 106 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_NEW_MORA
+}
+KBL = { #Ko'bal
+	color = { 22 23 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_TIHOMAR
+}
+KMN = { #Kno'mon
+	color = { 255 0 0 }
+	
+	country_type = decentralized
+	
+	tier = principality
+	
+	cultures = { trolloc }
+	capital = STATE_DAETAR
+}
+

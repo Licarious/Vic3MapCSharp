@@ -1,0 +1,607 @@
+﻿STATE_RHUIDEAN = {
+    id = 500
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x22E0D8 x37E5ED x56EBD8 x6EDCC0 x74C4A4 x77AEEB x7AD9AF x8DD998 xA2E4E7 xA3B8C4 xA7BFE8 xA97CD7 xAF70DE xB1D291 xB1E7B1 xB5A7A0 xB87BCB xC16FDB xC284A2 xC5D2C5 xC7DE87 xC8C28E xCCCE80 xCDCA5A xD27EB9 xD6B950 xD8E041 xD9C975 xDFC4E7 xE034D6 xE054A6 xE49E62 xE54ADC xE5CD60 xE6947A xE9B18C xEB707A xEBA65C }
+    impassable = { xc284a2 x77aeeb xe49e62 xccce80 xa2e4e7 xe054a6 xaf70de xa3b8c4 xb1e7b1 xa97cd7 xe54adc x22e0d8 xe034d6 xd9c975 xc8c28e x56ebd8 xe5cd60 x8dd998 }
+    traits = { state_trait_aiel_waste }
+    city = "x6edcc0"
+    farm = "x7ad9af"
+    mine = "xeb707a"
+    arable_land = 9
+    arable_resources = { bg_maize_farms bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_coal_mining = 30
+        bg_iron_mining = 8
+        bg_lead_mining = 4
+        bg_alum_mining = 4
+        bg_gemstone_mining = 2
+    }
+}
+STATE_JANGAI = {
+    id = 501
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x5BE8CD x5CD9A7 x5DCDD7 x74E5D4 x78EAE6 x79DBDA x7AC8DB x8299EA x8798DF x87D3A5 x95C2AB x998DC4 x9C87D2 x9CCEA4 xAF99CC xC0AEE6 xC0CA62 xC27BB0 xC9D0BB xCC7CB6 xCE40EA xD0C745 xD7B2CD xD88E98 xDAABAB xDCE3CA xE3BF44 xE44DA4 xE5E0B4 xE7EA1B xE9DB5A }
+    impassable = { xd7b2cd xdaabab xaf99cc xe5e0b4 xcc7cb6 xaf99cc x5be8cd x998dc4 x95c2ab x79dbda x87d3a5 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xd88e98"
+    farm = "x78eae6"
+    mine = "xe7ea1b"
+    arable_land = 6
+    arable_resources = { bg_maize_farms bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_coal_mining = 20
+        bg_iron_mining = 6
+        bg_lead_mining = 4
+    }
+}
+STATE_SHAARAD = {
+    id = 502
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x4CECE6 x52D6E4 x6DD8EC x7A9DEA x7AF2B1 x8394F0 x93D9B0 x9AB3B8 x9AE1B9 xAE97C6 xAEA4BA xB2F564 xB5C0A7 xBDC3CA xD9D082 xE0C866 xE5B3BB xEACBFE xEAF468 xEDFDAF xF4B561 xF551E3 xFA7398 xFA79FB xFD32E9 }
+    impassable = { xae97c6 x6dd8ec xeaf468 x9ab3b8 x52d6e4 }
+    traits = { state_trait_aiel_waste }
+    city = "xaea4ba"
+    farm = "xe0c866"
+    mine = "xfa7398"
+	wood = "x4CECE6"
+    arable_land = 7
+    arable_resources = { bg_maize_farms bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_coal_mining = 30
+        bg_iron_mining = 9
+        bg_lead_mining = 2
+        bg_alum_mining = 2
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 4
+    }
+}
+STATE_MIAGOMA = {
+    id = 503
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x3BEBD0 x61ACF0 x82BEDD x90FCE9 x9AECFB xAFE97B xB4A1A7 xC5F3EC xC9DD57 xD498FE xDCD760 xDF44D4 xEB9DA1 xEF8AA8 xF2BE9A xF7DA33 xF87FBD }
+    impassable = { xdcd760 xc9dd57 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xDF44D4"
+    farm = "xD498FE"
+    mine = "xC9DD57"
+	wood = "x3BEBD0"
+    arable_land = 6
+    arable_resources = { bg_maize_farms bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 20
+        bg_lead_mining = 6
+        bg_alum_mining = 7
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 30
+        discover_amount_max = 30
+    }
+}
+STATE_CODARRA = {
+    id = 504
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x3CDDF3 x6DE0EA x7DB5D8 x88BACF x88F07D x90D4A9 x97AAEC xA096C6 xAB91EA xB2DA78 xC555EA xD83BFB xDEF64F xE33CFC xE3939B xEC999B xED6EA3 xEFB5C9 xF785D0 xFA54F0 xFCCA35 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "x3cddf3"
+    farm = "x90d4a9"
+    mine = "xe33cfc"
+    arable_land = 5
+    arable_resources = { bg_maize_farms bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 8
+        bg_iron_mining = 10
+    }
+}
+STATE_HIGH_PLAIN = {
+    id = 505
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x5CEDAE x7FEAAA x83E8BE x97EA7D xAAEAE2 xB3DDD8 xC7E2BB xDCD455 xEF8A7B xF5DFFA }
+    traits = { state_trait_aiel_waste }
+    city = "x97ea7d"
+    farm = "xef8a7b"
+    mine = "x5cedae"
+    arable_land = 4
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 9
+        bg_iron_mining = 3
+        bg_gemstone_mining = 7
+    }
+}
+STATE_NORTH_CLIFFS = {
+    id = 506
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x93EFBA xA5CBBD xB260FB xC46ED8 xC4CBB5 xDDD5A3 xE25FCA xF4BE57 xF9A573 xFAFEF4 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xfafef4"
+    farm = "xddd5a3"
+    mine = "xa5cbbd"
+    arable_land = 3
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 9
+        bg_lead_mining = 8
+        bg_alum_mining = 7
+        bg_gemstone_mining = 5
+    }
+}
+STATE_SHIANDE = {
+    id = 507
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x0DF9FD x209B75 x48F5E6 x5CD2DE x72B0E6 x8CDB94 x96F7FA xB0B9E6 xB171D8 xB790CE xB7B2BF xBBC2D8 xC3D285 xCD95C8 xDF5CCE xF12AED }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xcd95c8"
+    farm = "xf12aed"
+    mine = "x209b75"
+    arable_land = 5
+    arable_resources = { bg_maize_farms bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 11
+        bg_lead_mining = 6
+    }
+}
+STATE_SILK_ROAD = {
+    id = 508
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x6CCCD3 x78ABDC x7AFCA6 x7DC4E2 x83E8A2 x99DC8F xAAC2A1 xB3DA8C xC9E59D xD3E3FC xD9F6DA xDA87B0 xDA8FBF xED8E99 xEFBF90 xF44EDB xF67BD2 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xed8e99"
+    farm = "x83e8a2"
+    mine = "x7dc4e2"
+    arable_land = 5
+    arable_resources = { bg_maize_farms bg_livestock_ranches }
+    capped_resources = {
+        bg_sulfur_mining = 4
+        bg_alum_mining = 5
+    }
+}
+STATE_SHAIDO = {
+    id = 509
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x26FBEA x54B1FE x69B2EF x73E6BE x80DFFE x84E58C x9CA2EE xA1C0C0 xA4B0C3 xB7CC9F xC2E6FC xCDA2D1 xDCD04C xDFED4D xEABD7B xEB9BBC xEDBC50 xEDD89A xF557F6 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xa1c0c0"
+    farm = "x69b2ef"
+    mine = "xeb9bbc"
+    arable_land = 5
+    arable_resources = { bg_maize_farms bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 10
+        bg_iron_mining = 7
+    }
+}
+STATE_TOMANELLE = {
+    id = 510
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x62E2FE x81AAF8 x9385F8 xB2A0FA xB8C598 xCCC28B xCFA1E3 xDAD9C5 xE164F0 xE1F047 xEADC7C xEDDF6C xF1BDEB xF8F5C7 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xeddf6c"
+    farm = "xeadc7c"
+    mine = "xe1f047"
+    arable_land = 6
+    arable_resources = { bg_maize_farms bg_livestock_ranches }
+    capped_resources = {
+        bg_iron_mining = 8
+        bg_lead_mining = 2
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 5
+    }
+}
+STATE_TAARDAD = {
+    id = 511
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x47F7BA x65E7AA x81EFA0 xA58BFC xAF98E5 xB1D889 xB4C6C5 xB4E87F xB9F87E xC1B9A2 xCEF161 xCFA0E0 xCFCF67 xD5F0DD xDB87DC xDCA1AE xDE8CA6 xE1CC76 xE5CA99 xE84AD4 }
+    traits = { state_trait_aiel_waste state_trait_silk_path }
+    city = "xcfa0e0"
+    farm = "x81efa0"
+    mine = "xa58bfc"
+    arable_land = 8
+    arable_resources = { bg_maize_farms bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_iron_mining = 6
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 8
+    }
+}
+STATE_CHAREEN = {
+    id = 512
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x71EAFC xB196D7 xB7F377 xC3D2CA xC6B7B5 xC878F4 xD5D693 xD79EA5 xDDFDF1 xE4CD5C xE6F3EB xE8D28F xEDFD0F xEF998F xFAA69F }
+    traits = { state_trait_aiel_waste }
+    city = "xc6b7b5"
+    farm = "xb196d7"
+    mine = "xd5d693"
+    arable_land = 5
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_sulfur_mining = 4
+        bg_alum_mining = 2
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 15
+        discover_amount_max = 15
+    }
+}
+STATE_SALT_FLAT = {
+    id = 513
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x7390F4 x75E7D6 x8699F2 x8CFDC3 x91CC9E xA09CC6 xA5C988 xB9ECF0 xBA6ED4 xBFE481 xC1A9FB xC8F0C7 xD0F593 xDAEE70 xDBD283 xDE8FB2 xE6ECFD xEED058 xF1B069 xF2CA63 xF499DA xF98BA7 }
+    traits = { state_trait_aiel_waste }
+    city = "x8699f2"
+    farm = "xeed058"
+    mine = "x8cfdc3"
+    arable_land = 5
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 6
+        bg_iron_mining = 4
+        bg_lead_mining = 5
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 20
+        discover_amount_max = 20
+    }
+}
+STATE_NAKAI = {
+    id = 514
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x40BFF8 x58D8E2 x8294E7 x82ADF4 x96FD82 xA1E0D2 xAC70DD xB2A4D2 xB7E9EA xC5F2C9 xC8A488 xC8C9BB xCF75E8 xD59CBC xD8F829 xDCD288 xDDC25D xDDEC4C xE2D1E0 xE7EB37 xE98CAF xEECD55 xF4F28C xF727EE xF808F5 xFC45EC }
+    traits = { state_trait_aiel_waste }
+    city = "xf727ee"
+    farm = "xdcd288"
+    mine = "xddc25d"
+    arable_land = 6
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_lead_mining = 5
+        bg_gemstone_mining = 7
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 15
+        discover_amount_max = 15
+    }
+}
+STATE_SHELAN = {
+    id = 515
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x75D8B8 x7FA5F7 x8CB6C3 x9EE8D5 xA384EF xBF79F3 xC7CA75 xCECEB6 xD9B890 xDA94CF xE288BA xE5CC4E xE617FC xECFB8A xF4DAC4 xF7AE57 xF9A3B1 }
+    traits = { state_trait_aiel_waste }
+    city = "xe288ba"
+    farm = "xbf79f3"
+    mine = "x7fa5f7"
+    arable_land = 3
+
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 9
+        bg_iron_mining = 8
+        bg_gemstone_mining = 4
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 3
+    }
+}
+STATE_DARYNE = {
+    id = 516
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x62EAB6 x6DFBCA x71FB9E x74AAE2 x81BBE7 x81C6FC x8AB4F1 x9CC9FD xA3ECCF xB0FEA3 xBDC5A9 xC0DFAD xC174D6 xC590D3 xCCF85B xD1C6EB xDA37E8 xDCD9DE xDFB985 xF143C1 xF9D4A5 }
+    traits = { state_trait_aiel_waste }
+    city = "x71fb9e"
+    farm = "x6dfbca"
+    mine = "xc590d3"
+    arable_land = 4
+    arable_resources = { bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_sulfur_mining = 4
+        bg_alum_mining = 5
+    }
+}
+STATE_GOSHIEN = {
+    id = 517
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x48D8E7 x76C6C9 x778FEE x8FC5F1 x91C6BF xAA90F0 xB1F36C xB7D3B8 xC0E894 xC4F6AB xCD84C3 xD775EE xE13FEA xE14AE3 xE8D0AD xF0FD6C xF1DD42 xF637C7 xF786D2 xF922E2 xFCE11D xFCF83A xFDBF83 xFDF809 }
+    traits = { state_trait_aiel_waste }
+    city = "xfdf809"
+    farm = "xb1f36c"
+    mine = "xd775ee"
+    arable_land = 7
+    arable_resources = { bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_coal_mining = 20
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 5
+    }
+}
+STATE_REYN = {
+    id = 518
+    subsistence_building = "building_subsistence_aiel_waste"
+    provinces = { x17F5F6 x72F5F1 x74ADE9 x76E2F2 x7BF3AD x907DF6 xB39BAC xB6F555 xBDB6C6 xBDE959 xC09AD2 xC5CBA4 xCBACDB xCDCCEE xD465EE xD5DCCE xDFFAB8 xE974EF xEAC2ED xEBE98A xF156E3 xF297CB xF5B8F6 xF6E62B xFAE320 }
+    impassable = { x17f5f6 x76e2f2 xbde959 xeac2ed xebe98a xfae320 xcdccee xc5cba4 }
+    traits = { state_trait_aiel_waste }
+    city = "x7bf3ad"
+    farm = "xe974ef"
+    mine = "xcbacdb"
+    arable_land = 6
+    arable_resources = { bg_livestock_ranches bg_cotton_plantations }
+    capped_resources = {
+        bg_coal_mining = 25
+        bg_lead_mining = 9
+    }
+}
+STATE_WEST_TERMOOL = {
+    id = 519
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x66BDF5 x66E2B1 x79E09C x97C29F x97C7CC xA39DEB xB7E761 xB884CF xBBEFAF xC8F696 xCB78FD xD3BEC5 xD48AD7 xD5BB6E xDEE965 xDFC9C8 xDFD3A5 xE5F2FD xF4E5B6 xF7DD35 }
+    traits = { state_trait_termool_desert }
+    city = "xcb78fd"
+    farm = "xe5f2fd"
+    mine = "xb884cf"
+    port = "x66e2b1"
+    arable_land = 2
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_fishing = 6
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 30
+        discover_amount_max = 30
+    }
+    naval_exit_id = 3010
+}
+STATE_GREATER_TERMOOL = {
+    id = 520
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x39DEE1 x3AC9F7 x53D1F7 x58FEF6 x70A3E5 x8A98D8 x94A7E0 x9F6EE7 xB0F8F8 xB2BCB6 xB5B5FE xB799B4 xB8BFA5 xC7BCF1 xC7E7E9 xC962F7 xC9F6E6 xCF3FF3 xCF8BAF xD5E072 xE1BD8E xE1ECB9 xE3F4AC xE6AA72 xEAF99F xED7DD8 xEE8CDB xEF4ADF xF0ECFC xF1F251 xF1F534 xF4B7A3 xF4D87D xF6AEDA xF976D6 xF98BE4 xFAA1FB xFBAB6D }
+    traits = { state_trait_termool_desert }
+    city = "xef4adf"
+    farm = "xfbab6d"
+    mine = "xf4b7a3"
+    port = "xf976d6"
+    arable_land = 2
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_fishing = 8
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 20
+        discover_amount_max = 20
+    }
+    naval_exit_id = 3010
+}
+STATE_EAST_TERMOOL = {
+    id = 521
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x20F9E2 x48F9C3 x66F3FB x67F8E4 x69BAEE x7FCFC3 x81E6C2 x849DD6 x93C5E3 x97EDD5 x99FC9D x9AB7C7 x9BF8D5 x9FCDC6 xA0E587 xABFB8C xAEBFA7 xB091C8 xB5A1A0 xB5BCE2 xB6B8EB xBC66DF xC0EA9A xC577CA xC7C585 xC9ABF7 xCAFB96 xCCE7C9 xD049EA xD1FBB2 xD3F5C9 xD497D3 xD56BF1 xD5D2B3 xDAF798 xDBAEBD xDD8CD5 xE054D5 xE6D06B xE8ABEE xE984E2 xECED97 xEFC4D5 xF1CAE4 xF7E061 xF8977B xF89C85 xF8D965 xFB4DF8 xFE65B1 }
+    traits = { state_trait_termool_desert }
+    city = "xcce7c9"
+    farm = "x93c5e3"
+    mine = "xdbaebd"
+    port = "xb6b8eb"
+    arable_land = 2
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_fishing = 10
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 30
+        discover_amount_max = 30
+    }
+    naval_exit_id = 3026
+}
+STATE_SPINE_RIDGE = {
+    id = 522
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x62FEA9 x66FB94 x8EABF1 xA76CE8 xAC88D5 xAF8ED1 xBDD9B3 xD39ABF xDCE2B8 xDFD0CF xEF63D3 xF8D52E }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 5
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 22
+        bg_iron_mining = 26
+        bg_sulfur_mining = 8
+        bg_gemstone_mining = 4
+        bg_alum_mining = 12
+    }
+}
+STATE_CALDORE = {
+    id = 523
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x5AECB9 x6AC4C6 x6DBAE1 x8CD6DE xA3BFB3 xA9F797 xAEA1BF xB24FFE xBEF1EF xC7BB84 xDD91E6 xDEFD33 xDF8796 xE61DFE xF3AFC6 xF5E5A9 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 6
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 18
+        bg_iron_mining = 24
+        bg_lead_mining = 6
+        bg_sulfur_mining = 12
+        bg_gemstone_mining = 2
+    }
+}
+STATE_SAIDINMAFAL = {
+    id = 524
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x78C0E2 xB9AFCA xB9E2AB xC1FC68 xC2EEDF xC7C9F4 xCB83DF xCCF672 xD3C491 xDC7FB2 xEAA4D4 xEAAFC6 xEC69AE xEDE1CB xF9F6BE }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 6
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 14
+        bg_iron_mining = 34
+    }
+}
+
+STATE_SHIATAR = {
+    id = 525
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x50BAEE x76E5EE xA3DFC1 xA4CBA1  xD9CB7E xDBC69D xCF9BA2 xE154E0 xEC97E1 xEDFB72 xEF94EE }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+	city = "x50BAEE"
+    farm = "x76E5EE"
+    mine = "xA3DFC1"
+    wood = "xA4CBA1"
+    arable_land = 5
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 2
+        bg_iron_mining = 16
+        bg_gemstone_mining = 2
+        bg_alum_mining = 6
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 8
+    }
+}
+STATE_NEIDHOL = {
+    id = 526
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x76CCEB x77F4F6 x78CDFB x7AFCAD x7BB6FC x81F7B9 x9CD299 x9D7AE3 xA9FB6B xB568D7 xBCD4CF xD498D0 xD7CB98 xE192EB xE2EBB8 xE8D659 xF2D2CE xF2D8AF xF57C8E xF9B451 xF9F719 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }	
+    arable_land = 11
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 10
+        bg_iron_mining = 16
+        bg_lead_mining = 8
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 4
+    }
+}
+STATE_KHUSTJIN = {
+    id = 527
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x3FFDF6 x5AFCBB x5BACF0 x66FAF3 x6EC1ED x9AD492 x9CB9BD x9E8AE8 xA2A8D3 xA6CDC8 xADE17D xB7CDB2 xB7F4B1 xC0A8FA xC0FEFB xC4BF80 xC6A9C9 xCDC8F7 xCDD07C xDE71E0 xDE9EB3 xE1A0CA xE1EF9C xE4B8AA xE68B9F xE7D46E xF179E2 xF2DDFA xF7D083 xF7FBA8 xFAEDCD xFD66CD xFDC966 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 17
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 8
+        bg_iron_mining = 28
+    }
+}
+STATE_JI'VLAGH = {
+    id = 528
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x53FBB0 x5BFECF x869FF6 x8EEDC1 x99B6B4 xA1F1F3 xA998D2 xB0F6F6 xB973D7 xB9AFBE xB9E79F xB9EAD4 xC4B1CA xC5FCA5 xC87BB8 xD1BC75 xD1F256 xD6FB6E xD6FDB9 xDF68D9 xE3CC4E xE4BB9C xE870DF xEBD099 xEC56C2 xEC937B xEDEB7F xEE2CE7 xEF5FF8 xEFE688 xF0A8EF xF6B69D xF8B1AD xF95BE1 xF986A2 xFAA9E4 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 16
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_iron_mining = 36
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 8
+    }
+}
+STATE_DOVIE'ANDI = {
+    id = 529
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x50ECE1 x57F8AB x61F8F8 x67C7D7 x74AAE8 x76F3C2 x77FEDF x85AAE1 x8EA8FC x90F3B0 x9887F5 xA068F0 xACFD77 xB0B0DD xC0CCCE xD4DBE8 xE262EE xE684CF xE7EC27 xEE75FE xF0EAEF xF432F7 xF525E5 xF5FBA6 xFD8C99 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 12
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 2
+        bg_iron_mining = 14
+        bg_sulfur_mining = 12
+        bg_gemstone_mining = 2
+        bg_hydroelectric_power = 1
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 10
+    }
+}
+STATE_SHAITOH = {
+    id = 530
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x78D2FC x7EC0F4 x87A4EE x94EB9E x958FE0 x9AED7D x9EB9BA xA4FB56 xA77DDF xBCDDC5 xBD9DA8 xBF9BC0 xD5C1C6 xD5C98E xD6C3DA xDA94E3 xDAD261 xE1ACF5 xE6BCC5 xE8B6A6 xE8F56C xED86AF xF1B283 xFDDB31 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 11
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 20
+        bg_iron_mining = 24
+        bg_sulfur_mining = 16
+        bg_alum_mining = 6
+    }
+}
+
+STATE_DAETAR = {
+    id = 531
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x59CDD2 x70B4F3 x74FAFD x7FD5F7 x83AAE2 x8FF6A7 x91F3C8 x9684EA x98D890 x9E93EC xA0EEC7 xAEE077 xB1B5A1 xB56CE5 xB5B8A5 xBBED5E xBCFBAF xC2A8DB xD3C2B4 xDEF248 xDFD7F3 xE0A998 xE887A5 xE9F615 xF3FBEB xFDA2B7 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 13
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_iron_mining = 40
+        bg_sulfur_mining = 10
+    }
+}
+STATE_SEGADE = {
+    id = 532
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x3CFDEC x50F3E4 x6BF7B9 x6CC9DC x6DE3D4 x712600 x7ACCB1 x7CC5E6 x89CEF1 xA1DE86 xB1D7B0 xB2F9AE xCDC0C6 xD0C6EF xD47FDC xD5ABDB xD9ECEB xDAD6EB xDCA1C3 xE0F58A xE3B8BB xE5D3B1 xE8E433 xEAEA9A xEECBF7 xF099AA xF6A390 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 11
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 12
+        bg_iron_mining = 26
+        bg_alum_mining = 8
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 4
+    }
+}
+STATE_SARFARDAREIS = {
+    id = 533
+    subsistence_building = "building_subsistence_pastures"
+    provinces = { x68F993 x8CDEF7 xB5D3B8 xBA7ACA xC4E39A xCCA3A6 xCCA9EE xD6AAEB xDAA1F7 xDC9698 xE133F3 xE2CED5 xE377C5 xE3E9F3 xE74BC3 xE8DA80 xEFC87C xF3D5DE xF4C93B xF5D82B xFDDEB2 }
+    traits = { state_trait_aiel_blight state_trait_harsh_frontier_blight }
+    arable_land = 10
+    arable_resources = { bg_livestock_ranches }
+    capped_resources = {
+        bg_coal_mining = 2
+        bg_iron_mining = 30
+        bg_lead_mining = 12
+        bg_gemstone_mining = 4
+    }
+    resource = {
+        type = "bg_gold_fields"
+        depleted_type = "bg_gold_mining"
+        undiscovered_amount = 12
+    }
+}

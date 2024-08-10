@@ -34,9 +34,12 @@ namespace Vic3MapCSharp
             }
 
             if (Coords.Count == 0) return;
+            List<Task> tasks = new() {
+                Task.Run(() => (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false)),
+                Task.Run(() => (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true))
+            };
 
-            (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false);
-            (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true);
+            Task.WaitAll(tasks.ToArray());
         }
 
     }

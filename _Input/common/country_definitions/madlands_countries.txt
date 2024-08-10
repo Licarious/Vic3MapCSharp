@@ -1,0 +1,470 @@
+﻿MAD = { #Madlands
+	color = { 29 217 0 }
+	
+	country_type = recognized
+	
+	tier = hegemony
+	
+	cultures = { karatalan telankavan sirlandan kenalan rradesi maharan tamiladi juavani bavno sumalindian brunethi paluan milukun phylanthan avelairen vactoran darbaaka horbat sydwale cambera isopolyna nulakbor ateara eyrthanda waipounamu outdjan valandoran serenaran mandemen madrathi elmadari kafendiran ivomari marvenien chanukari mandaran djanzei jandalari eharmara }
+	capital = STATE_TAPHON
+}
+UDI = { #Aes Udiya
+	color = { 255 140 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { karatalan telankavan sirlandan }
+	capital = STATE_KUDAHUSHI
+}
+KDM = { #Koudam
+	color = { 48 96 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { kenalan rradesi maharan tamiladi }
+	capital = STATE_MAHMANDAN
+}
+BRT = { #Beratadhol
+	color = { 0 128 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { juavani bavno sumalindian brunethi }
+	capital = STATE_TANTUNG
+}
+HTS = { #Heatsulam
+	color = { 244 140 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { paluan milukun phylanthan }
+	capital = STATE_TAPHON
+}
+FST = { #Fersterakh
+	color = { 77 139 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { avelairen vactoran darbaaka }
+	capital = STATE_CABOOLANY
+}
+DJA = { #Djanzeidhol
+	color = { 90 250 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { horbat sydwale cambera }
+	capital = STATE_LARITH
+}
+SFK = { #Safardhakdi
+	color = { 47 140 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	
+	cultures = { isopolyna nulakbor ateara eyrthanda waipounamu }
+	capital = STATE_OPUTIKA
+}
+KAR = { #Karatala
+	color = { 134 166 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { karatalan }
+	capital = STATE_KUDAHUSHI
+}
+TEK = { #Telankava
+	color = { 110 173 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { telankavan }
+	capital = STATE_BIRATTHAN
+}
+SIR = { #Sirlanda
+	color = { 184 193 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { sirlandan }
+	capital = STATE_TETTAWATTA
+}
+KEN = { #Kenala
+	color = { 255 208 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { kenalan }
+	capital = STATE_MAHMANDAN
+}
+ARR = { #Andra Rrades
+	color = { 36 109 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { rradesi }
+	capital = STATE_DIPALGORA
+}
+MAH = { #Mahara
+	color = { 128 170 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { maharan }
+	capital = STATE_NIKATURA
+}
+TAM = { #Tamiladu
+	color = { 23 114 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { tamiladi }
+	capital = STATE_JANAKHARI
+}
+JUA = { #Juavan
+	color = { 164 217 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { juavani }
+	capital = STATE_TANTUNG
+}
+BAV = { #Bavneo
+	color = { 41 89 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { bavno }
+	capital = STATE_BAUNAK
+}
+SUM = { #Sumalinde
+	color = { 73 152 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { sumalindian }
+	capital = STATE_LUBUKMALAYA
+}
+BNT = { #Brun'ethin
+	color = { 193 164 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { brunethi }
+	capital = STATE_MYAIMAWSO
+}
+PAL = { #Palua
+	color = { 81 97 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { paluan }
+	capital = STATE_KENWAH
+}
+MIK = { #Miluku
+	color = { 153 0 0 }
+	
+	country_type = decentralized
+	
+	tier = grand_principality
+	
+	cultures = { milukun }
+	capital = STATE_PENPIS
+}
+PHY = { #Phylantha
+	color = { 92 87 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { phylanthan }
+	capital = STATE_TAPHON
+}
+OUT = { #Outdjan
+	color = { 112 54 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { outdjan }
+	capital = STATE_JANDALIC
+}
+AVE = { #Avelaire
+	color = { 170 90 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { avelairen }
+	capital = STATE_CABOOLANY
+}
+VAC = { #Vactori
+	color = { 118 115 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { vactoran }
+	capital = STATE_MORPHETTON
+}
+DBK = { #Darbaaka
+	color = { 209 160 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { darbaaka }
+	capital = STATE_ALBONE
+}
+HOR = { #Horbat
+	color = { 224 194 0 }
+	
+	country_type = decentralized
+	
+	tier = grand_principality
+	
+	cultures = { horbat }
+	capital = STATE_HORBAT
+}
+SYD = { #Sydwale
+	color = { 114 165 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { sydwale }
+	capital = STATE_LARITH
+}
+CBR = { #Cambera
+	color = { 245 212 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { cambera }
+	capital = STATE_SUNBINA
+}
+ISO = { #Isopolyna
+	color = { 244 140 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { isopolyna }
+	capital = STATE_OPUTIKA
+}
+NLK = { #Nulakbor
+	color = { 91 191 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { nulakbor }
+	capital = STATE_MARREN
+}
+ATA = { #Ateara
+	color = { 62 92 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { ateara }
+	capital = STATE_GRANVANA
+}
+EYR = { #Eyrthanda
+	color = { 148 185 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { eyrthanda }
+	capital = STATE_BOBELLUP
+}
+WAI = { #Waipounamu
+	color = { 159 173 0 }
+	
+	country_type = decentralized
+	
+	tier = grand_principality
+	
+	cultures = { waipounamu }
+	capital = STATE_KAWALIE
+}
+VAK = { #Valandor
+	color = { 20 80 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { valandoran }
+	capital = STATE_BAUNAK
+}
+SER = { #Serenara
+	color = { 21 196 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { serenaran }
+	capital = STATE_KUDAHUSHI
+}
+MND = { #Mandema
+	color = { 255 102 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { mandemen }
+	capital = STATE_TAPHON
+}
+MDR = { #Madrath
+	color = { 102 102 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { madrathi }
+	capital = STATE_TANTUNG
+}
+ELM = { #Elmadar
+	color = { 223 228 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { elmadari }
+	capital = STATE_PHANOMROM
+}
+EHM = { #Ehar'mara
+	color = { 255 255 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { eharmara }
+	capital = STATE_TUETAMBANG
+}
+KAF = { #Kafendir
+	color = { 201 28 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { kafendiran }
+	capital = STATE_TETTAWATTA
+}
+IVM = { #Ivomar
+	color = { 239 51 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { ivomari }
+	capital = STATE_TUETAMBANG
+}
+MRV = { #Marven
+	color = { 209 203 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { marvenien }
+	capital = STATE_PHANOMROM
+}
+CNK = { #Chanukar
+	color = { 249 215 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { seanchan } #chanukari culture emerges
+	capital = STATE_RISALSEHRA
+}
+MNA = { #Mandara
+	color = { 76 122 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { mandaran }
+	capital = STATE_FAIMES
+}
+ADZ = { #Aile Djanzei
+	color = { 89 164 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { djanzei }
+	capital = STATE_TUETAMBANG
+}
+JND = { #Jandalar
+	color = { 176 232 0 }
+	
+	country_type = unrecognized
+	
+	tier = kingdom
+	
+	cultures = { jandalari }
+	capital = STATE_PHANOMROM
+}

@@ -13,24 +13,22 @@ namespace Vic3MapCSharp
 
         public HashSet<(int x, int y)> Coords { get; set; } = new();
 
-        public int internalID = -1;
-        public string terrain = "";
-        public string hubName = "";
-        public bool isImpassible = false;
-        public bool isPrimeLand = false;
-        public bool isLake = false;
-        public bool isSea = false;
+        public int ID { get; set; } = -1;
+        public string Terrain { get; set; } = "";
+        public string HubName { get; set; } = "";
+        public bool IsImpassible { get; set; } = false;
+        public bool IsPrimeLand { get; set; } = false;
+        public bool IsLake { get; set; } = false;
+        public bool IsSea { get; set; } = false;
 
-        public Province(Color color)
-        {
-            Name = "x" + color.R.ToString("X2") + color.G.ToString("X2") + color.B.ToString("X2");
-            this.Color = color;
+        public Province(Color color) {
+            Name = $"x{color.R:X2}{color.G:X2}{color.B:X2}";
+            Color = color;
         }
 
-        public Province(string name)
-        {
-            this.Name = name;
-            Color = ColorTranslator.FromHtml("#" + name.Replace("x", ""));
+        public Province(string name) {
+            Name = name;
+            Color = ColorTranslator.FromHtml($"#{name.Replace("x", "")}");
         }
 
         public void GetCenter(bool squareDefault = false) {

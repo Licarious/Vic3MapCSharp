@@ -1,0 +1,78 @@
+﻿STATE_SEANCHAN_BLIGHT = {
+    id = 1000
+    provinces = { "x7ba77f" }
+    naval_exit_id = 3012
+}
+# STATE_SEANCHAN = {
+# id = 1001
+# subsistence_building = "building_subsistence_farms"
+# provinces = { "xcbc124" }
+# traits = { state_trait_seanchan }
+# city = "xcbc124"
+# arable_land = 1200
+# arable_resources = { bg_maize_farms bg_livestock_ranches bg_coffee_plantations bg_sugar_plantations bg_cotton_plantations bg_silk_plantations bg_dye_plantations bg_tea_plantations bg_tobacco_plantations bg_banana_plantations bg_raken_ranches bg_opium_plantations bg_vineyard_plantations }
+# capped_resources = {
+# bg_gold_mining = 20
+# bg_coal_mining = 100
+# bg_iron_mining = 100
+# bg_lead_mining = 50
+# bg_sulfur_mining = 50
+# bg_logging = 125
+# bg_alum_mining = 30
+# bg_fur_trapping = 35
+# bg_fishing = 75
+# bg_whaling = 30
+# bg_hydroelectric_power = 10
+# }
+# resource = {
+# type = "bg_rubber"
+# undiscovered_amount = 50
+# }
+# resource = {
+# type = "bg_oil_extraction"
+# undiscovered_amount = 75
+# }
+# naval_exit_id = 3021
+# }
+# STATE_LAND_OF_THE_MADMEN = {
+# id = 1002
+# provinces = { "x4cbd56" }
+# naval_exit_id = 3005
+# }
+STATE_SHARA = {
+    id = 1003
+    subsistence_building = "building_subsistence_rice_paddies"
+    provinces = { "x3c523e" "x4d4d4d" }
+    impassable = { "x4d4d4d" }
+    traits = { state_trait_shara }
+    city = "x3c523e"
+    arable_land = 750
+    arable_resources = { bg_rice_farms bg_livestock_ranches bg_sugar_plantations bg_cotton_plantations bg_silk_plantations bg_dye_plantations bg_tea_plantations bg_tobacco_plantations bg_banana_plantations bg_opium_plantations bg_vineyard_plantations }
+    capped_resources = {
+        bg_gold_mining = 20
+        bg_coal_mining = 75
+        bg_iron_mining = 75
+        bg_lead_mining = 40
+        bg_sulfur_mining = 40
+        bg_logging = 250
+        bg_alum_mining = 25
+        bg_fur_trapping = 50
+        bg_fishing = 50
+        bg_whaling = 20
+        bg_hydroelectric_power = 8
+    }
+    resource = {
+        type = "bg_rubber"
+        undiscovered_amount = 150
+    }
+    resource = {
+        type = "bg_oil_extraction"
+        undiscovered_amount = 75
+    }
+    naval_exit_id = 3017
+}
+STATE_SHARAN_BLIGHT = {
+    id = 1004
+    provinces = { "xc3b3b3" }
+    naval_exit_id = 3025
+}

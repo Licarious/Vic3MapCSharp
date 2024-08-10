@@ -5,52 +5,39 @@ namespace Vic3MapCSharp
         //find the largest rectangle without holes in the region and return the top left and bottom right corners of the rectangle as a tuple
         //with all 1s in a binary matrix 
         public static (int area, int left, int right) MaxHist(int C, int[] row) {
-
             Stack<int> result = new();
-
-            int top_val; // Top of stack
-            int left;
-
-            int max_area = 0; // Initialize max area in current
+            int max_area = 0;
             int max_left = -1;
             int max_right = -1;
             int i = 0;
 
-
-            int area;
             while (i < C) {
-                if (result.Count == 0 || row[result.Peek()] <= row[i])
+                if (result.Count == 0 || row[result.Peek()] <= row[i]) {
                     result.Push(i++);
+                }
                 else {
-                    left = result.Peek();
-                    top_val = row[left];
-                    result.Pop();
-                    area = top_val * i;
+                    int top = result.Pop();
+                    int height = row[top];
+                    int width = result.Count == 0 ? i : i - result.Peek() - 1;
+                    int area = height * width;
 
-                    if (result.Count > 0) {
-                        left = result.Peek() + 1;
-                        area = top_val * (i - left);
-                    }
                     if (area > max_area) {
                         max_area = area;
-                        max_left = left;
+                        max_left = result.Count == 0 ? 0 : result.Peek() + 1;
                         max_right = i - 1;
                     }
                 }
             }
 
             while (result.Count > 0) {
-                left = result.Peek();
-                top_val = row[left];
-                result.Pop();
-                area = top_val * i;
-                if (result.Count > 0) {
-                    left = result.Peek() + 1;
-                    area = top_val * (i - left);
-                }
+                int top = result.Pop();
+                int height = row[top];
+                int width = result.Count == 0 ? i : i - result.Peek() - 1;
+                int area = height * width;
+
                 if (area > max_area) {
                     max_area = area;
-                    max_left = left;
+                    max_left = result.Count == 0 ? 0 : result.Peek() + 1;
                     max_right = C - 1;
                 }
             }
@@ -58,17 +45,17 @@ namespace Vic3MapCSharp
             return (max_area, max_left, max_right);
         }
 
-        public static (int area, int top, int bottem, int left, int right) MaxRectangle(int R, int C, int[][] A) {
+        public static (int area, int top, int bottom, int left, int right) MaxRectangle(int R, int C, int[][] A) {
             int top = 0;
-            int bottem = 0;
-
+            int bottom = 0;
             (int result, int left, int right) = MaxHist(C, A[0]);
 
             for (int i = 1; i < R; i++) {
-                for (int j = 0; j < C; j++)
-                    if (A[i][j] == 1)
+                for (int j = 0; j < C; j++) {
+                    if (A[i][j] == 1) {
                         A[i][j] += A[i - 1][j];
-
+                    }
+                }
 
                 (int tmp_result, int tmp_left, int tmp_right) = MaxHist(C, A[i]);
 
@@ -76,13 +63,12 @@ namespace Vic3MapCSharp
                     result = tmp_result;
                     left = tmp_left;
                     right = tmp_right;
-                    bottem = i;
-                    top = bottem - result / (right - left + 1) + 1;
+                    bottom = i;
+                    top = bottom - result / (right - left + 1) + 1;
                 }
-
-
             }
-            return (result, top, bottem, left, right);
+
+            return (result, top, bottom, left, right);
         }
 
         private static int Min(int a, int b, int c) {
@@ -126,39 +112,39 @@ namespace Vic3MapCSharp
 
         //given a matrix of 1s and 0s fill in all 0s that are fully surrounded by 1s and return the matrix
         public static void ReplaceSurrounded(int[][] mat) {
-            //replace all 0s with -1
-            for (int i = 0; i < mat.Length; i++) {
-                for (int j = 0; j < mat[i].Length; j++) {
+            int rows = mat.Length;
+            int cols = mat[0].Length;
+
+            // Replace all 0s with -1
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
                     if (mat[i][j] == 0) {
                         mat[i][j] = -1;
                     }
                 }
             }
-            //call floodFill for all -1 lying on edges
-            for (int i = 0; i < mat.Length; i++) {
+
+            // Call floodFill for all -1 lying on edges
+            for (int i = 0; i < rows; i++) {
                 if (mat[i][0] == -1) {
                     FloodFill(mat, i, 0, -1, 0);
                 }
-            }
-            for (int i = 0; i < mat.Length; i++) {
-                if (mat[i][^1] == -1) {
-                    FloodFill(mat, i, mat[i].Length - 1, -1, 0);
+                if (mat[i][cols - 1] == -1) {
+                    FloodFill(mat, i, cols - 1, -1, 0);
                 }
             }
-            for (int i = 0; i < mat[0].Length; i++) {
-                if (mat[0][i] == -1) {
-                    FloodFill(mat, 0, i, -1, 0);
+            for (int j = 0; j < cols; j++) {
+                if (mat[0][j] == -1) {
+                    FloodFill(mat, 0, j, -1, 0);
                 }
-            }
-            for (int i = 0; i < mat[^1].Length; i++) {
-                if (mat[^1][i] == -1) {
-                    FloodFill(mat, mat.Length - 1, i, -1, 0);
+                if (mat[rows - 1][j] == -1) {
+                    FloodFill(mat, rows - 1, j, -1, 0);
                 }
             }
 
-            //replace all -1 with 1
-            for (int i = 0; i < mat.Length; i++) {
-                for (int j = 0; j < mat[i].Length; j++) {
+            // Replace all -1 with 1
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
                     if (mat[i][j] == -1) {
                         mat[i][j] = 1;
                     }
@@ -166,7 +152,7 @@ namespace Vic3MapCSharp
             }
         }
 
-        //stack based flood fill algorithm
+        // Stack-based flood fill algorithm
         public static void FloodFill(int[][] mat, int x, int y, int prevV, int newV) {
             Stack<(int, int)> stack = new();
             stack.Push((x, y));

@@ -1,631 +1,244 @@
-﻿region_baltic_sea = {
-	states = { STATE_BALTIC_SEA }
+﻿region_manetherendrelle = {
+	states = { STATE_MANETHERENDRELLE }
 }
 
-region_hawaiian_seamount_chain = {
-	states = { STATE_HAWAIIAN_SEAMOUNT_CHAIN }
+region_STATE_ERININ = {
+	states = { STATE_ERININ }
 }
-
-region_micronesian_sea = {
-	states = { STATE_MICRONESIAN_SEA }
-}
-
-region_mascarenes = {
-	states = { STATE_MASCARENES }
-}
-
-region_indian_ocean_lane_01 = {
-	states = { STATE_INDIAN_OCEAN_LANE_01 }
-}
-
-region_indian_ocean_lane_02 = {
-	states = { STATE_INDIAN_OCEAN_LANE_02 }
-}
-
-region_indian_ocean_lane_05 = {
-	states = { STATE_INDIAN_OCEAN_LANE_05 }
-}
-
-region_indian_ocean_lane_06 = {
-	states = { STATE_INDIAN_OCEAN_LANE_06 }
-}
-
-region_south_atlantic_sea_lane_01 = {
-	states = { STATE_SOUTH_ATLANTIC_SEA_LANE_01 }
-}
-
-region_south_atlantic_sea_lane_02 = {
-	states = { STATE_SOUTH_ATLANTIC_SEA_LANE_02 }
-}
-
-region_south_atlantic_sea_lane_05 = {
-	states = { STATE_SOUTH_ATLANTIC_SEA_LANE_05 }
-}
-
-region_danish_straits = {
-	states = { STATE_DANISH_STRAITS }
-}
-
-region_south_pacific_lane_01 = {
-	states = { STATE_SOUTH_PACIFIC_LANE_1 }
-}
-
-region_south_pacific_lane_02 = {
-	states = { STATE_SOUTH_PACIFIC_LANE_2 }
-}
-
-region_easter_island_lane_01 = {
-	states = { STATE_EASTER_ISLAND_LANE_1 }
-}
-
-region_easter_island_lane_02 = {
-	states = { STATE_EASTER_ISLAND_LANE_2 }
-}
-
-region_easter_island_lane_03 = {
-	states = { STATE_EASTER_ISLAND_LANE_3 }
-}
-
-region_pacific_lane_01 = {
-	states = { STATE_PACIFIC_LANE_01 }
-}
-
-region_pacific_lane_02 = {
-	states = { STATE_PACIFIC_LANE_02 }
-}
-
-region_pacific_lane_03 = {
-	states = { STATE_PACIFIC_LANE_03 }
-}
-
-region_pacific_lane_04 = {
-	states = { STATE_PACIFIC_LANE_04 }
-}
-
-region_pacific_lane_05 = {
-	states = { STATE_PACIFIC_LANE_05 }
-}
-
-region_pacific_lane_06 = {
-	states = { STATE_PACIFIC_LANE_06 }
-}
-
-region_north_atlantic_01 = {
-	states = { STATE_NORTH_ATLANTIC_01 }
-}
-
-region_north_atlantic_02 = {
-	states = { STATE_NORTH_ATLANTIC_02 }
-}
-
-region_north_atlantic_03 = {
-	states = { STATE_NORTH_ATLANTIC_03 }
-}
-
-region_north_atlantic_04 = {
-	states = { STATE_NORTH_ATLANTIC_04 }
-}
-
-region_north_atlantic_05 = {
-	states = { STATE_NORTH_ATLANTIC_05 }
-}
-
-region_north_atlantic_06 = {
-	states = { STATE_NORTH_ATLANTIC_06 }
-}
-
-region_north_atlantic_07 = {
-	states = { STATE_NORTH_ATLANTIC_07 }
-}
-
-region_atlantic_ocean_01 = {
-	states = { STATE_ATLANTIC_OCEAN_01 }
-}
-
-region_atlantic_ocean_02 = {
-	states = { STATE_ATLANTIC_OCEAN_02 }
-}
-
-region_atlantic_ocean_03 = {
-	states = { STATE_ATLANTIC_OCEAN_03 }
-}
-
-region_atlantic_ocean_04 = {
-	states = { STATE_ATLANTIC_OCEAN_04 }
-}
-
-region_atlantic_ocean_05 = {
-	states = { STATE_ATLANTIC_OCEAN_05 }
-}
-
-region_horn_of_africa = {
-	states = { STATE_HORN_OF_AFRICA }
-}
-
-region_west_african_coast = {
-	states = { STATE_WEST_AFRICAN_COAST }
-}
-
-region_easter_island = {
-	states = { STATE_EASTER_ISLAND }
-}
-
-region_coast_of_saint_helena = {
-	states = { STATE_COAST_OF_SAINT_HELENA }
-}
-
-region_norwegian_sea = {
-	states = { STATE_NORWEGIAN_SEA }
-}
-
-region_labrador_sea = {
-	states = { STATE_LABRADOR_SEA }
-}
-
-region_irminger_sea = {
-	states = { STATE_IRMINGER_SEA }
-}
-
-region_north_sea = {
-	states = { STATE_NORTH_SEA }
-}
-
-region_english_channel = {
-	states = { STATE_ENGLISH_CHANNEL }
-}
-
-region_bay_of_biscay = {
-	states = { STATE_BAY_OF_BISCAY }
-}
-
-region_irish_sea = {
-	states = { STATE_IRISH_SEA }
-}
-
-region_eastern_caribbean_sea = {
-	states = { STATE_EASTERN_CARIBBEAN_SEA }
-}
-
-region_western_caribbean_sea = {
-	states = { STATE_WESTERN_CARIBBEAN_SEA }
-}
-
-region_arctic_ocean_01 = {
-	states = { STATE_ARCTIC_OCEAN_01 }
-}
-
-region_arctic_ocean_02 = {
-	states = { STATE_ARCTIC_OCEAN_02 }
-}
-
-region_barents_sea = {
-	states = { STATE_BARENTS_SEA }
-}
-
-region_arctic_ocean_04 = {
-	states = { STATE_ARCTIC_OCEAN_04 }
-}
-
-region_arctic_ocean_05 = {
-	states = { STATE_ARCTIC_OCEAN_05 }
-}
-
-region_arctic_ocean_06 = {
-	states = { STATE_ARCTIC_OCEAN_06 }
-}
-
-region_arctic_ocean_07 = {
-	states = { STATE_ARCTIC_OCEAN_07 }
-}
-
-region_gulf_of_maine = {
-	states = { STATE_GULF_OF_MAINE }
-}
-
-region_davis_strait = {
-	states = { STATE_DAVIS_STRAIT }
-}
-
-region_galapagos_rise = {
-	states = { STATE_GALAPAGOS_RISE }
-}
-
-region_straits_of_gibraltar = {
-	states = { STATE_STRAIT_OF_GIBRALTAR }
-}
-
-region_western_mediterranean_sea = {
-	states = { STATE_WESTERN_MEDITERRANEAN_SEA }
-}
-
-region_central_mediterranean_sea = {
-	states = { STATE_CENTRAL_MEDITERRANEAN_SEA }
-}
-
-region_eastern_mediterranean_sea = {
-	states = { STATE_EASTERN_MEDITERRANEAN_SEA }
-}
-
-region_sea_of_marmara = {
-	states = { STATE_SEA_OF_MARMARA }
-}
-
-region_black_sea = {
-	states = { STATE_BLACK_SEA }
-}
-
-region_hudson_bay = {
-	states = { STATE_HUDSON_BAY }
-}
-
-region_gulf_of_saint_lawrence = {
-	states = { STATE_GULF_OF_SAINT_LAWRENCE }
-}
-
-region_persian_gulf = {
-	states = { STATE_PERSIAN_GULF }
-}
-
-region_red_sea = {
-	states = { STATE_RED_SEA }
-}
-
-region_arabian_sea = {
-	states = { STATE_ARABIAN_SEA }
-}
-
-region_laccadive_sea = {
-	states = { STATE_LACCADIVE_SEA }
-}
-
-region_bay_of_bengal = {
-	states = { STATE_BAY_OF_BENGAL }
-}
-
-region_andaman_sea = {
-	states = { STATE_ANDAMAN_SEA }
-}
-
-#region_malacca_strait = {
-#	states = { STATE_MALACCA_STRAIT }
-#}
-
-region_gulf_of_siam = {
-	states = { STATE_GULF_OF_SIAM }
-}
-
-region_gulf_of_tonkin = {
-	states = { STATE_GULF_OF_TONKIN }
-}
-
-region_sulu_sea = {
-	states = { STATE_SULU_SEA }
-}
-
-region_south_china_sea = {
-	states = { STATE_SOUTH_CHINA_SEA }
-}
-
-region_yellow_sea = {
-	states = { STATE_YELLOW_SEA }
-}
-
-region_east_china_sea = {
-	states = { STATE_EAST_CHINA_SEA }
-}
-
-region_sea_of_japan = {
-	states = { STATE_SEA_OF_JAPAN }
-}
-	
-region_gulf_of_mexico = {
-	states = { STATE_GULF_OF_MEXICO }
-}
-
-region_caribbean_sea = {
-	states = { STATE_CARIBBEAN_SEA }
-}
-
-region_guiana_sea = {
-	states = { STATE_GUIANA_SEA }
-}
-
-region_brazilian_sea_north = {
-	states = { STATE_BRAZILIAN_SEA_NORTH }
-}
-
-region_brazilian_sea_south = {
-	states = { STATE_BRAZILIAN_SEA_SOUTH }
-}
-
-region_argentine_sea = {
-	states = { STATE_ARGENTINE_SEA }
-}
-
-region_scotia_sea = {
-	states = { STATE_SCOTIA_SEA }
-}
-
-region_atlantic_seaboard = {
-	states = { STATE_ATLANTIC_SEABOARD }
+region_STATE_ARYTH_COAST = {
+	states = { STATE_ARYTH_COAST }
 }
-
-region_sargasso_sea = {
-	states = { STATE_SARGASSO_SEA }
-}
-
-region_azores_sea = {
-	states = { STATE_AZORES_SEA }
-}
-
-region_north_atlantic_ocean_01 = {
-	states = { STATE_NORTH_ATLANTIC_OCEAN_01 }
+region_STATE_TREMALKING_SEA = {
+	states = { STATE_TREMALKING_SEA }
 }
-
-region_north_atlantic_ocean_02 = {
-	states = { STATE_NORTH_ATLANTIC_OCEAN_02 }
+region_STATE_ERININ_BAY = {
+	states = { STATE_ERININ_BAY }
 }
-
-region_north_atlantic_ocean_03 = {
-	states = { STATE_NORTH_ATLANTIC_OCEAN_03 }
+region_STATE_ARYTH_OCEAN = {
+	states = { STATE_ARYTH_OCEAN }
 }
-
-region_north_atlantic_ocean_04 = {
-	states = { STATE_NORTH_ATLANTIC_OCEAN_04 }
+region_STATE_KABAL_DEEP = {
+	states = { STATE_KABAL_DEEP }
 }
-
-region_north_atlantic_ocean_05 = {
-	states = { STATE_NORTH_ATLANTIC_OCEAN_05 }
+region_STATE_SHADOW_COAST_SEA = {
+	states = { STATE_SHADOW_COAST_SEA }
 }
-
-region_north_atlantic_ocean_06 = {
-	states = { STATE_NORTH_ATLANTIC_OCEAN_06 }
+region_STATE_WORLDS_END_SEA = {
+	states = { STATE_WORLDS_END_SEA }
 }
-
-region_southern_ocean_01 = {
-	states = { STATE_SOUTHERN_OCEAN_01 }
+region_STATE_THE_DEAD_SEA = {
+	states = { STATE_THE_DEAD_SEA }
 }
-
-region_southern_ocean_02 = {
-	states = { STATE_SOUTHERN_OCEAN_02 }
+region_STATE_SOUTH_SHARA_COST = {
+	states = { STATE_SOUTH_SHARA_COST }
 }
-
-region_faroe_bank = {
-	states = { STATE_FAROE_BANK }
+region_STATE_TEMP_SEA_11 = {
+	states = { STATE_TEMP_SEA_11 }
 }
-
-region_macaronesian_sea = {
-	states = { STATE_MACARONESIAN_SEA }
+region_STATE_ARYTH_CROSSING_1 = {
+	states = { STATE_ARYTH_CROSSING_1 }
 }
-
-region_central_atlantic_ocean = {
-	states = { STATE_CENTRAL_ATLANTIC_OCEAN }
+region_STATE_ARYTH_CROSSING_2 = {
+	states = { STATE_ARYTH_CROSSING_2 }
 }
-
-region_gulf_of_guinea = {
-	states = { STATE_GULF_OF_GUINEA }
+region_STATE_SEANCHAN_SEA = {
+	states = { STATE_SEANCHAN_SEA }
 }
-
-region_south_atlantic_ocean_01 = {
-	states = { STATE_SOUTH_ATLANTIC_OCEAN_01 }
+region_STATE_MORENAL_OCEAN_NORTH = {
+	states = { STATE_MORENAL_OCEAN_NORTH }
 }
-
-region_south_atlantic_ocean_02 = {
-	states = { STATE_SOUTH_ATLANTIC_OCEAN_02 }
+region_STATE_TEMP_SEA_7 = {
+	states = { STATE_TEMP_SEA_7 }
 }
-
-region_south_atlantic_ocean_03 = {
-	states = { STATE_SOUTH_ATLANTIC_OCEAN_03 }
+region_STATE_TEMP_SEA_8 = {
+	states = { STATE_TEMP_SEA_8 }
 }
-
-region_south_atlantic_ocean_04 = {
-	states = { STATE_SOUTH_ATLANTIC_OCEAN_04 }
+region_STATE_TEMP_SEA_9 = {
+	states = { STATE_TEMP_SEA_9 }
 }
-
-region_south_atlantic_ocean_05 = {
-	states = { STATE_SOUTH_ATLANTIC_OCEAN_05 }
+region_STATE_GREAT_RIFT_SEA = {
+	states = { STATE_GREAT_RIFT_SEA }
 }
-
-region_south_atlantic_ocean_06 = {
-	states = { STATE_SOUTH_ATLANTIC_OCEAN_06 }
+region_STATE_SEA_OF_STORMS_SOUTH = {
+	states = { STATE_SEA_OF_STORMS_SOUTH }
 }
-
-region_angolan_sea = {
-	states = { STATE_ANGOLAN_SEA }
+region_STATE_SEA_OF_STORMS_CENTRAL = {
+	states = { STATE_SEA_OF_STORMS_CENTRAL }
 }
-
-region_cape_of_good_hope = {
-	states = { STATE_CAPE_OF_GOOD_HOPE }
+region_STATE_SEA_OF_STORMS_EAST = {
+	states = { STATE_SEA_OF_STORMS_EAST }
 }
-
-region_natal_coast = {
-	states = { STATE_NATAL_COAST }
+region_STATE_MAD_SEA = {
+	states = { STATE_MAD_SEA }
 }
-
-region_eastern_polynesia = {
-	states = { STATE_EASTERN_POLYNESIA }
+region_STATE_HEATSULAM_COAST = {
+	states = { STATE_HEATSULAM_COAST }
 }
-
-region_mozambique_channel = {
-	states = { STATE_MOZAMBIQUE_CHANNEL }
+region_STATE_HORBAT_SEA = {
+	states = { STATE_HORBAT_SEA }
 }
-
-region_indian_ocean_01 = {
-	states = { STATE_INDIAN_OCEAN_01 }
+region_STATE_SOUTHERN_OCEAN = {
+	states = { STATE_SOUTHERN_OCEAN }
 }
 
-region_indian_ocean_02 = {
-	states = { STATE_INDIAN_OCEAN_02 }
+region_STATE_SOUTHERN_ICE_FLOWS = {
+	states = { STATE_SOUTHERN_ICE_FLOWS }
 }
-
-region_indian_ocean_03 = {
-	states = { STATE_INDIAN_OCEAN_03 }
+region_STATE_ARYTH_OCEAN_MID = {
+	states = { STATE_ARYTH_OCEAN_MID }
 }
-
-region_sea_of_okhotsk = {
-	states = { STATE_SEA_OF_OKHOTSK }
+region_STATE_ARYTH_OCEAN_SOUTH = {
+	states = { STATE_ARYTH_OCEAN_SOUTH }
 }
 
-region_gulf_of_alaska = {
-	states = { STATE_GULF_OF_ALASKA }
+# region_STATE_ARYTH_CROSSING_3 = {
+	# states = { STATE_ARYTH_CROSSING_3 }
+# }
+region_STATE_ARYTH_CROSSING_4 = {
+	states = {  STATE_ARYTH_CROSSING_4 }
 }
-
-region_sumatra_sea = {
-	states = { STATE_SUMATRA_SEA }
+region_STATE_MARENDALAR_SEA = {
+	states = { STATE_MARENDALAR_SEA }
 }
-
-region_great_australian_bight = {
-	states = { STATE_GREAT_AUSTRALIAN_BIGHT }
+region_STATE_MARENDALAR_STRAITS = {
+	states = { STATE_MARENDALAR_STRAITS }
 }
-
-region_tasman_sea = {
-	states = { STATE_TASMAN_SEA }
+region_STATE_MECHAOCHAN_COAST = {
+	states = { STATE_MECHAOCHAN_COAST }
 }
 
-region_java_sea = {
-	states = { STATE_JAVA_SEA }
-}
 
-region_timor_sea = {
-	states = { STATE_TIMOR_SEA }
+region_STATE_MANETHERENDRELLE_UPPER = {
+	states = { STATE_MANETHERENDRELLE_UPPER }
 }
-
-region_coral_sea = {
-	states = { STATE_CORAL_SEA }
+region_STATE_ERININ_UPPER = {
+	states = { STATE_ERININ_UPPER }
 }
-
-region_molucca_sea = {
-	states = { STATE_MOLUCCA_SEA }
+region_STATE_RIVER_ALGUENYA = {
+	states = { STATE_RIVER_ALGUENYA }
 }
-
-region_arafura_sea = {
-	states = { STATE_ARAFURA_SEA }
+region_STATE_TOMAN_SEA = {
+	states = { STATE_TOMAN_SEA }
 }
-
-region_philippines_sea = {
-	states = { STATE_PHILIPPINES_SEA }
+region_STATE_EBOU_DAR_APPROACH = {
+	states = { STATE_EBOU_DAR_APPROACH }
 }
-
-region_north_philippines_sea = {
-	states = { STATE_NORTH_PHILIPPINES_SEA }
+region_STATE_REMARAN_SEA = {
+	states = { STATE_REMARAN_SEA }
 }
-
-region_south_philippines_sea = {
-	states = { STATE_SOUTH_PHILIPPINES_SEA }
+region_STATE_SEA_OF_STORMS_NORTH_EAST = {
+	states = { STATE_SEA_OF_STORMS_NORTH_EAST }
 }
-
-region_patagonian_lakes = {
-	states = { STATE_PATAGONIAN_LAKES }
+region_STATE_NORTH_MADLANDS_APPROACH = {
+	states = { STATE_NORTH_MADLANDS_APPROACH }
 }
-
-region_lake_nicaragua = {
-	states = { STATE_LAKE_NICARAGUA }
+region_STATE_WAIPOUNAMU_BAY = {
+	states = { STATE_WAIPOUNAMU_BAY }
 }
-
-region_bering_sea = {
-	states = { STATE_BERING_SEA }
+region_STATE_WEST_MADLANDS_SEA = {
+	states = { STATE_WEST_MADLANDS_SEA }
 }
-
-region_solomon_sea = {
-	states = { STATE_SOLOMON_SEA }
+region_STATE_ILLIAN_HEAD = {
+	states = { STATE_ILLIAN_HEAD }
 }
 
-region_north_pacific_ocean_01 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_01 }
+region_STATE_QUENDARIS_BAY = {
+    states = { STATE_QUENDARIS_BAY }
+ 
 }
-
-region_north_pacific_ocean_02 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_02 }
+region_STATE_GULF_OF_RAMPORE = {
+    states = { STATE_GULF_OF_RAMPORE }
+ 
 }
-
-region_north_pacific_ocean_03 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_03 }
+region_STATE_MUYAMI_APPROACH = {
+    states = { STATE_MUYAMI_APPROACH }
+ 
 }
-
-region_north_pacific_ocean_04 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_04 }
+region_STATE_KASHOR_STRAITS = {
+    states = { STATE_KASHOR_STRAITS }
+ 
 }
-
-region_north_pacific_ocean_05 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_05 }
+region_STATE_GULF_OF_KASHOR = {
+    states = { STATE_GULF_OF_KASHOR }
+ 
 }
-
-region_north_pacific_ocean_06 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_06 }
+region_STATE_COURBAR_HEAD = {
+    states = { STATE_COURBAR_HEAD }
+ 
 }
-
-region_north_pacific_ocean_07 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_07 }
+region_STATE_PUJILI_SEA = {
+    states = { STATE_PUJILI_SEA }
+ 
 }
-
-region_north_pacific_ocean_08 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_08 }
+region_STATE_SALAKING_SEAS = {
+    states = { STATE_SALAKING_SEAS }
+ 
 }
-
-region_north_pacific_ocean_09 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_09 }
+region_STATE_SERENGADAN_COAST = {
+    states = { STATE_SERENGADAN_COAST }
+ 
 }
-
-region_north_pacific_ocean_10 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_10 }
+region_STATE_SEAS_OF_SALAS = {
+    states = { STATE_SEAS_OF_SALAS }
+ 
 }
-
-region_north_pacific_ocean_11 = {
-	states = { STATE_NORTH_PACIFIC_OCEAN_11 }
+region_STATE_ZOPPEN_GULF = {
+    states = { STATE_ZOPPEN_GULF }
+ 
 }
-
-region_south_pacific_ocean_01 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_01 }
+region_STATE_QIRAT_STRAIT = {
+    states = { STATE_QIRAT_STRAIT }
+ 
 }
-
-region_south_pacific_ocean_02 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_02 }
+region_STATE_VANTHORIN_GULF = {
+    states = { STATE_VANTHORIN_GULF }
+ 
 }
-
-region_south_pacific_ocean_03 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_03 }
+region_STATE_ALQUAM_SEA = {
+    states = { STATE_ALQUAM_SEA }
+ 
 }
-
-region_south_pacific_ocean_04 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_04 }
+region_STATE_NIPHAN_COASTS = {
+    states = { STATE_NIPHAN_COASTS }
+ 
 }
-
-region_south_pacific_ocean_05 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_05 }
+region_STATE_ALDAEMAR_SEA = {
+    states = { STATE_ALDAEMAR_SEA }
+ 
 }
-
-region_south_pacific_ocean_06 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_06 }
+region_STATE_ayend’an_SEA = {
+    states = { STATE_ayend’an_SEA }
+ 
 }
-
-region_south_pacific_ocean_07 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_07 }
+region_STATE_MAYSEREN_SEA = {
+    states = { STATE_MAYSEREN_SEA }
+ 
 }
-
-region_south_pacific_ocean_08 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_08 }
+region_STATE_GREAT_GULF = {
+    states = { STATE_GREAT_GULF }
+ 
 }
-
-region_south_pacific_ocean_09 = {
-	states = { STATE_SOUTH_PACIFIC_OCEAN_09 }
+region_STATE_SEA_OF_CONQUEST = {
+    states = { STATE_SEA_OF_CONQUEST }
+ 
 }
-
-region_chiliean_sea = {
-	states = { STATE_CHILEAN_SEA }
+region_STATE_LUTHAIR_STRAITS = {
+    states = { STATE_LUTHAIR_STRAITS }
+ 
 }
-
-region_peruvian_sea = {
-	states = { STATE_PERUVIAN_SEA }
+region_STATE_KOYNISH_SEAS = {
+    states = { STATE_KOYNISH_SEAS }
+ 
 }
-
-region_pacific_seaboard_01 = {
-	states = { STATE_PACIFIC_SEABOARD_01 }
+region_STATE_VELUKING_SEA = {
+    states = { STATE_VELUKING_SEA }
+ 
 }
-
-region_pacific_seaboard_02 = {
-	states = { STATE_PACIFIC_SEABOARD_02 }
+region_STATE_TORIAN_GULF = {
+    states = { STATE_TORIAN_GULF }
+ 
 }
-
-region_centroamerican_sea = {
-	states = { STATE_CENTROAMERICAN_SEA }
+region_STATE_MORENAL_NORTH_ROUTE = {
+    states = { STATE_MORENAL_NORTH_ROUTE }
+ 
 }

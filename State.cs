@@ -2,7 +2,7 @@
 
 namespace Vic3MapCSharp
 {
-    //State class stores provIDlist, name, arableResources, cappedResources, and discoverableResources
+    // State class stores provIDlist, name, arableResources, cappedResources, and discoverableResources
     public class State : IDrawable
     {
         public string Name { get; set; } = "";
@@ -13,49 +13,47 @@ namespace Vic3MapCSharp
         public (int w, int h) MaxSquareSize { get; set; } = (0, 0);
         public HashSet<(int x, int y)> Coords { get; set; } = new();
 
-        public int stateID = 0;
-        public List<string> traits = new();
-        public string subsistenceBuilding = "";
-        public int navalID = 0;
-        public Dictionary<string, Resource> resources = new();
-        public int arableLand = 0;
-        public List<string> homeLandList = new();
+        public int StateID { get; set; } = 0;
+        public List<string> Traits { get; set; } = new();
+        public string SubsistenceBuilding { get; set; } = "";
+        public int NavalID { get; set; } = 0;
+        public Dictionary<string, Resource> Resources { get; set; } = new();
+        public int ArableLand { get; set; } = 0;
+        public List<string> HomeLandList { get; set; } = new();
 
-        //dictionary of color and its province
-        public Dictionary<Color, Province> provDict = new();
+        // Dictionary of color and its province
+        public Dictionary<Color, Province> Provinces { get; set; } = new();
 
-        public State(string name)
-        {
-            this.Name = name;
+        public State(string name) {
+            Name = name;
         }
+
         public State() { }
 
-        public void GetCenter(bool floodFill = false)
-        {
-            //check if coordList has elements
-            if (Coords.Count == 0)
-            {
+        public void GetCenter(bool floodFill = false) {
+            // Check if coordList has elements
+            if (Coords.Count == 0) {
                 SetCoords();
             }
 
             if (Coords.Count == 0) return;
+            List<Task> tasks = new() {
+                Task.Run(() => (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false)),
+                Task.Run(() => (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true))
+            };
 
-            (RectangleCenter, MaxRectangleSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, false);
-            (SquareCenter, MaxSquareSize) = MaximumRectangle.Center(Coords.ToList(), floodFill, true);
+            Task.WaitAll(tasks.ToArray());
         }
 
-        //set coords of state from provinces
+        // Set coords of state from Provinces
         public void SetCoords() {
-            Coords = new HashSet<(int, int)>();
-            foreach (KeyValuePair<Color, Province> entry in provDict) {
-                Coords.UnionWith(entry.Value.Coords);
-            }
+            Coords = Provinces.Values.SelectMany(province => province.Coords).ToHashSet();
+            //Console.WriteLine($"{this}: {Coords.Count}");
         }
 
-        //tostring
-        public override string ToString()
-        {
-            return Name + ": " + provDict.Count;
+        // ToString method
+        public override string ToString() {
+            return $"{Name}: {Provinces.Count}";
         }
     }
 }

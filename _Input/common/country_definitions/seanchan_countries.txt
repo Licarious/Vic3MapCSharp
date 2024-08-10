@@ -1,0 +1,1465 @@
+﻿##Countries ordered lower down are higher AI priority for liberate country
+
+###Seanchan###
+SEA = { #Seanchan
+	color = { 217 211	36 }
+
+	country_type = recognized
+
+	tier = hegemony
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { seanchan quendaris ancarid asinbayar jianmin imfaral }
+	religion = essanik
+	capital = STATE_SEANDAR
+}
+SCR = { #The Seanchan Corenne
+	color = { 222 222 222 }
+
+	country_type = recognized
+
+	tier = empire	
+	
+	cultures = { seanchan }
+	religion = essanik
+	capital = STATE_EBOU_DAR
+}
+NCR = { #North Corenne
+	color = { 139 138 160 }
+
+	country_type = recognized
+
+	tier = kingdom	
+	
+	cultures = { north_corenner }
+	religion = essanik
+	capital = STATE_DAVRAM
+}
+
+##Seanchan Civil War Claimants##
+SC1 = { #Seanchan Claimant 1
+	color = { 255 234 0 }
+
+	country_type = recognized
+
+	tier = hegemony
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { seanchan quendaris ancarid asinbayar jianmin imfaral }
+	religion = essanik
+	capital = STATE_SEANDAR
+}
+SC2 = { #Seanchan Claimant 2
+	color = { 150 150	0 }
+
+	country_type = recognized
+
+	tier = hegemony
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { seanchan quendaris ancarid asinbayar jianmin imfaral }
+	religion = essanik
+	capital = STATE_SEANDAR
+}
+
+SNV = { #Seanavye
+	color = { 190 186 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { seanchan quendaris ancarid asinbayar jianmin }
+	capital = STATE_SEANDAR
+}
+SSR = { #Sai'sor
+	color = { 222 171 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { maralinde aldael imfaral koyn fordiband }
+	capital = STATE_IMFARAL
+}
+NPH = { #Niphan
+	color = { 235 175 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { aldaemar elfindar alqam sohima vanthorin xeltjin }
+	capital = STATE_SOHIMA
+}
+QKN = { #Qirat'kon
+	color = { 109 168 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { qirat nkon zaffija }
+	capital = STATE_QIRAT
+}
+ZOP = { #Zoppen
+	color = { 220 220 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { kirendad anangore falashan dalvoren mayseren }
+	capital = STATE_KIRENDAD
+}
+MDO = { #Mandhol
+	color = { 50 150 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { marendalar norandar shon_kifar neiyagem }
+	capital = STATE_SHON_KIFAR
+}
+CLA = { #Cal'ara
+	color = { 72 105 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { rampore semalaren mechoacan muyami hochin striptunga }
+	capital = STATE_RAMPORE
+}
+YEK = { #Yekkor
+	color = { 75 166 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { tzura dalenshar khoweal maroshal seranquai maram_kashor onguli minkoto }
+	capital = STATE_T'ZURA
+}
+TRA = { #Toriana
+	color = { 130 135 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { noren_mshar kaensada pujili }
+	capital = STATE_NOREN_M'SHAR
+}
+HCH = { #Hochindore
+	color = { 234 107 0 }
+	
+	country_type = recognized
+	
+	tier = empire
+	valid_as_home_country_for_separatists = { always = no }
+	
+	cultures = { salas serengada salaking nabir qinarda }
+	capital = STATE_SERENGADA_DAI
+}
+SND = { #Seandar
+	color = { 66 94 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { seanchan }
+	capital = STATE_SEANDAR
+}
+THM = { #Thamelandi
+	color = { 0 39 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { seanchan }
+	capital = STATE_THAMLANDI
+}
+JHD = { #Jheda
+	color = { 123 175 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { seanchan }
+	capital = STATE_JHEDA
+}
+QUE = { #Quendaris
+	color = { 106 124 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { quendaris }
+	capital = STATE_QUENDAR
+}
+NQU = { #North Quendaris
+	color = { 245 102 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { quendaris }
+	capital = STATE_SHA'MAD
+}
+ANI = { #Ancarid
+	color = { 212 100 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { ancarid }
+	capital = STATE_ANCARID
+}
+SAC = { #South Ancarid
+	color = { 135 113 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { ancarid }
+	capital = STATE_AKEINPORT
+}
+BEL = { #Belosea
+	color = { 181 0 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { ancarid }
+	capital = STATE_BELOSEA
+}
+JIA = { #Jianmin
+	color = { 255 198 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { jianmin }
+	capital = STATE_JIANMIN
+}
+MAL = { #Maralinde
+	color = { 53 52 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { maralinde }
+	capital = STATE_MERINLOE
+}
+ADL = { #Aldael
+	color = { 166 224 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { aldael }
+	capital = STATE_JERANEM
+}
+NAL = { #North Aldael
+	color = { 104 48 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { aldael }
+	capital = STATE_DAERANELL
+}
+JER = { #Jeranem
+	color = { 32 55 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { aldael }
+	capital = STATE_JERANEM
+}
+ZAN = { #Zanzidore
+	color = { 255 206 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { aldael }
+	capital = STATE_ZANZIDORE
+}
+OZL = { #Ozelamere
+	color = { 94 0 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { aldael }
+	capital = STATE_OZELAMERE
+}
+IMF = { #Imfraral
+	color = { 144 181 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { imfaral }
+	capital = STATE_IMFARAL
+}
+NIM = { #North Imfaral
+	color = { 13 29 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { imfaral }
+	capital = STATE_PORTBEULIN
+}
+ASI = { #Asinbayar
+	color = { 125 92 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { asinbayar }
+	capital = STATE_ASINBAYAR
+}
+BRB = { #Barsabba
+	color = { 48 70 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { asinbayar }
+	capital = STATE_BARSABBA
+}
+KOY = { #Koyn Islands
+	color = { 138 80 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { koyn }
+	capital = STATE_ISHARKING
+}
+WKY = { #West Koyn Islands
+	color = { 6 116 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { koyn }
+	capital = STATE_ISHARKING
+}
+EKY = { #East Koyn Islands
+	color = { 65 137 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { koyn }
+	capital = STATE_DAEKING
+}
+FRD = { #Fordiband
+	color = { 4 144 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { fordiband }
+	capital = STATE_FORDIBAND
+}
+ADR = { #Aldaemar
+	color = { 194 53 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { aldaemar }
+	capital = STATE_IWASHIKING
+}
+IWK = { #Iwashiking
+	color = { 252 133 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { aldaemar }
+	capital = STATE_IWASHIKING
+}
+EAL = { #East Aldaemar
+	color = { 234 247 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { aldaemar }
+	capital = STATE_HIRATO
+}
+ELF = { #Elinfadar
+	color = { 157 144 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { elfindar }
+	capital = STATE_MACHEON
+}
+NEF = { #North Elinfadar
+	color = { 177 238 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { elfindar }
+	capital = STATE_DAODRED
+}
+SEF = { #South Elinfadar
+	color = { 51 120 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { elfindar }
+	capital = STATE_MACHEON
+}
+KMG = { #Kimoghri
+	color = { 61 137 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { elfindar }
+	capital = STATE_KIMOGHRI
+}
+BFT = { #Biftmiere
+	color = { 220 96 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { elfindar }
+	capital = STATE_BIFTMIERE
+}
+ALQ = { #Alqam
+	color = { 129 40 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { alqam }
+	capital = STATE_FUROKRIKO
+}
+NAQ = { #North Alqam
+	color = { 202 3 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { alqam }
+	capital = STATE_NORTH_ALQAM
+}
+SAQ = { #South Alqam
+	color = { 146 196 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { alqam }
+	capital = STATE_FUROKRIKO
+}
+SHM = { #Sohima
+	color = { 78 165 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { sohima }
+	capital = STATE_SOHIMA
+}
+NSO = { #North Sohima
+	color = { 147 6 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { sohima }
+	capital = STATE_BOKOKOMO
+}
+VAN = { #Vanthorin
+	color = { 116 45 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { vanthorin }
+	capital = STATE_SOUTH_VANTHORIN
+}
+XEL = { #Xeltjin
+	color = { 140 205 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { xeltjin }
+	capital = STATE_XELTJIN
+}
+QIR = { #Qirat
+	color = { 188 15 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { qirat }
+	capital = STATE_QIRAT
+}
+RLG = { #Rhaulgon
+	color = { 93 147 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { qirat }
+	capital = STATE_RHAULGON
+}
+NKN = { #N'Kon
+	color = { 88 137 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { nkon }
+	capital = STATE_AL'CAIROLU
+}
+ALC = { #Al'cairolu
+	color = { 17 16 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { nkon }
+	capital = STATE_AL'CAIROLU
+}
+WNK = { #West N'kon
+	color = { 127 180 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { nkon }
+	capital = STATE_SHANLONG
+}
+ZAF = { #Zaffi'ja
+	color = { 165 151 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { zaffija }
+	capital = STATE_ZAFFI'JA
+}
+KIR = { #Kirendad
+	color = { 56 143 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { kirendad }
+	capital = STATE_KIRENDAD
+}
+NKR = { #North Kirendad
+	color = { 130 100 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { kirendad }
+	capital = STATE_TUHATUA
+}
+KDR = { #Kirendore
+	color = { 20 142 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { kirendad }
+	capital = STATE_KAFRANELL
+}
+MLZ = { #Melazuato
+	color = { 20 20 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { kirendad }
+	capital = STATE_MELAZATO
+}
+ANG = { #Anangore
+	color = { 90 175 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { anangore }
+	capital = STATE_ANANGORE
+}
+RGH = { #Raghadin
+	color = { 0 47 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { anangore }
+	capital = STATE_RAGHADIN
+}
+FAL = { #Falashan
+	color = { 207 72 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { falashan }
+	capital = STATE_TARAVAN
+}
+TVN = { #Taravan
+	color = { 115 194 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { falashan }
+	capital = STATE_TARAVAN
+}
+DND = { #Drosinada
+	color = { 115 251 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { falashan }
+	capital = STATE_DROSINADA
+}
+TRI = { #Trindar
+	color = { 235 240 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { falashan }
+	capital = STATE_TRINDAR
+}
+MQO = { #Marnaquito
+	color = { 34 88 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { falashan }
+	capital = STATE_MARNAQUITO
+}
+DLV = { #Dalvoren
+	color = { 255 176 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { dalvoren }
+	capital = STATE_MELAZGAEN
+}
+EDL = { #East Dalvoren
+	color = { 252 162 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { dalvoren }
+	capital = STATE_EAST_DALVOREN
+}
+MZG = { #Melazgaen
+	color = { 150 85 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { dalvoren }
+	capital = STATE_MELAZGAEN
+}
+MYS = { #Mayser
+	color = { 157 48 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { mayseren }
+	capital = STATE_MAYSEREN
+}
+SAG = { #Sagua
+	color = { 131 48 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { mayseren }
+	capital = STATE_SAGUA
+}
+BSA = { #Baltrosa
+	color = { 100 212 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { mayseren }
+	capital = STATE_BALTROSA
+}
+MRL = { #Marendalar
+	color = { 139 179 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { marendalar }
+	capital = STATE_LIBERTSHAR
+}
+NOR = { #Norandar
+	color = { 93 194 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { norandar }
+	capital = STATE_TUEL
+}
+NNR = { #North Norandar
+	color = { 88 87 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { norandar }
+	capital = STATE_TUEL
+}
+SQT = { #Sanraqit
+	color = { 189 100 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { norandar }
+	capital = STATE_SANRAQIT
+}
+CHN = { #Choutsin
+	color = { 104 92 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { norandar }
+	capital = STATE_CHOUTSIN
+}
+SKF = { #Shon Kifar
+	color = { 87 192 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { shon_kifar }
+	capital = STATE_SHON_KIFAR
+}
+KLY = { #Kloydrelle
+	color = { 125 125 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { shon_kifar }
+	capital = STATE_KLOYDRELLE
+}
+PST = { #Pistitgua
+	color = { 90 200 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { shon_kifar }
+	capital = STATE_PISTIGUA
+}
+CHR = { #Charanell
+	color = { 165 56 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { shon_kifar }
+	capital = STATE_CHARANELL
+}
+NYG = { #Neiyagem
+	color = { 167 226 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { neiyagem }
+	capital = STATE_NEIYAGEM
+}
+SJR = { #Sen T'Jore
+	color = { 211 123 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { sen_tjore }
+	capital = STATE_OMBREDE
+}
+STJ = { #Sen T'Jore
+	color = { 255 234 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { sen_tjore }
+	capital = STATE_OMBREDE
+}
+SST = { #South Sen T'Jore
+	color = { 36 231 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { sen_tjore }
+	capital = STATE_GAENLITO
+}
+IZM = { #Ijaz Mountains
+	color = { 255 244 0 }
+	
+	country_type = decentralized
+	
+	tier = grand_principality
+	
+	cultures = { ijaz }
+	capital = STATE_OROBAR
+}
+IJZ = { #Ijaz
+	color = { 8 220 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { ijaz }
+	capital = STATE_OROBAR
+}
+LHY = { #L'Heye
+	color = { 245 84 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { lheye }
+	capital = STATE_L'HEYE
+}
+RMP = { #Rampore
+	color = { 143 75 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { rampore }
+	capital = STATE_RAMPORE
+}
+ERM = { #East Rampore
+	color = { 69 103 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { rampore }
+	capital = STATE_OCANEVI
+}
+ASC = { #Ascario
+	color = { 197 157 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { rampore }
+	capital = STATE_ASCARIO
+}
+SML = { #Semalaren
+	color = { 168 193 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { semalaren }
+	capital = STATE_SEMALAREN
+}
+NSM = { #North Semalaren
+	color = { 113 124 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { semalaren }
+	capital = STATE_ZANCALAZAR
+}
+MCD = { #Mechoacan Desert
+	color = { 32 191 0 }
+	
+	country_type = decentralized
+	
+	tier = grand_principality
+	
+	cultures = { mechoacan }
+	capital = STATE_MAMDIVAL
+}
+MCH = { #Mechoacan
+	color = { 84 128 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { mechoacan }
+	capital = STATE_MAMDIVAL
+}
+MUY = { #Muyami
+	color = { 120 75 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { muyami }
+	capital = STATE_BOKOS
+}
+WMY = { #West Muyami
+	color = { 223 249 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { muyami }
+	capital = STATE_AVENDESHI
+}
+BOK = { #Bokos
+	color = { 136 49 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { muyami }
+	capital = STATE_BOKOS
+}
+HOC = { #Hochin
+	color = { 197 206 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { hochin }
+	capital = STATE_HOCHIN
+}
+SPT = { #Striptunga
+	color = { 128 202 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { striptunga }
+	capital = STATE_STRIPTUNGA
+}
+TZU = { #T'zura
+	color = { 97 98 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { tzura }
+	capital = STATE_T'ZURA
+}
+STZ = { #South T'zura
+	color = { 218 104 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { tzura }
+	capital = STATE_PIZARA
+}
+NTZ = { #North T'zura
+	color = { 131 210 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { tzura }
+	capital = STATE_T'ZURA
+}
+PIZ = { #Pizara
+	color = { 203 48 0 }
+	
+	country_type = recognized
+	
+	tier = city_state
+	
+	cultures = { tzura }
+	capital = STATE_PIZARA
+}
+DLS = { #Dalenshar
+	color = { 137 98 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { dalenshar }
+	capital = STATE_ABDJAN
+}
+NDL = { #North Dalenshar
+	color = { 110 173 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { dalenshar }
+	capital = STATE_NORTH_DALENSHAR
+}
+SDL = { #South Dalenshar
+	color = { 230 231 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { dalenshar }
+	capital = STATE_ABDJAN
+}
+KHW = { #Khoweal
+	color = { 75 179 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { khoweal }
+	capital = STATE_NAGARAKO
+}
+NAG = { #Nagarako
+	color = { 127 28 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { khoweal }
+	capital = STATE_NAGARAKO
+}
+CSG = { #Casgardaya
+	color = { 27 28 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { khoweal }
+	capital = STATE_CASGARDYA
+}
+MRS = { #Maroshal
+	color = { 0 135 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { maroshal }
+	capital = STATE_SZEDRELLE
+}
+WMR = { #West Maroshaal
+	color = { 230 125 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { maroshal }
+	capital = STATE_BOKOLENE
+}
+SZD = { #Szerdrelle
+	color = { 210 34 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { maroshal }
+	capital = STATE_SZEDRELLE
+}
+SRQ = { #Seranquai
+	color = { 218 231 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { seranquai }
+	capital = STATE_CALAGIEN
+}
+CLG = { #Calagien
+	color = { 225 185 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { seranquai }
+	capital = STATE_CALAGIEN
+}
+SHN = { #Shantunga
+	color = { 11 84 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { seranquai }
+	capital = STATE_SHANTUNGA
+}
+MKA = { #Maram Kashor
+	color = { 189 187 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { maram_kashor }
+	capital = STATE_KASHOR
+}
+MRM = { #Maram
+	color = { 215 215 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { maram_kashor }
+	capital = STATE_NAINDA
+}
+SRV = { #Suravye
+	color = { 115 204 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { maram_kashor }
+	capital = STATE_SURAVYE
+}
+KSH = { #Kashor
+	color = { 106 95 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { maram_kashor }
+	capital = STATE_KASHOR
+}
+ONG = { #Onguli
+	color = { 218 231 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { onguli }
+	capital = STATE_ONGULIDORE
+}
+MKO = { #Minkoto
+	color = { 142 134 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { minkoto }
+	capital = STATE_MINKOTO
+}
+TRD = { #Toriandhol
+	color = { 101 102 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { noren_mshar }
+	capital = STATE_NOREN_M'SHAR
+}
+AER = { #Andero
+	color = { 196 25 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { noren_mshar }
+	capital = STATE_ANDERO
+}
+HES = { #Hessaleta
+	color = { 57 124 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { noren_mshar }
+	capital = STATE_HESSALETA
+}
+NMS = { #Noren M'shar
+	color = { 78 172 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { noren_mshar }
+	capital = STATE_NOREN_M'SHAR
+}
+KAE = { #Kaensada
+	color = { 177 44 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { kaensada }
+	capital = STATE_KAENDHOL
+}
+KND = { #Kaendhol
+	color = { 122 14 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { kaensada }
+	capital = STATE_KAENDHOL
+}
+Air = { #Airdrin
+	color = { 26 177 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { kaensada }
+	capital = STATE_AIRDRIN
+}
+PUJ = { #Pujili
+	color = { 131 101 0 }
+	
+	country_type = recognized
+	
+	tier = grand_principality
+	
+	cultures = { pujili }
+	capital = STATE_SANSALIDIEN
+}
+SLP = { #Sa'las Plains
+	color = { 190 61 0 }
+	
+	country_type = decentralized
+	
+	tier = kingdom
+	
+	cultures = { salas }
+	capital = STATE_HIGH_SA'LAS
+}
+SLS = { #Sa'las
+	color = { 124 140 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { salas }
+	capital = STATE_HIGH_SA'LAS
+}
+SGA = { #Serengada
+	color = { 219 182 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { serengada }
+	capital = STATE_SERENGADA_DAI
+}
+SSG = { #South Serengada
+	color = { 157 55 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { serengada }
+	capital = STATE_ALDEIB
+}
+NSG = { #North Serengada
+	color = { 55 167 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { serengada }
+	capital = STATE_SERENGADA_DAI
+}
+SKG = { #Salaking
+	color = { 236 159 0 }
+	
+	country_type = recognized
+	
+	tier = kingdom
+	
+	cultures = { salaking }
+	capital = STATE_SALAKING
+}
+VEL = { #Veludhol
+	color = { 73 139 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { salaking }
+	capital = STATE_VELUDHOL
+}
+DIV = { #Dival
+	color = { 173 211 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { salaking }
+	capital = STATE_DIVAL
+}
+NAB = { #Nabir
+	color = { 245 210 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { nabir }
+	capital = STATE_NABIR
+}
+QIN = { #Qinarda
+	color = { 125 92 0 }
+	
+	country_type = recognized
+	
+	tier = principality
+	
+	cultures = { qinarda }
+	capital = STATE_QINARDA
+}
+
