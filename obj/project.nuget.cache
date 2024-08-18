@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KARSXHqIv87q5gLYZS8fchowpLyszUM/0bLpEK1QXks0IRWDcpQbCnZgBa7WIfzvsd+8Kbsh1oYzMt/6rPpHzw==",
+  "dgSpecHash": "9771FWMKkNk=",
   "success": true,
   "projectFilePath": "C:\\Users\\fligh\\OneDrive\\Desktop\\Vic3\\Vic3MapCSharp\\Vic3MapCSharp\\Vic3MapCSharp.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\fligh\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
-    "C:\\Users\\fligh\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512"
+    "C:\\Users\\fligh\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\fligh\\.nuget\\packages\\system.drawing.common\\8.0.7\\system.drawing.common.8.0.7.nupkg.sha512"
   ],
   "logs": []
 }

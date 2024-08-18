@@ -4371,7 +4371,7 @@ MAI = {
 
 	tier = principality
 	
-	cultures = { uzbek turkmen }
+	cultures = { uzbek turkmen tajik }
 	capital = STATE_BALKH
 }
 
@@ -4455,4 +4455,16 @@ MAZ = { # Mazandaran
 	cultures = { mazanderani }
 
 	capital = STATE_MAZANDARAN
+}
+
+BEI = { # Beiyang
+	color = { 252 185 61 }
+
+	country_type = unrecognized
+
+	tier = kingdom
+
+	cultures = { han }
+
+	capital = STATE_BEIJING
 }

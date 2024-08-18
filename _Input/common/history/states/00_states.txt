@@ -6744,7 +6744,6 @@ STATES = {
 			}
 		}
 		add_homeland = cu:kazak
-		add_homeland = cu:uighur
 		add_homeland = cu:kirgiz
 	}
 	s:STATE_JETISY = {
