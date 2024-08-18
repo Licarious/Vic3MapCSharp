@@ -1,22 +1,42 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Text;
+using Vic3MapCSharp.DataObjects;
 
 namespace Vic3MapCSharp
 {
+    /// <summary>
+    /// Provides methods for drawing and manipulating maps and images.
+    /// </summary>
     public class Drawer
     {
         public static (int w, int h) MapSize { get; set; } = (0, 0);
 
+        /// <summary>
+        /// Draws borders on an image from the specified file path.
+        /// </summary>
+        /// <param name="inputImagePath">The path to the input image file.</param>
+        /// <param name="borderColor">The color of the borders.</param>
+        /// <param name="alphaZeroBorders">Whether to draw borders for alpha-zero pixels.</param>
+        /// <param name="borderWidth">The width of the borders.</param>
+        /// <returns>A new image with borders drawn.</returns>
         public static Bitmap DrawBorders(string inputImagePath, Color borderColor, bool alphaZeroBorders = false, int borderWidth = 1) {
-            if (inputImagePath == null) throw new ArgumentNullException(nameof(inputImagePath));
+            ArgumentNullException.ThrowIfNull(inputImagePath);
 
             using Bitmap image = new(inputImagePath);
             return DrawBorders(image, borderColor, alphaZeroBorders, borderWidth);
         }
 
+        /// <summary>
+        /// Draws borders on the specified image.
+        /// </summary>
+        /// <param name="image">The input image.</param>
+        /// <param name="borderColor">The color of the borders.</param>
+        /// <param name="alphaZeroBorders">Whether to draw borders for alpha-zero pixels.</param>
+        /// <param name="borderWidth">The width of the borders.</param>
+        /// <returns>A new image with borders drawn.</returns>
         public static Bitmap DrawBorders(Bitmap image, Color borderColor, bool alphaZeroBorders = false, int borderWidth = 1) {
-            if (image == null) throw new ArgumentNullException(nameof(image));
+            ArgumentNullException.ThrowIfNull(image);
             if (borderWidth < 1) throw new ArgumentOutOfRangeException(nameof(borderWidth), "Border width must be greater than 0");
             if (borderColor.IsEmpty) throw new ArgumentNullException(nameof(borderColor));
 
@@ -48,36 +68,48 @@ namespace Vic3MapCSharp
             return newImage;
         }
 
-        private static void DrawBorder(Graphics g, int x, int y, Color borderColor, int borderWidth, bool horizontal) {
+        /// <summary>
+        /// Draws a border on the specified graphics object.
+        /// </summary>
+        /// <param name="graphics">The graphics object.</param>
+        /// <param name="x">The x-coordinate of the border.</param>
+        /// <param name="y">The y-coordinate of the border.</param>
+        /// <param name="borderColor">The color of the border.</param>
+        /// <param name="borderWidth">The width of the border.</param>
+        /// <param name="horizontal">Whether the border is horizontal.</param>
+        private static void DrawBorder(Graphics graphics, int x, int y, Color borderColor, int borderWidth, bool horizontal) {
             if (borderWidth == 1) {
-                using (Pen pen = new(borderColor, 1)) {
-                    if (horizontal) {
-                        g.DrawLine(pen, x + 1, y, x + 1, y + 1);
-                    }
-                    else {
-                        g.DrawLine(pen, x, y + 1, x + 1, y + 1);
-                    }
+                using Pen pen = new(borderColor, 1);
+                if (horizontal) {
+                    graphics.DrawLine(pen, x + 1, y, x + 1, y + 1);
+                }
+                else {
+                    graphics.DrawLine(pen, x, y + 1, x + 1, y + 1);
                 }
             }
             else {
-                using (Pen pen = new(borderColor, borderWidth)) {
-                    if (horizontal) {
-                        g.DrawLine(pen, x - borderWidth / 2, y, x + borderWidth / 2, y);
-                    }
-                    else {
-                        g.DrawLine(pen, x, y - borderWidth / 2, x, y + borderWidth / 2);
-                    }
+                using Pen pen = new(borderColor, borderWidth);
+                if (horizontal) {
+                    graphics.DrawLine(pen, x - borderWidth / 2, y, x + borderWidth / 2, y);
+                }
+                else {
+                    graphics.DrawLine(pen, x, y - borderWidth / 2, x, y + borderWidth / 2);
                 }
             }
         }
 
+        /// <summary>
+        /// Draws a color map based on a list of drawable objects.
+        /// </summary>
+        /// <param name="drawables">The list of drawable objects.</param>
+        /// <returns>A new image with the color map drawn.</returns>
         public static Bitmap DrawColorMap(List<IDrawable> drawables) {
-            if (drawables == null) throw new ArgumentNullException(nameof(drawables));
+            ArgumentNullException.ThrowIfNull(drawables);
             if (MapSize.w == 0 || MapSize.h == 0) throw new InvalidOperationException("MapSize must be set before calling DrawColorMap");
 
             Bitmap newImage = new(MapSize.w, MapSize.h);
 
-            //print the Type of the first drawable
+            // Print the type of the first drawable
             Console.WriteLine($"Drawing {drawables[0].GetType()} color map");
 
             using (Graphics g = Graphics.FromImage(newImage)) {
@@ -89,8 +121,14 @@ namespace Vic3MapCSharp
             return newImage;
         }
 
+        /// <summary>
+        /// Draws a map with a specified color based on a list of drawable objects.
+        /// </summary>
+        /// <param name="drawables">The list of drawable objects.</param>
+        /// <param name="color">The color to use for drawing the map.</param>
+        /// <returns>A new image with the map drawn.</returns>
         public static Bitmap DrawMap(List<IDrawable> drawables, Color color) {
-            if (drawables == null) throw new ArgumentNullException(nameof(drawables));
+            ArgumentNullException.ThrowIfNull(drawables);
             if (MapSize.w == 0 || MapSize.h == 0) throw new InvalidOperationException("MapSize must be set before calling DrawColorMap");
 
             Bitmap newImage = new(MapSize.w, MapSize.h);
@@ -104,22 +142,32 @@ namespace Vic3MapCSharp
             return newImage;
         }
 
-        public static void DrawColorMap(Graphics g, IDrawable drawable, Color color) {
-            if (g == null) throw new ArgumentNullException(nameof(g));
-            if (drawable == null) throw new ArgumentNullException(nameof(drawable));
+        /// <summary>
+        /// Draws a color map on the specified graphics object.
+        /// </summary>
+        /// <param name="graphics">The graphics object.</param>
+        /// <param name="drawable">The drawable object.</param>
+        /// <param name="color">The color to use for drawing.</param>
+        public static void DrawColorMap(Graphics graphics, IDrawable drawable, Color color) {
+            ArgumentNullException.ThrowIfNull(graphics);
+            ArgumentNullException.ThrowIfNull(drawable);
 
-            using (SolidBrush brush = new(color)) {
-                foreach (var (x, y) in drawable.Coords) {
-                    g.FillRectangle(brush, x, y, 1, 1);
-                }
+            using SolidBrush brush = new(color);
+            foreach (var (x, y) in drawable.Coords) {
+                graphics.FillRectangle(brush, x, y, 1, 1);
             }
         }
 
+        /// <summary>
+        /// Merges multiple images from the specified file paths into one image.
+        /// </summary>
+        /// <param name="imagesPaths">The list of image file paths.</param>
+        /// <returns>A new image with all the images merged.</returns>
         public static Bitmap MergeImages(List<string> imagesPaths) {
-            if (imagesPaths == null) throw new ArgumentNullException(nameof(imagesPaths));
+            ArgumentNullException.ThrowIfNull(imagesPaths);
             if (imagesPaths.Count == 0) throw new ArgumentException("The images list cannot be empty", nameof(imagesPaths));
 
-            List<Bitmap> images = new();
+            List<Bitmap> images = [];
             try {
                 foreach (var imagePath in imagesPaths) {
                     images.Add(new Bitmap(imagePath));
@@ -136,8 +184,13 @@ namespace Vic3MapCSharp
             }
         }
 
+        /// <summary>
+        /// Merges multiple images into one image.
+        /// </summary>
+        /// <param name="images">The list of images.</param>
+        /// <returns>A new image with all the images merged.</returns>
         public static Bitmap MergeImages(List<Bitmap> images) {
-            if (images == null) throw new ArgumentNullException(nameof(images));
+            ArgumentNullException.ThrowIfNull(images);
             if (images.Count == 0) throw new ArgumentException("The images list cannot be empty", nameof(images));
 
             int width, height;
@@ -149,10 +202,10 @@ namespace Vic3MapCSharp
             MapSize = (width, height);
             Bitmap newImage = new(width, height);
 
-            using (Graphics g = Graphics.FromImage(newImage)) {
+            using (Graphics graphics = Graphics.FromImage(newImage)) {
                 foreach (var image in images) {
                     lock (image) {
-                        g.DrawImage(image, 0, 0, width, height);
+                        graphics.DrawImage(image, 0, 0, width, height);
                     }
                 }
             }
@@ -160,8 +213,13 @@ namespace Vic3MapCSharp
             return newImage;
         }
 
+        /// <summary>
+        /// Draws a water map based on a list of provinces.
+        /// </summary>
+        /// <param name="provinces">The list of provinces.</param>
+        /// <returns>A new image with the water map drawn.</returns>
         public static Bitmap DrawWaterMap(List<Province> provinces) {
-            if (provinces == null) throw new ArgumentNullException(nameof(provinces));
+            ArgumentNullException.ThrowIfNull(provinces);
             if (MapSize.w == 0 || MapSize.h == 0) throw new InvalidOperationException("MapSize must be set before calling DrawColorMap");
 
             Bitmap newImage = new(MapSize.w, MapSize.h);
@@ -180,21 +238,47 @@ namespace Vic3MapCSharp
             return newImage;
         }
 
-        public static void WriteText(Bitmap image, string text, List<(int x, int y)> centers, List<(int w, int h)> rectangleSizes, int minimumFontSize, Color color) {
-            WriteText(image, text, centers, rectangleSizes, minimumFontSize, color, null);
+        /// <summary>
+        /// Writes text on the specified image within the given rectangles.
+        /// </summary>
+        /// <param name="image">The image to write text on.</param>
+        /// <param name="text">The text to write.</param>
+        /// <param name="maxRectanges">The list of maximum rectangles to fit the text.</param>
+        /// <param name="minimumFontSize">The minimum font size to use.</param>
+        /// <param name="color">The color of the text.</param>
+        public static void WriteText(Bitmap image, string text, List<(int x, int y, int h, int w)> maxRectanges, int minimumFontSize, Color color) {
+            WriteText(image, text, maxRectanges, minimumFontSize, color, null);
         }
 
-        public static void WriteText(Bitmap image, string text, List<(int x, int y)> centers, List<(int w, int h)> rectangleSizes, int minimumFontSize, Color color, Font? font) {
-            WriteText(image, text, centers, rectangleSizes, minimumFontSize, color, Color.FromArgb(0, 0, 0, 0), font);
+        /// <summary>
+        /// Writes text on the specified image within the given rectangles with an optional font.
+        /// </summary>
+        /// <param name="image">The image to write text on.</param>
+        /// <param name="text">The text to write.</param>
+        /// <param name="maxRectanges">The list of maximum rectangles to fit the text.</param>
+        /// <param name="minimumFontSize">The minimum font size to use.</param>
+        /// <param name="color">The color of the text.</param>
+        /// <param name="font">The optional font to use.</param>
+        public static void WriteText(Bitmap image, string text, List<(int x, int y, int h, int w)> maxRectanges, int minimumFontSize, Color color, Font? font) {
+            WriteText(image, text, maxRectanges, minimumFontSize, color, Color.FromArgb(0, 0, 0, 0), font);
         }
 
-        public static void WriteText_old(Bitmap image, string text, List<(int x, int y)> centers, List<(int w, int h)> rectangleSizes, int minimumFontSize, Color textColor, Color borderColor, Font? font, bool splitLine = true) {
-            if (image == null) throw new ArgumentNullException(nameof(image));
-            if (text == null) throw new ArgumentNullException(nameof(text));
+        /// <summary>
+        /// Writes text on the specified image within the given rectangles with an optional font and border color.
+        /// </summary>
+        /// <param name="image">The image to write text on.</param>
+        /// <param name="text">The text to write.</param>
+        /// <param name="maxRectanges">The list of maximum rectangles to fit the text.</param>
+        /// <param name="minimumFontSize">The minimum font size to use.</param>
+        /// <param name="textColor">The color of the text.</param>
+        /// <param name="borderColor">The color of the text border.</param>
+        /// <param name="font">The optional font to use.</param>
+        /// <param name="splitLine">Whether to split the text into multiple lines.</param>
+        public static void WriteText(Bitmap image, string text, List<(int x, int y, int h, int w)> maxRectanges, int minimumFontSize, Color textColor, Color borderColor, Font? font, bool splitLine = true) {
+            ArgumentNullException.ThrowIfNull(image);
+            ArgumentNullException.ThrowIfNull(text);
             if (textColor.IsEmpty) throw new ArgumentNullException(nameof(textColor));
-            if (centers == null || centers.Count == 0) throw new ArgumentNullException(nameof(centers));
-            if (rectangleSizes == null || rectangleSizes.Count == 0) throw new ArgumentNullException(nameof(rectangleSizes));
-            if (centers.Count != rectangleSizes.Count) throw new ArgumentException("Centers and rectangleSizes lists must have the same length");
+            if (maxRectanges == null || maxRectanges.Count == 0) throw new ArgumentNullException(nameof(maxRectanges));
 
             Font defaultFont = new("Verdana", minimumFontSize);
             font ??= defaultFont;
@@ -207,188 +291,108 @@ namespace Vic3MapCSharp
             // Split the text by whitespace
             string[] words = text.Split();
 
-            // If there are more than 2 words, try to split the text into 2 lines, such that the 2 lines are roughly equal in length and the words retain their order
-            if (!splitLine) {
-                words = new string[] { text };
-            }
-            else if (words.Length > 2) {
-                StringBuilder firstLine = new();
-                StringBuilder secondLine = new();
-                int halfLength = (int)Math.Ceiling(words.Length / 2.0); // Use Math.Ceiling for better balance
-
-                for (int i = 0; i < words.Length; i++) {
-                    if (i < halfLength) {
-                        firstLine.Append(words[i]).Append(' ');
-                    }
-                    else {
-                        secondLine.Append(words[i]).Append(' ');
-                    }
-                }
-
-                words = new string[] { firstLine.ToString().Trim(), secondLine.ToString().Trim() };
-            }
-
+            using Graphics graphics = Graphics.FromImage(image);
             int fontSizeNeededToNotUseDefault = 16;
+            var bestFontSizeResult = CalculateBestFontSize(graphics, words, maxRectanges, font, defaultFont, minimumFontSize);
+            var (bestRectangle, bestFont, mergedWords) = bestFontSizeResult;
 
-            using (Graphics graphics = Graphics.FromImage(image)) {
-                // Calculate the largest font size for each center and rectangle size
-                (int x, int y) bestCenter = centers[0];
-                (int w, int h) bestRectangleSize = rectangleSizes[0];
-                Font bestFont = new(defaultFont.FontFamily, minimumFontSize);
-                int bestFontSize = minimumFontSize / 2;
+            // If the font size is too small, try with the default font
+            if (bestFont.Size < fontSizeNeededToNotUseDefault && font.FontFamily != defaultFont.FontFamily) {
+                bestFontSizeResult = CalculateBestFontSize(graphics, words, maxRectanges, defaultFont, defaultFont, minimumFontSize);
+                (bestRectangle, bestFont, mergedWords) = bestFontSizeResult;
+            }
 
-                for (int i = 0; i < centers.Count; i++) {
-                    var currentFont = CalculateFontSize(graphics, string.Join("\n", words), font, new List<(int w, int h)> { rectangleSizes[i] }, minimumFontSize, words.Length > 1 ? 1.0 : 1.2);
-                    if (currentFont.Size > bestFontSize) {
-                        bestFontSize = (int)currentFont.Size;
-                        bestFont = currentFont;
-                        bestCenter = centers[i];
-                        bestRectangleSize = rectangleSizes[i];
-                    }
+            // Return if non-valid values for rectangleSize
+            if (bestRectangle == (0, 0, 0, 0)) {
+                return;
+            }
+
+            int wordsCount = mergedWords.Length;
+            float textHeight = graphics.MeasureString(mergedWords[0], bestFont).Height;
+            float adjustmentFactor = 0.3f * (mergedWords.Length - 1);
+            float scalingFactor = 12 / (float)(Math.Log(textHeight + 1) + 10); // Logarithmic function
+
+            int yOffset = bestRectangle.y - (int)(textHeight * adjustmentFactor * scalingFactor);
+
+            using SolidBrush textBrush = new(textColor);
+            foreach (var word in mergedWords) {
+                if (borderColor.A == 0) {
+                    graphics.DrawString(word, bestFont, textBrush, new Point(bestRectangle.x, yOffset), stringFormat);
                 }
-
-                if (bestFont.Size < fontSizeNeededToNotUseDefault && font.FontFamily != defaultFont.FontFamily) {
-                    bestFont = new(defaultFont.FontFamily, minimumFontSize);
-                    bestFontSize = minimumFontSize / 2;
-                    for (int i = 0; i < centers.Count; i++) {
-                        var currentFont = CalculateFontSize(graphics, string.Join("\n", words), defaultFont, new List<(int w, int h)> { rectangleSizes[i] }, minimumFontSize, words.Length > 1 ? 1.0 : 1.2);
-                        if (currentFont.Size > bestFontSize) {
-                            bestFontSize = (int)currentFont.Size;
-                            bestFont = currentFont;
-                            bestCenter = centers[i];
-                            bestRectangleSize = rectangleSizes[i];
-                        }
-                    }
+                else {
+                    GraphicsPath graphicsPath = new();
+                    Pen borderPen = new(borderColor, 4);
+                    graphicsPath.AddString(word, bestFont.FontFamily, (int)bestFont.Style, bestFont.Size, new Point(bestRectangle.x, yOffset), stringFormat);
+                    graphics.DrawPath(borderPen, graphicsPath);
+                    graphics.FillPath(textBrush, graphicsPath);
                 }
-
-
-
-                // Return if non-valid values for center, rectangleSize, or yOffset
-                if (bestCenter == (0, 0) || bestRectangleSize == (0, 0)) {
-                    return;
-                }
-
-                int yOffset = bestCenter.y - (words.Length > 1 ? (int)(graphics.MeasureString(text, bestFont).Height * 0.35) : 0);
-
-
-                using (SolidBrush textBrush = new(textColor)) {
-                    foreach (var word in words) {
-                        if (borderColor.A == 0) {
-                            graphics.DrawString(word, bestFont, textBrush, new Point(bestCenter.x, yOffset), stringFormat);
-                        }
-                        else {
-                            GraphicsPath graphicsPath = new();
-                            Pen borderPen = new(borderColor, 4);
-                            graphicsPath.AddString(word, bestFont.FontFamily, (int)bestFont.Style, bestFont.Size, new Point(bestCenter.x, yOffset), stringFormat);
-                            graphics.DrawPath(borderPen, graphicsPath);
-                            graphics.FillPath(textBrush, graphicsPath);
-                        }
-                        yOffset += (int)(graphics.MeasureString(text, bestFont).Height * 0.65);
-                    }
-                }
+                yOffset += (int)(bestFont.Size * scalingFactor); // Use a fixed increment based on the font size
             }
         }
 
-        public static void WriteText(Bitmap image, string text, List<(int x, int y)> centers, List<(int w, int h)> rectangleSizes, int minimumFontSize, Color textColor, Color borderColor, Font? font, bool splitLine = true) {
-            if (image == null) throw new ArgumentNullException(nameof(image));
-            if (text == null) throw new ArgumentNullException(nameof(text));
-            if (textColor.IsEmpty) throw new ArgumentNullException(nameof(textColor));
-            if (centers == null || centers.Count == 0) throw new ArgumentNullException(nameof(centers));
-            if (rectangleSizes == null || rectangleSizes.Count == 0) throw new ArgumentNullException(nameof(rectangleSizes));
-            if (centers.Count != rectangleSizes.Count) throw new ArgumentException("Centers and rectangleSizes lists must have the same length");
-
-            Font defaultFont = new("Verdana", minimumFontSize);
-            font ??= defaultFont;
-
-            StringFormat stringFormat = new() {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
-            // Split the text by whitespace
-            string[] words = text.Split();
-
-            using (Graphics graphics = Graphics.FromImage(image)) {
-                int fontSizeNeededToNotUseDefault = 16;
-                var bestFontSizeResult = CalculateBestFontSize(graphics, words, centers, rectangleSizes, font, defaultFont, minimumFontSize);
-                var (bestCenter, bestRectangleSize, bestFont, mergedWords) = bestFontSizeResult;
-
-                // If the font size is too small, try with the default font
-                if (bestFont.Size < fontSizeNeededToNotUseDefault && font.FontFamily != defaultFont.FontFamily) {
-                    bestFontSizeResult = CalculateBestFontSize(graphics, words, centers, rectangleSizes, defaultFont, defaultFont, minimumFontSize);
-                    (bestCenter, bestRectangleSize, bestFont, mergedWords) = bestFontSizeResult;
-                }
-
-                // Return if non-valid values for center, rectangleSize, or yOffset
-                if (bestCenter == (0, 0) || bestRectangleSize == (0, 0)) {
-                    return;
-                }
-
-                int wordsCount = mergedWords.Length;
-                float textHeight = graphics.MeasureString(mergedWords[0], bestFont).Height;
-                //float adjustmentFactor = wordsCount > 1 ? 0.35f : 0.0f;
-                float adjustmentFactor = 0.3f * (mergedWords.Count() - 1);
-                float scalingFactor = 12/(float)(Math.Log(textHeight + 1)+10); // Logarithmic function
-
-                int yOffset = bestCenter.y - (int)(textHeight * adjustmentFactor * scalingFactor);
-
-                using (SolidBrush textBrush = new(textColor)) {
-                    foreach (var word in mergedWords) {
-                        if (borderColor.A == 0) {
-                            graphics.DrawString(word, bestFont, textBrush, new Point(bestCenter.x, yOffset), stringFormat);
-                        }
-                        else {
-                            GraphicsPath graphicsPath = new();
-                            Pen borderPen = new(borderColor, 4);
-                            graphicsPath.AddString(word, bestFont.FontFamily, (int)bestFont.Style, bestFont.Size, new Point(bestCenter.x, yOffset), stringFormat);
-                            graphics.DrawPath(borderPen, graphicsPath);
-                            graphics.FillPath(textBrush, graphicsPath);
-                        }
-                        yOffset += (int)(bestFont.Size * scalingFactor); // Use a fixed increment based on the font size
-                    }
-                }
-            }
-        }
-
-        private static ((int x, int y) bestCenter, (int w, int h) bestRectangleSize, Font bestFont, string[] mergedWords) CalculateBestFontSize(Graphics graphics, string[] words, List<(int x, int y)> centers, List<(int w, int h)> rectangleSizes, Font font, Font defaultFont, int minimumFontSize) {
-            (int x, int y) bestCenter = centers[0];
-            (int w, int h) bestRectangleSize = rectangleSizes[0];
+        /// <summary>
+        /// Calculates the best font size for the given text and rectangles.
+        /// </summary>
+        /// <param name="graphics">The graphics object.</param>
+        /// <param name="words">The words to fit.</param>
+        /// <param name="maxRectanges">The list of maximum rectangles to fit the text.</param>
+        /// <param name="font">The font to use.</param>
+        /// <param name="defaultFont">The default font to use.</param>
+        /// <param name="minimumFontSize">The minimum font size to use.</param>
+        /// <returns>The best rectangle, font, and merged words.</returns>
+        private static ((int x, int y, int h, int w) bestRectangle, Font bestFont, string[] mergedWords) CalculateBestFontSize(Graphics graphics, string[] words, List<(int x, int y, int h, int w)> maxRectanges, Font font, Font defaultFont, int minimumFontSize) {
+            (int x, int y, int h, int w) bestRectangle = maxRectanges[0];
             Font bestFont = new(defaultFont.FontFamily, minimumFontSize);
             int bestFontSize = minimumFontSize / 2;
             string[] bestMergedWords = words;
 
-            for (int i = 0; i < centers.Count; i++) {
+            for (int i = 0; i < maxRectanges.Count; i++) {
                 // Try different combinations of merging words
                 for (int j = 1; j <= words.Length; j++) {
                     string[] mergedWords = MergeWords(words, j);
-                    var currentFont = CalculateFontSize(graphics, string.Join("\n", mergedWords), font, new List<(int w, int h)> { rectangleSizes[i] }, minimumFontSize, mergedWords.Length > 1 ? 1.0 : 1.2);
+                    var currentFont = CalculateFontSize(graphics, string.Join("\n", mergedWords), font, maxRectanges[i], minimumFontSize, mergedWords.Length > 1 ? 1.0 : 1.2);
                     if (currentFont.Size > bestFontSize) {
                         bestFontSize = (int)currentFont.Size;
                         bestFont = currentFont;
-                        bestCenter = centers[i];
-                        bestRectangleSize = rectangleSizes[i];
+                        bestRectangle = maxRectanges[i];
                         bestMergedWords = mergedWords;
                     }
                 }
             }
 
-            return (bestCenter, bestRectangleSize, bestFont, bestMergedWords);
+            return (bestRectangle, bestFont, bestMergedWords);
         }
 
+        /// <summary>
+        /// Merges words into groups of the specified count.
+        /// </summary>
+        /// <param name="words">The words to merge.</param>
+        /// <param name="mergeCount">The number of words to merge.</param>
+        /// <returns>The merged words.</returns>
         private static string[] MergeWords(string[] words, int mergeCount) {
             if (mergeCount >= words.Length) {
-                return new string[] { string.Join(" ", words) };
+                return [string.Join(" ", words)];
             }
 
-            List<string> mergedWords = new();
+            List<string> mergedWords = [];
             for (int i = 0; i < words.Length; i += mergeCount) {
                 mergedWords.Add(string.Join(" ", words.Skip(i).Take(mergeCount)));
             }
 
-            return mergedWords.ToArray();
+            return [.. mergedWords];
         }
 
-        public static Font CalculateFontSize(Graphics graphics, string text, Font font, List<(int w, int h)> rectangleSizes, int minimumFontSize, double verticalBias) {
+        /// <summary>
+        /// Calculates the font size for the given text and rectangle.
+        /// </summary>
+        /// <param name="graphics">The graphics object.</param>
+        /// <param name="text">The text to fit.</param>
+        /// <param name="font">The font to use.</param>
+        /// <param name="bestRectangle">The rectangle to fit the text in.</param>
+        /// <param name="minimumFontSize">The minimum font size to use.</param>
+        /// <param name="verticalBias">The vertical bias for fitting the text.</param>
+        /// <returns>The calculated font.</returns>
+        public static Font CalculateFontSize(Graphics graphics, string text, Font font, (int x, int y, int h, int w) bestRectangle, int minimumFontSize, double verticalBias) {
             SizeF textSize;
             int fontSize = minimumFontSize;
 
@@ -396,31 +400,38 @@ namespace Vic3MapCSharp
                 font = new Font(font.FontFamily, fontSize);
                 textSize = graphics.MeasureString(text, font);
                 fontSize++;
-            } while (rectangleSizes.All(rectangleSize => textSize.Width < rectangleSize.w * 1.2 && textSize.Height * Math.Pow(0.8, text.Count(c => c == '\n')) < rectangleSize.h * verticalBias));
+            } while (textSize.Width < bestRectangle.w * 1.2 && textSize.Height * Math.Pow(0.8, text.Count(c => c == '\n')) < bestRectangle.h * verticalBias);
 
             return new Font(font.FontFamily, fontSize);
         }
 
-        public static Bitmap DrawDebugRectangle(Bitmap image, (int x, int y) center, (int w, int h) rectangleSize, Color color) {
-            if (image == null) throw new ArgumentNullException(nameof(image));
+        /// <summary>
+        /// Draws a debug rectangle on the specified image.
+        /// </summary>
+        /// <param name="image">The image to draw on.</param>
+        /// <param name="rectangle">The rectangle to draw.</param>
+        /// <param name="color">The color of the rectangle.</param>
+        /// <returns>The image with the debug rectangle drawn.</returns>
+        public static Bitmap DrawDebugRectangle(Bitmap image, (int x, int y, int h, int w) rectangle, Color color) {
+            ArgumentNullException.ThrowIfNull(image);
             if (color.IsEmpty) throw new ArgumentNullException(nameof(color));
 
-            using (Graphics g = Graphics.FromImage(image)) {
-                using (SolidBrush brush = new(color)) {
-                    // Calculate the top-left corner from the center
-                    int topLeftX = center.x - rectangleSize.w / 2;
-                    int topLeftY = center.y - rectangleSize.h / 2;
-                    g.FillRectangle(brush, topLeftX, topLeftY, rectangleSize.w, rectangleSize.h);
-                }
-            }
+            using Graphics g = Graphics.FromImage(image);
+            using SolidBrush brush = new(color);
+            g.FillRectangle(brush, rectangle.x - rectangle.w / 2, rectangle.y - rectangle.h / 2, rectangle.w, rectangle.h);
 
             return image;
         }
 
-        public static Color OppositeExtremeColor(Color c) {
-            int r = c.R > 127 ? 0 : 255;
-            int g = c.G > 127 ? 0 : 255;
-            int b = c.B > 127 ? 0 : 255;
+        /// <summary>
+        /// Calculates the opposite extreme color of the given color.
+        /// </summary>
+        /// <param name="color">The color to calculate the opposite extreme for.</param>
+        /// <returns>The opposite extreme color.</returns>
+        public static Color OppositeExtremeColor(Color color) {
+            int r = color.R > 127 ? 0 : 255;
+            int g = color.G > 127 ? 0 : 255;
+            int b = color.B > 127 ? 0 : 255;
 
             return Color.FromArgb(r, g, b);
         }
