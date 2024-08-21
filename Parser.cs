@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.Text;
@@ -341,7 +340,7 @@ namespace Vic3MapCSharp
         /// <summary>
         /// Parses the province map and updates the provided dictionary of provinces.
         /// </summary>
-        /// <param name="provinceDict">Dictionary of provinces keyed by color.</param>
+        /// <param name="provinces">Dictionary of provinces keyed by color.</param>
         /// <param name="localDir">Local directory path.</param>
         public static void ParseProvMap(Dictionary<Color, Province> provinceDict, string localDir) {
             using Bitmap image = new(Path.Combine(localDir, "_Input", "map_data", "Provinces.png"));
@@ -351,7 +350,6 @@ namespace Vic3MapCSharp
             // Lock the bitmap's bits
             Rectangle rect = new(0, 0, image.Width, image.Height);
             BitmapData bmpData = image.LockBits(rect, ImageLockMode.ReadOnly, image.PixelFormat);
-
             try {
                 // Get the address of the first line
                 IntPtr ptr = bmpData.Scan0;
@@ -389,6 +387,7 @@ namespace Vic3MapCSharp
                 image.UnlockBits(bmpData);
             }
         }
+
 
         /// <summary>
         /// Parses nation files and returns a dictionary of nations.
@@ -951,7 +950,9 @@ namespace Vic3MapCSharp
 
             foreach (var s in e) {
                 if (double.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out double d)) {
-                    d = Math.Clamp(d * (d <= 1.01 ? 255 : 1), 0, 255);
+                    if (!line.Contains("hsv", StringComparison.OrdinalIgnoreCase)) {
+                        d = Math.Clamp(d * (d <= 1.01 ? 255 : 1), 0, 255);
+                    }
                     rgbValues.Add(d);
                 }
             }
@@ -960,22 +961,21 @@ namespace Vic3MapCSharp
                 rgbValues.Add(128);
             }
 
-            return line.Contains("hsv360") ?
-                ColorFromHSV360(rgbValues[0], rgbValues[1], rgbValues[2]) :
-                line.Contains("hvs") ?
-                ColorFromHSV(rgbValues[0], rgbValues[1], rgbValues[2]) :
-                Color.FromArgb((int)rgbValues[0], (int)rgbValues[1], (int)rgbValues[2]);
+            return line switch {
+                var l when l.Contains("hsv360", StringComparison.OrdinalIgnoreCase) => ColorFromHSV360(rgbValues[0], rgbValues[1], rgbValues[2]),
+                var l when l.Contains("hsv", StringComparison.OrdinalIgnoreCase) => ColorFromHSV(rgbValues[0], rgbValues[1], rgbValues[2]),
+                _ => Color.FromArgb((int)rgbValues[0], (int)rgbValues[1], (int)rgbValues[2])
+            };
         }
 
         /// <summary>
         /// Creates a Color object from HSV values.
         /// </summary>
-        /// <param name="hue">Hue value (0-360).</param>
+        /// <param name="hue">Hue value (0-1) as a percentage of 360.</param>
         /// <param name="saturation">Saturation value.</param>
         /// <param name="value">Value (brightness) value.</param>
         /// <returns>The Color object.</returns>
         public static Color ColorFromHSV(double hue, double saturation, double value) {
-            //convert hsv to rgb
             double r, g, b;
             if (value == 0) {
                 r = g = b = 0;

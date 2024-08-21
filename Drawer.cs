@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Text;
 using Vic3MapCSharp.DataObjects;
 
 namespace Vic3MapCSharp
@@ -206,31 +205,6 @@ namespace Vic3MapCSharp
                 foreach (var image in images) {
                     lock (image) {
                         graphics.DrawImage(image, 0, 0, width, height);
-                    }
-                }
-            }
-
-            return newImage;
-        }
-
-        /// <summary>
-        /// Draws a water map based on a list of provinces.
-        /// </summary>
-        /// <param name="provinces">The list of provinces.</param>
-        /// <returns>A new image with the water map drawn.</returns>
-        public static Bitmap DrawWaterMap(List<Province> provinces) {
-            ArgumentNullException.ThrowIfNull(provinces);
-            if (MapSize.w == 0 || MapSize.h == 0) throw new InvalidOperationException("MapSize must be set before calling DrawColorMap");
-
-            Bitmap newImage = new(MapSize.w, MapSize.h);
-            Color waterColor = Color.FromArgb(254, 173, 216, 230);
-
-            using (Graphics g = Graphics.FromImage(newImage)) {
-                foreach (var province in provinces) {
-                    if (province.IsSea || province.IsLake) {
-                        foreach (var (x, y) in province.Coords) {
-                            newImage.SetPixel(x, y, waterColor);
-                        }
                     }
                 }
             }

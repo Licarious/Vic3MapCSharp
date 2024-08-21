@@ -39,24 +39,22 @@ namespace Vic3MapCSharp
                 Parser.ParseRGOsCSV(states, localDir);
             }
 
-            string[] directories = ["ColorMap", "BorderFrame", "BlankMap", "Homeland", "National", "RGOs"];
-            if(configs.TryGetValue("DrawDebug", out object? drawDebug) && (bool)drawDebug) {
-                directories.Append("Debug");
-            }
+            string[] directories = ["ColorMap", "BorderFrame", "BlankMap", "Debug", "Homeland", "National", "RGOs"];
             foreach (var dir in directories) {
                 Directory.CreateDirectory(Path.Combine(localDir, "_Output", dir));
             }
 
+            Console.WriteLine("Calculating Water Center");
             List<(int x, int y, int h, int w)> waterRectangles = provinces.Values.Any(p => p.IsSea || p.IsLake)
                 ? MaximumRectangle.Center(provinces.Values.Where(p => p.IsSea || p.IsLake).SelectMany(p => p.Coords).ToList(), false)
                 : [];
 
             //Province
             Bitmap provinceBorders = Drawer.DrawBorders(localDir + "/_Input/map_data/Provinces.png", Color.Black);
+            Drawer.MapSize = (provinceBorders.Width, provinceBorders.Height);
             provinceBorders.Save(localDir + "/_Output/BorderFrame/province_border.png");
-            Bitmap waterMap = Drawer.DrawWaterMap([.. provinces.Values]);
+            Bitmap waterMap = Drawer.DrawMap(provinces.Values.Where(p => p.IsSea || p.IsLake).Cast<IDrawable>().ToList(), Color.LightBlue);
             waterMap.Save(localDir + "/_Output/ColorMap/water_map.png");
-            Drawer.MapSize = (waterMap.Width, waterMap.Height);
 
             Bitmap whiteBitmap = new(waterMap.Width, waterMap.Height);
             using (Graphics g = Graphics.FromImage(whiteBitmap)) {
@@ -80,8 +78,7 @@ namespace Vic3MapCSharp
                 Task.Run(() => DrawRegions(localDir, regions, configs, waterMap)),
                 Task.Run(() => DrawHubs(localDir, provinces)),
                 Task.Run(() => DrawImpassablePrime(localDir, provinces)),
-                Task.Run(() => DrawHomeland(localDir, cultures)),
-
+                Task.Run(() => DrawHomeland(localDir, cultures))
             ];
 
             if (configs.TryGetValue("DrawStartingNations", out object? drawStarting) && drawStarting is true) {
