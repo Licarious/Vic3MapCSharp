@@ -34,6 +34,7 @@ namespace Vic3MapCSharp
             Dictionary<string, Nation> nations = Parser.ParseNationFiles(provinces, states, localDir);
             Parser.ParseDiplomacyFiles(nations, localDir);
             Dictionary<string, Region> regions = Parser.ParseRegionFiles(states, localDir);
+            Dictionary<string, Georegion> georegions = Parser.ParseGeoregionFiles(states, regions, configs, localDir);
             Dictionary<string, Culture> cultures = Parser.ParseCultureFiles(states, localDir);
             List<PowerBlock> powerBlocks = Parser.ParsePowerBlocks(nations, localDir);
 
@@ -42,7 +43,7 @@ namespace Vic3MapCSharp
                 Parser.ParseRGOsCSV(states, localDir);
             }
 
-            string[] directories = ["ColorMap", "BorderFrame", "BlankMap", "Debug", "Homeland", "National", "RGOs"];
+            string[] directories = ["ColorMap", "BorderFrame", "BlankMap", "Debug", "Homeland", "Georegion", "National", "RGOs"];
             foreach (var dir in directories) {
                 Directory.CreateDirectory(Path.Combine(localDir, "_Output", dir));
             }
@@ -74,11 +75,16 @@ namespace Vic3MapCSharp
                 region.GetCenter(true);
             });
             Console.WriteLine("Region Centers\t" + sw.Elapsed);
+            Parallel.ForEach(georegions.Values, georegion => {
+                georegion.GetCenter(true);
+            });
+            Console.WriteLine("Georegion Centers\t" + sw.Elapsed);
 
             List<Task> tasks = [
                 Task.Run(() => DrawStates(localDir, states, configs, waterMap))
                     .ContinueWith(_ => DrawRGOs(localDir, states, configs)),
                 Task.Run(() => DrawRegions(localDir, regions, configs, waterMap)),
+                Task.Run(() => DrawGeoregions(localDir, georegions, configs, waterMap)),
                 Task.Run(() => DrawHubs(localDir, provinces)),
                 Task.Run(() => DrawImpassablePrime(localDir, provinces)),
                 Task.Run(() => DrawHomeland(localDir, cultures))
@@ -189,6 +195,62 @@ namespace Vic3MapCSharp
                 }
             }
 
+            void DrawGeoregions(string localDir, Dictionary<string, Georegion> georegions, Dictionary<string, object> configs, Bitmap waterMap) {
+                if(configs.TryGetValue("DrawGeoregions", out object? draw) && draw is false) return;
+                Console.WriteLine("Generating GeoRegions");
+                //var usedRegions = new ConcurrentDictionary<Georegion, bool>();
+                Parallel.ForEach(georegions.Values, georegion => {
+                    georegion.GetRegionStates();
+                    georegion.GetCenter(true);
+                    //if (georegion.Coords.Count > 0) {
+                    //    usedRegions[georegion] = false;
+                    //}
+                });
+                Console.WriteLine($"Georegion Centers\t{sw.Elapsed}");
+
+                Bitmap regionColors = Drawer.DrawColorMap(regions.Values.Cast<IDrawable>().ToList());
+                //regionColors.Save(localDir + "/_Output/ColorMap/region_colors.png");
+                Bitmap regionBorders = Drawer.DrawBorders(regionColors, Color.Black, (bool)configs["DrawCoastalBordersRegions"]);
+                //regionBorders.Save(localDir + "/_Output/BorderFrame/region_border.png");
+
+                // Merge georegions into lists without overlapping coordinates
+                var georegionLists = new List<List<Georegion>>();
+                foreach (var georegion in georegions.Values) {
+                    var georegionList = new List<Georegion> { georegion };
+                    georegionLists.Add(georegionList);
+                }
+
+                // Draw each georegion list
+                Parallel.ForEach(georegionLists, georegionList => {
+                    Bitmap localWhiteBitmap, localWaterMap;
+                    lock (whiteBitmap) {
+                        localWhiteBitmap = (Bitmap)whiteBitmap.Clone();
+                    }
+                    lock (waterMap) {
+                        localWaterMap = (Bitmap)waterMap.Clone();
+                    }
+
+                    Bitmap georegionMap;
+                    lock (georegionList) {
+                        georegionMap = Drawer.DrawColorMap(new List<IDrawable>(georegionList));
+                        georegionMap = Drawer.MergeImages(new List<Bitmap> { localWhiteBitmap, localWaterMap, regionBorders, georegionMap, Drawer.DrawBorders(georegionMap, Color.Black, true) });
+                    }
+
+                    foreach (var georegion in georegionList) {
+                        Drawer.WriteText(
+                            georegionMap,
+                            SplitAndCapitalize(georegion.ShortKey),
+                            georegion.MaximumRectangles,
+                            8,
+                            Drawer.OppositeExtremeColor(georegion.Color),
+                            new(privateFontCollection.Families[0], 8)
+                        );
+                    }
+
+                    georegionMap.Save(Path.Combine(localDir, "_Output", "Georegion", $"Geographic_region_{georegionList[0].ShortKey}.png"));
+                });
+            }
+
             void DrawHubs(string localDir, Dictionary<Color, Province> provinces) {
                 var hubColor = new Dictionary<string, Color> {
                     { "city", Color.Purple },
@@ -228,6 +290,8 @@ namespace Vic3MapCSharp
             }
 
             void DrawHomeland(string localDir, Dictionary<string, Culture> cultures) {
+                if(configs.TryGetValue("DrawHomelands", out object? draw) && draw is false) return;
+                
                 var usedHomelands = new ConcurrentDictionary<Culture, bool>();
                 Parallel.ForEach(cultures.Values, culture => {
                     culture.GetCenter(true);

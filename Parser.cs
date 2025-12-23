@@ -340,6 +340,87 @@ namespace Vic3MapCSharp
         }
 
         /// <summary>
+        /// Parses georegion files and returns a dictionary of georegions.
+        /// </summary>
+        /// <param name="stateDict">Dictionary of states keyed by state name.</param>
+        /// <param name="regionDict">Dictionary of strategic regions keyed by region name.</param>
+        /// <param name="localDir">Local directory path.</param>
+        /// <returns>Dictionary of georegions keyed by georegion name.</returns>
+        public static Dictionary<string, Georegion> ParseGeoregionFiles(Dictionary<string, State> stateDict, Dictionary<string, Region> regionDict, Dictionary<string, object> configs, string localDir) {
+            var georegions = new Dictionary<string, Georegion>();
+            if(configs.TryGetValue("DrawGeoregions", out object? draw) && draw is false) return georegions;
+            string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "geographic_regions"), "*.txt");
+            int count = 0;
+            int stateCount = 0;
+
+            foreach (string file in files) {
+                string[] lines = File.ReadAllLines(file);
+                bool stateStart = false;
+                int indentation = 0;
+                Georegion? gr = null;
+
+                foreach (string line in lines) {
+                    string cl = CleanLine(line);
+                    string[] parts = cl.Split('=');
+                    string key = parts[0].Trim();
+                    string value = parts.Length > 1 ? parts[1].Trim() : string.Empty;
+
+                    if (key.StartsWith("geographic_region_")) {
+                        string georegionName = key;
+                        gr = new Georegion(georegionName);
+                        georegions[georegionName] = gr;
+                    }
+                    if (gr == null) continue;
+
+                    switch (key) {
+                        case "state_regions":
+                            stateStart = true;
+                            break;
+                        case "map_color":
+                            gr.Color = LineToColor(cl);
+                            break;
+                        case "short_key":
+                            gr.ShortKey = value.Replace("\"", "").Trim();
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (key.StartsWith("sr:region_")) {
+                        count++;
+                        var region = regionDict[key[3..]];
+                        gr.Regions.Add(region);
+                        foreach (var state in region.States)
+                        {
+                            gr.States.Add(state);
+                        }
+                    }
+
+                    if (stateStart) {
+                        stateCount++;
+                        var states = cl.Split()
+                            .Where(state => state.StartsWith("STATE_") && stateDict.TryGetValue(state, out var stateObj))
+                            .Select(state => stateDict[state]);
+                        gr.States.AddRange(states);
+                    }
+
+                    if (cl.Contains('{') || cl.Contains('}')) {
+                        foreach (char c in cl) {
+                            if (c == '{') indentation++;
+                            else if (c == '}') {
+                                indentation--;
+                                if (indentation == 1) stateStart = false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Georegions: " + stateCount + " | " + count + " | " + georegions.Count);
+            return georegions;
+        }
+
+        /// <summary>
         /// Parses terrain files and returns a dictionary of provinces.
         /// </summary>
         /// <param name="localDir">Local directory path.</param>
@@ -1094,6 +1175,8 @@ namespace Vic3MapCSharp
                 { "DrawCoastalBordersRegions", false },
                 { "DrawCoastalBordersStates", false },
                 { "DrawCoastalBordersNations", false },
+                { "DrawGeoregions", false },
+                { "DrawHomelands", false },
                 { "RgoColors", defaultRgoColors },
                 { "IgnoreRGONames", defaultIgnoreRGONames }
             };
