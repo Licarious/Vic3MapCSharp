@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Vic3MapCSharp": {
+      "commandName": "Project",
+      "nativeDebugging": false,
+      "hotReloadEnabled": false
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

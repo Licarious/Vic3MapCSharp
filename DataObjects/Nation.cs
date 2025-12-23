@@ -16,6 +16,7 @@ namespace Vic3MapCSharp.DataObjects
         public string Tier { get; set; } = "";
         public State? Capital { get; set; } = null;
         public List<State> ClaimList { get; set; } = [];
+        public Dictionary<String, List<Nation>> DiplomaticPactByType { get; set; } = [];
 
         public Nation(string tag) => Name = tag;
         public Nation() { }
@@ -24,7 +25,7 @@ namespace Vic3MapCSharp.DataObjects
         {
             Name = other.Name;
             Color = other.Color;
-            Coords = new HashSet<(int x, int y)>(other.ClaimList.SelectMany(state => state.Coords));
+            Coords = [.. other.ClaimList.SelectMany(state => state.Coords)];
             GetCenter();
         }
 
@@ -39,7 +40,7 @@ namespace Vic3MapCSharp.DataObjects
             }
 
             if (Coords.Count == 0) return;
-            MaximumRectangles = MaximumRectangle.Center(Coords.ToList(), floodFill);
+            MaximumRectangles = MaximumRectangle.Center([.. Coords], floodFill);
         }
 
         public override string ToString() => $"{Name}\t ID: {ID}\t Provs: {Provinces.Count}";

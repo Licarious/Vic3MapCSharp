@@ -1,0 +1,8 @@
+﻿DIPLOMACY = {
+	c:TUR ?= {
+		create_diplomatic_pact = {
+			country = c:MON
+			type = embargo
+		}
+	}
+}

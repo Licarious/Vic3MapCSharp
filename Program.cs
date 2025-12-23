@@ -32,8 +32,11 @@ namespace Vic3MapCSharp
             Parser.ParseDefaultMap(provinces, localDir);
             Dictionary<string, State> states = Parser.ParseStateFiles(provinces, localDir);
             Dictionary<string, Nation> nations = Parser.ParseNationFiles(provinces, states, localDir);
+            Parser.ParseDiplomacyFiles(nations, localDir);
             Dictionary<string, Region> regions = Parser.ParseRegionFiles(states, localDir);
             Dictionary<string, Culture> cultures = Parser.ParseCultureFiles(states, localDir);
+            List<PowerBlock> powerBlocks = Parser.ParsePowerBlocks(nations, localDir);
+
 
             if (configs.TryGetValue("UseRGOsCSV", out object? value) && value is true) {
                 Parser.ParseRGOsCSV(states, localDir);
@@ -82,7 +85,7 @@ namespace Vic3MapCSharp
             ];
 
             if (configs.TryGetValue("DrawStartingNations", out object? drawStarting) && drawStarting is true) {
-                tasks.Add(Task.Run(() => DrawNations(localDir, nations, configs)));
+                tasks.Add(Task.Run(() => DrawNations(localDir, nations, configs)).ContinueWith(_ => DrawPowerBlocks(localDir, powerBlocks, configs)));
             }
             /*
             if (configs.TryGetValue("DrawSaves", out object? drawSaves) && (bool)drawSaves) {
@@ -388,7 +391,9 @@ namespace Vic3MapCSharp
 
                     Bitmap mergedRgoMap = Drawer.MergeImages(new List<Bitmap>() { localWhiteBitmap, localWaterMap, rgoMap, stateBorders });
 
-                    string rgoName = SplitAndCapitalize(rgo.Key.Replace("bg_", "")) + $" ({rgo.Value.type})";
+                    string rgoName = SplitAndCapitalize(rgo.Key.Replace(Parser.BuildingGroupPrefix, "")) + $" ({rgo.Value.type})";
+
+                    Console.WriteLine(rgo.Key + "\t"+ rgoName);
 
                     Drawer.WriteText(
                         mergedRgoMap,
@@ -401,7 +406,36 @@ namespace Vic3MapCSharp
                         false
                     );
 
-                    mergedRgoMap.Save(localDir + $"/_Output/RGOs/{rgo.Key.Replace("bg_", "")}.png");
+                    mergedRgoMap.Save(localDir + $"/_Output/RGOs/{rgo.Key.Replace(Parser.BuildingGroupPrefix, "")}.png");
+                }
+            }
+
+            void DrawPowerBlocks(string localDir, List<PowerBlock> powerBlocks, Dictionary<string, object> configs) {
+                foreach (var powerBlock in powerBlocks)
+                {
+                    powerBlock.GetCenter(true);
+                }
+
+                    Bitmap blocks = Drawer.DrawColorMap([.. powerBlocks.Cast<IDrawable>()]);
+                Bitmap blockBorders = Drawer.DrawBorders(blocks, Color.Black, (bool)configs["DrawCoastalBordersNations"]);
+
+                Bitmap margedBlockMap = Drawer.MergeImages([whiteBitmap, waterMap, blocks, blockBorders]);
+
+                foreach (var powerBlock in powerBlocks) {
+                    if (powerBlock.Color.A == 0 || powerBlock.Coords.Count == 0) continue; //no ocean/sea names
+
+                    Drawer.WriteText(
+                        margedBlockMap,
+                        SplitAndCapitalize(powerBlock.Name),
+                        powerBlock.MaximumRectangles,
+                        8,
+                        Drawer.OppositeExtremeColor(powerBlock.Color),
+                        new(privateFontCollection.Families[0], 8)
+                    );
+
+                    string powerBlocksDir = Path.Combine(localDir, "_Output", "PowerBlocks");
+                    Directory.CreateDirectory(powerBlocksDir);
+                    margedBlockMap.Save(Path.Combine(powerBlocksDir, "PowerBlocks_Map.png"));
                 }
             }
 
@@ -432,10 +466,13 @@ namespace Vic3MapCSharp
             }
 
             string SplitAndCapitalize(string s) {
-                string[] words = s.ToLower().Split('_'); // Convert to lowercase first
+                string[] words = s.ToLower().Replace("__","_").Split('_'); // Convert to lowercase first
                 string result = "";
                 foreach (string word in words) {
-                    result += char.ToUpper(word[0]) + word[1..] + " "; // Capitalize the first letter
+                    if (string.IsNullOrEmpty(word)) continue;
+                    result += word.Length == 1 
+                        ? char.ToUpper(word[0]) + " " 
+                        : char.ToUpper(word[0]) + word[1..] + " "; // Capitalize the first letter
                 }
                 return result.Trim();
             }

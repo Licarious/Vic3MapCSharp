@@ -317,7 +317,7 @@ region_east_china_sea = {
 region_sea_of_japan = {
 	states = { STATE_SEA_OF_JAPAN }
 }
-	
+
 region_gulf_of_mexico = {
 	states = { STATE_GULF_OF_MEXICO }
 }
