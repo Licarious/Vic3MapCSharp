@@ -9,7 +9,7 @@ RGO Maps including maximum building capacity for each state.
 Use:
 1. Copy the following files/folders into the _Input folder: 
   default.map, provinces.png, and state_regions folder from map_data.
-  strategic_regions from common folder.
+  strategic_regions and geographic_regions from common folder.
   country_definitions and history\states for nations, powerblocks, and homelands.
   history\diplomacy and history\power_blocs for powerblocks.
   cultures for homelands.
