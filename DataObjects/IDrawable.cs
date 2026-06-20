@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Vic3MapCSharp.DataObjects
+﻿namespace Vic3MapCSharp.DataObjects
 {
     /// <summary>
     /// Represents a drawable object with properties for name, color, coordinates, and size.

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Vic3MapCSharp.DataObjects
+﻿namespace Vic3MapCSharp.DataObjects
 {
     public class State : IDrawable
     {

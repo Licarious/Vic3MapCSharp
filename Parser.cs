@@ -1,8 +1,8 @@
-﻿using System.Drawing;
-using System.Drawing.Imaging;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using Vic3MapCSharp.DataObjects;
 using Region = Vic3MapCSharp.DataObjects.Region;
 
@@ -71,7 +71,7 @@ namespace Vic3MapCSharp
                                 .Select(code => code.Replace("\"", "").Replace("x", ""));
                             foreach (var colorValue in colorCodes)
                             {
-                                Color color = ColorTranslator.FromHtml("#" + colorValue);
+                                Color color = Color.FromHex("#" + colorValue);
                                 if (provDict.TryGetValue(color, out var province))
                                 {
                                     if (key == "impassable") province.IsImpassible = true;
@@ -113,7 +113,7 @@ namespace Vic3MapCSharp
                     {
                         foreach (var prov in cl.Replace("\"", "").Split().Where(p => p.StartsWith("x", StringComparison.OrdinalIgnoreCase)))
                         {
-                            Color c = ColorTranslator.FromHtml(prov.Trim().Replace("x", "#", StringComparison.OrdinalIgnoreCase));
+                            Color c = Color.FromHex(prov.Trim().Replace("x", "#", StringComparison.OrdinalIgnoreCase));
                             if (provDict.TryGetValue(c, out var province))
                             {
                                 if (!s.Provinces.TryAdd(c, province))
@@ -201,7 +201,7 @@ namespace Vic3MapCSharp
                     {
                         try
                         {
-                            Color hubC = ColorTranslator.FromHtml(value.Replace("\"", "").Replace("x", "#").Trim());
+                            Color hubC = Color.FromHex(value.Replace("\"", "").Replace("x", "#").Trim());
                             if (provDict.TryGetValue(hubC, out var p))
                             {
                                 p.HubName = key;
@@ -438,7 +438,7 @@ namespace Vic3MapCSharp
                 if (line.Contains('='))
                 {
                     string[] parts = line.Replace("\"", "").Trim().Split('=');
-                    Color color = ColorTranslator.FromHtml(parts[0].ToLower().Replace("x", "#"));
+                    Color color = Color.FromHex(parts[0].ToLower().Replace("x", "#"));
 
                     if (!provDict.ContainsKey(color))
                     {
@@ -476,7 +476,7 @@ namespace Vic3MapCSharp
                     {
                         if (part.StartsWith('x'))
                         {
-                            Color color = ColorTranslator.FromHtml(part.Replace("x", "#").Trim());
+                            Color color = Color.FromHex(part.Replace("x", "#").Trim());
                             if (colorToProvDic.TryGetValue(color, out var province))
                             {
                                 if (seaStart) province.IsSea = true;
@@ -500,55 +500,25 @@ namespace Vic3MapCSharp
         /// <param name="localDir">Local directory path.</param>
         public static void ParseProvMap(Dictionary<Color, Province> provinceDict, string localDir)
         {
-            using Bitmap image = new(Path.Combine(localDir, "_Input", "map_data", "Provinces.png"));
+            using Bitmap image = Image.Load<Rgba32>(Path.Combine(localDir, "_Input", "map_data", "Provinces.png"));
 
             Console.WriteLine("Parsing Map");
 
-            // Lock the bitmap's bits
-            Rectangle rect = new(0, 0, image.Width, image.Height);
-            BitmapData bmpData = image.LockBits(rect, ImageLockMode.ReadOnly, image.PixelFormat);
-            try
+            image.ProcessPixelRows(accessor =>
             {
-                // Get the address of the first line
-                IntPtr ptr = bmpData.Scan0;
-
-                // Declare an array to hold the bytes of the bitmap
-                int bytes = Math.Abs(bmpData.Stride) * image.Height;
-                byte[] rgbValues = new byte[bytes];
-
-                // Copy the RGB values into the array
-                System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
-
-                // Process the pixel data
-                int pixelSize = Image.GetPixelFormatSize(image.PixelFormat) / 8;
-                for (int y = 0; y < image.Height; y++)
+                for (int y = 0; y < accessor.Height; y++)
                 {
-                    int yOffset = y * bmpData.Stride;
-                    for (int x = 0; x < image.Width; x++)
+                    Span<Rgba32> row = accessor.GetRowSpan(y);
+                    for (int x = 0; x < accessor.Width; x++)
                     {
-                        int index = yOffset + (x * pixelSize);
-                        if (index + 2 < rgbValues.Length)
+                        Color c = row[x];
+                        if (provinceDict.TryGetValue(c, out Province? value))
                         {
-                            Color c = Color.FromArgb(
-                                255,                  // A
-                                rgbValues[index + 2], // R
-                                rgbValues[index + 1], // G
-                                rgbValues[index]      // B
-                            );
-
-                            if (provinceDict.TryGetValue(c, out Province? value))
-                            {
-                                value.Coords.Add((x, y));
-                            }
+                            value.Coords.Add((x, y));
                         }
                     }
                 }
-            }
-            finally
-            {
-                // Unlock the bits
-                image.UnlockBits(bmpData);
-            }
+            });
         }
 
 
@@ -679,7 +649,7 @@ namespace Vic3MapCSharp
                         {
                             try
                             {
-                                Color c = ColorTranslator.FromHtml(p.Trim());
+                                Color c = Color.FromHex(p.Trim());
                                 if (provinces.TryGetValue(c, out Province? value)) n.Provinces.TryAdd(c, value);
                             }
                             catch { }
@@ -1280,13 +1250,11 @@ namespace Vic3MapCSharp
                     else if (n == null) continue;
                     else if (cl.StartsWith("map_color=rgb"))
                     {
-                        var rgbValues = cl.Split("=")[1]
-                            .Replace("(", "").Replace(")", "").Replace("rgb", "")
-                            .Split(",")
-                            .Select(s => int.TryParse(s, out int i) ? i : (int?)null)
-                            .Where(i => i.HasValue)
-                            .Select(i => i.Value)
-                            .ToList();
+                        var rgbValues = new List<int>();
+                        foreach (string value in cl.Split("=")[1].Replace("(", "").Replace(")", "").Replace("rgb", "").Split(","))
+                        {
+                            if (int.TryParse(value, out int i)) rgbValues.Add(i);
+                        }
 
                         if (rgbValues.Count == 3)
                         {
@@ -1316,10 +1284,11 @@ namespace Vic3MapCSharp
                         n = nations.Values.First(x => x.ID == potentialID);
 
                         string[] l2 = cl.Split("=")[1].Replace("{", "").Replace("}", "").Trim().Split();
-                        var idList = l2.Select(s => int.TryParse(s, out int id) ? id : (int?)null)
-                                       .Where(id => id.HasValue)
-                                       .Select(id => id.Value)
-                                       .ToList();
+                        var idList = new List<int>();
+                        foreach (string value in l2)
+                        {
+                            if (int.TryParse(value, out int id)) idList.Add(id);
+                        }
 
                         for (int i = 0; i < idList.Count; i += 2)
                         {

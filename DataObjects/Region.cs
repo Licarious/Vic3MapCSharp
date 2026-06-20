@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Vic3MapCSharp.DataObjects
+﻿namespace Vic3MapCSharp.DataObjects
 {
     //class Region stores Name, Color, and States
     public class Region : IDrawable

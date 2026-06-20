@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Vic3MapCSharp.DataObjects
+﻿namespace Vic3MapCSharp.DataObjects
 {
     public class Province : IDrawable
     {
@@ -26,7 +24,7 @@ namespace Vic3MapCSharp.DataObjects
         public Province(string name)
         {
             Name = name;
-            Color = ColorTranslator.FromHtml($"#{name.Replace("x", "")}");
+            Color = Color.FromHex($"#{name.Replace("x", "")}");
         }
 
         public void GetCenter(bool floodFill = false)

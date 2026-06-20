@@ -1,8 +1,10 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Text;
 using System.Text.RegularExpressions;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using Vic3MapCSharp.DataObjects;
 using Region = Vic3MapCSharp.DataObjects.Region;
 
@@ -21,8 +23,8 @@ namespace Vic3MapCSharp
             string localDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\"));
             Console.WriteLine(localDir);
 
-            PrivateFontCollection privateFontCollection = new();
-            privateFontCollection.AddFontFile(localDir + "/_Input/ParadoxVictorian-Condensed.otf"); //font for numbers and names
+            FontCollection fontCollection = new();
+            FontFamily paradoxFontFamily = fontCollection.Add(localDir + "/_Input/ParadoxVictorian-Condensed.otf"); //font for numbers and names
 
             Dictionary<string, object> configs = Parser.ParseConfig(localDir);
 
@@ -61,9 +63,11 @@ namespace Vic3MapCSharp
             waterMap.Save(localDir + "/_Output/ColorMap/water_map.png");
 
             Bitmap whiteBitmap = new(waterMap.Width, waterMap.Height);
-            using (Graphics g = Graphics.FromImage(whiteBitmap)) {
-                g.Clear(Color.White);
-            }
+            whiteBitmap.ProcessPixelRows(accessor => {
+                for (int y = 0; y < accessor.Height; y++) {
+                    accessor.GetRowSpan(y).Fill(Color.White.ToRgba32());
+                }
+            });
             Drawer.MergeImages(new List<Bitmap>() { whiteBitmap, waterMap, provinceBorders }).Save(localDir + "/_Output/BlankMap/Province_Blank.png");
 
             Console.WriteLine("Parsed Provinces\t" + sw.Elapsed);
@@ -129,7 +133,7 @@ namespace Vic3MapCSharp
                         state.MaximumRectangles,
                         6,
                         Drawer.OppositeExtremeColor(state.Color),
-                        new(privateFontCollection.Families[0], 8)
+                        paradoxFontFamily.CreateFont(8)
                     );
                 }
                 mergedStateMap.Save(localDir + "/_Output/State_Map_Names.png");
@@ -171,7 +175,7 @@ namespace Vic3MapCSharp
                         region.MaximumRectangles,
                         20,
                         Drawer.OppositeExtremeColor(region.Color),
-                        new(privateFontCollection.Families[0], 8)
+                        paradoxFontFamily.CreateFont(8)
                     );
                 }
 
@@ -243,7 +247,7 @@ namespace Vic3MapCSharp
                             georegion.MaximumRectangles,
                             8,
                             Drawer.OppositeExtremeColor(georegion.Color),
-                            new(privateFontCollection.Families[0], 8)
+                            paradoxFontFamily.CreateFont(8)
                         );
                     }
 
@@ -261,11 +265,10 @@ namespace Vic3MapCSharp
                 };
 
                 using Bitmap hubMap = new(Drawer.MapSize.w, Drawer.MapSize.h);
-                using Graphics hubGraphics = Graphics.FromImage(hubMap);
 
                 foreach (var province in provinces.Values) {
                     if (hubColor.TryGetValue(province.HubName, out var value)) {
-                        Drawer.DrawColorMap(hubGraphics, province, value);
+                        Drawer.DrawColorMap(hubMap, province, value);
                     }
                 }
 
@@ -274,7 +277,6 @@ namespace Vic3MapCSharp
 
             void DrawImpassablePrime(string localDir, Dictionary<Color, Province> provinces) {
                 using Bitmap impassablePrimeMap = new(Drawer.MapSize.w, Drawer.MapSize.h);
-                using Graphics impassablePrimeGraphics = Graphics.FromImage(impassablePrimeMap);
 
                 foreach (var province in provinces.Values) {
                     Color color = province.IsImpassible
@@ -282,7 +284,7 @@ namespace Vic3MapCSharp
                         : (province.IsPrimeLand ? Color.Green : Color.Transparent);
 
                     if (color != Color.Transparent) {
-                        Drawer.DrawColorMap(impassablePrimeGraphics, province, color);
+                        Drawer.DrawColorMap(impassablePrimeMap, province, color);
                     }
                 }
 
@@ -339,7 +341,7 @@ namespace Vic3MapCSharp
                             culture.MaximumRectangles,
                             8,
                             Drawer.OppositeExtremeColor(culture.Color),
-                            new(privateFontCollection.Families[0], 8)
+                            paradoxFontFamily.CreateFont(8)
                         );
                     }
 
@@ -382,7 +384,7 @@ namespace Vic3MapCSharp
                         nation.MaximumRectangles,
                         8,
                         Drawer.OppositeExtremeColor(nation.Color),
-                        new Font(privateFontCollection.Families[0], 4)
+                        paradoxFontFamily.CreateFont(4)
                     );
                 }
 
@@ -446,16 +448,16 @@ namespace Vic3MapCSharp
                                 state.MaximumRectangles,
                                 8,
                                 rgo.Value.tColor,
-                                new(privateFontCollection.Families[0], 8)
+                                paradoxFontFamily.CreateFont(8)
                             );
                         }
                     }
 
-                    Bitmap stateBorders = new(localDir + "/_Output/BorderFrame/state_border.png");
+                    Bitmap stateBorders = Image.Load<Rgba32>(localDir + "/_Output/BorderFrame/state_border.png");
 
                     Bitmap mergedRgoMap = Drawer.MergeImages(new List<Bitmap>() { localWhiteBitmap, localWaterMap, rgoMap, stateBorders });
 
-                    string rgoName = SplitAndCapitalize(rgo.Key.Replace(Parser.BuildingGroupPrefix, "")) + $" ({rgo.Value.type})";
+                    string rgoName = SplitAndCapitalize(rgo.Key.Replace(Parser.BuildingGroupPrefix ?? "", "")) + $" ({rgo.Value.type})";
 
                     Console.WriteLine(rgo.Key + "\t"+ rgoName);
 
@@ -466,11 +468,11 @@ namespace Vic3MapCSharp
                         100,
                         rgo.Value.hColor,
                         rgo.Value.tColor,
-                        new(privateFontCollection.Families[0], 100),
+                        paradoxFontFamily.CreateFont(100),
                         false
                     );
 
-                    mergedRgoMap.Save(localDir + $"/_Output/RGOs/{rgo.Key.Replace(Parser.BuildingGroupPrefix, "")}.png");
+                    mergedRgoMap.Save(localDir + $"/_Output/RGOs/{rgo.Key.Replace(Parser.BuildingGroupPrefix ?? "", "")}.png");
                 }
             }
 
@@ -494,7 +496,7 @@ namespace Vic3MapCSharp
                         powerBlock.MaximumRectangles,
                         8,
                         Drawer.OppositeExtremeColor(powerBlock.Color),
-                        new(privateFontCollection.Families[0], 8)
+                        paradoxFontFamily.CreateFont(8)
                     );
 
                     string powerBlocksDir = Path.Combine(localDir, "_Output", "PowerBlocks");
@@ -514,7 +516,7 @@ namespace Vic3MapCSharp
                         [getRectangle(draw)],
                         startingTextSize,
                         Drawer.OppositeExtremeColor(draw.Color),
-                        new(privateFontCollection.Families[0], 8)
+                        paradoxFontFamily.CreateFont(8)
                     );
                 }
                 Drawer.WriteText(
@@ -524,7 +526,7 @@ namespace Vic3MapCSharp
                     startingTextSize,
                     Color.Black,
                     Color.White,
-                    new(privateFontCollection.Families[0], 8)
+                    paradoxFontFamily.CreateFont(8)
                 );
                 map.Save(localDir + fileName);
             }
