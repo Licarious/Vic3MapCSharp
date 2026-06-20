@@ -179,7 +179,7 @@ namespace Vic3MapCSharp
             Font defaultFont = font?.Family.CreateFont(minimumFontSize) ?? CreateFallbackFont(minimumFontSize);
             font ??= defaultFont;
 
-            string[] words = text.Split();
+            string[] words = splitLine ? text.Split() : [text];
             int fontSizeNeededToNotUseDefault = 16;
             var bestFontSizeResult = CalculateBestFontSize(words, maxRectanges, font, defaultFont, minimumFontSize);
             var (bestRectangle, bestFont, mergedWords) = bestFontSizeResult;
