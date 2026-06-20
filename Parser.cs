@@ -500,7 +500,7 @@ namespace Vic3MapCSharp
         /// <param name="localDir">Local directory path.</param>
         public static void ParseProvMap(Dictionary<Color, Province> provinceDict, string localDir)
         {
-            using Bitmap image = Image.Load<Rgba32>(Path.Combine(localDir, "_Input", "map_data", "Provinces.png"));
+            using Bitmap image = Image.Load<Rgba32>(Path.Combine(localDir, "_Input", "map_data", "provinces.png"));
 
             Console.WriteLine("Parsing Map");
 
@@ -576,7 +576,7 @@ namespace Vic3MapCSharp
                 }
             }
 
-            files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "history", "States"), "*.txt");
+            files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "history", "states"), "*.txt");
 
             if (files.Length == 0)
             {
@@ -682,7 +682,7 @@ namespace Vic3MapCSharp
         public static Dictionary<string, Culture> ParseCultureFiles(Dictionary<string, State> states, string localDir)
         {
             Dictionary<string, Culture> cultures = [];
-            string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "Cultures"), "*.txt");
+            string[] files = Directory.GetFiles(Path.Combine(localDir, "_Input", "common", "cultures"), "*.txt");
 
             foreach (string file in files)
             {

@@ -20,7 +20,7 @@ namespace Vic3MapCSharp
             }
             Stopwatch sw = Stopwatch.StartNew();
 
-            string localDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\"));
+            string localDir = FindLocalDir();
             Console.WriteLine(localDir);
 
             FontCollection fontCollection = new();
@@ -56,7 +56,7 @@ namespace Vic3MapCSharp
                 : [];
 
             //Province
-            Bitmap provinceBorders = Drawer.DrawBorders(localDir + "/_Input/map_data/Provinces.png", Color.Black);
+            Bitmap provinceBorders = Drawer.DrawBorders(localDir + "/_Input/map_data/provinces.png", Color.Black);
             Drawer.MapSize = (provinceBorders.Width, provinceBorders.Height);
             provinceBorders.Save(localDir + "/_Output/BorderFrame/province_border.png");
             Bitmap waterMap = Drawer.DrawMap(provinces.Values.Where(p => p.IsSea || p.IsLake).Cast<IDrawable>().ToList(), Color.LightBlue);
@@ -541,6 +541,20 @@ namespace Vic3MapCSharp
                         : char.ToUpper(word[0]) + word[1..] + " "; // Capitalize the first letter
                 }
                 return result.Trim();
+            }
+
+            string FindLocalDir() {
+                foreach (string start in new[] { Directory.GetCurrentDirectory(), AppContext.BaseDirectory }) {
+                    DirectoryInfo? dir = new(start);
+                    while (dir != null) {
+                        if (Directory.Exists(Path.Combine(dir.FullName, "_Input"))) {
+                            return dir.FullName;
+                        }
+                        dir = dir.Parent;
+                    }
+                }
+
+                return Directory.GetCurrentDirectory();
             }
         }
     }
